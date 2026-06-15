@@ -1,6 +1,7 @@
 ﻿import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaMapMarkerAlt, FaEnvelope, FaPhone } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -38,7 +39,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 relative bg-[#0a0a0f]">
+    <section id="contact" className="py-20 relative bg-[#07090f]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -48,7 +49,7 @@ export default function Contact() {
           className="text-center mb-12"
         >
           <h2 className="text-4xl font-bold mb-4 text-white heading-glow">Contact</h2>
-          <p className="text-lg text-gray-300">
+          <p className="text-lg text-[#4a6070]">
             Get in touch with me
           </p>
         </motion.div>
@@ -61,33 +62,51 @@ export default function Contact() {
             viewport={{ once: true }}
             className="lg:col-span-1 glass rounded-2xl p-8 shadow-lg glow-card transform-3d"
           >
-              <h3 className="text-2xl font-bold text-white mb-6 heading-glow-subtle">
+            <h3 className="text-2xl font-bold text-white mb-6 heading-glow-subtle">
               Contact Info
             </h3>
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <FaEnvelope className="text-2xl text-gray-300" />
+                <div className="contact-icon-container">
+                  <FaEnvelope className="text-lg text-[#2dd4bf]" />
+                </div>
                 <a
                   href="mailto:mahadevwalarajveer@gmail.com"
-                  className="accent-icon-hover text-gray-300 hover:text-white transition-colors"
+                  className="accent-icon-hover text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium"
                 >
                   mahadevwalarajveer@gmail.com
                 </a>
               </div>
               <div className="flex items-center space-x-3">
-                <FaPhone className="text-2xl text-gray-300" />
+                <div className="contact-icon-container">
+                  <FaPhone className="text-lg text-[#2dd4bf]" />
+                </div>
                 <a
                   href="tel:+919898130771"
-                  className="accent-icon-hover text-gray-300 hover:text-white transition-colors"
+                  className="accent-icon-hover text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium"
                 >
                   +91 98981 30771
                 </a>
               </div>
               <div className="flex items-center space-x-3">
-                <FaMapMarkerAlt className="text-2xl text-gray-300" />
-                <span className="text-gray-300">
+                <div className="contact-icon-container">
+                  <FaMapMarkerAlt className="text-lg text-[#2dd4bf]" />
+                </div>
+                <span className="text-[#4a6070] text-[12px] font-medium">
                   Gujarat, India
                 </span>
+              </div>
+              
+              <div className="flex items-center gap-3 pt-4">
+                <a href="https://github.com/Rajveer979" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
+                  <FaGithub className="text-lg" />
+                </a>
+                <a href="https://www.linkedin.com/in/rajveer-mahadevwala-8969a0336" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
+                  <FaLinkedin className="text-lg" />
+                </a>
+                <a href="https://x.com/RajveerMah79127" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
+                  <FaXTwitter className="text-lg" />
+                </a>
               </div>
             </div>
 
@@ -103,7 +122,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-[#4a6070] mb-2">
                     Name *
                   </label>
                   <input
@@ -111,12 +130,12 @@ export default function Contact() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-700 rounded-lg bg-[#0a0a0f] text-white focus:outline-none focus:border-white/50"
+                    className="w-full px-4 py-2 form-input focus:border-[#2dd4bf] focus:outline-none focus:shadow-[0_0_0_2px_rgba(45,212,191,0.1)]"
                   />
                   {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-[#4a6070] mb-2">
                     Email *
                   </label>
                   <input
@@ -124,14 +143,14 @@ export default function Contact() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-gray-700 rounded-lg bg-[#0a0a0f] text-white focus:outline-none focus:border-white/50"
+                    className="w-full px-4 py-2 form-input focus:border-[#2dd4bf] focus:outline-none focus:shadow-[0_0_0_2px_rgba(45,212,191,0.1)]"
                   />
                   {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-[#4a6070] mb-2">
                   Subject
                 </label>
                 <input
@@ -139,12 +158,12 @@ export default function Contact() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-gray-700 rounded-lg bg-[#0a0a0f] text-white focus:outline-none focus:border-white/50"
+                  className="w-full px-4 py-2 form-input focus:border-[#2dd4bf] focus:outline-none focus:shadow-[0_0_0_2px_rgba(45,212,191,0.1)]"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-[#4a6070] mb-2">
                   Message *
                 </label>
                 <textarea
@@ -152,14 +171,14 @@ export default function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   rows="5"
-                  className="w-full px-4 py-2 border border-gray-700 rounded-lg bg-[#0a0a0f] text-white focus:outline-none focus:border-white/50"
+                  className="w-full px-4 py-2 form-input focus:border-[#2dd4bf] focus:outline-none focus:shadow-[0_0_0_2px_rgba(45,212,191,0.1)]"
                 />
                 {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
               </div>
 
               <button
                 type="submit"
-                className="w-full px-6 py-3 bg-white text-gray-900 hover:bg-gray-200 font-semibold rounded-lg transition-all duration-300 shadow-lg shadow-white/20"
+                className="w-full px-6 py-3 bg-[#2dd4bf] text-[#07090f] font-bold rounded-lg transition-all duration-300 shadow-lg shadow-[rgba(45,212,191,0.3)] tracking-[0.06em] font-['Space_Grotesk',sans-serif] hover:bg-[#5eead4] hover:shadow-[0_6px_20px_rgba(45,212,191,0.3)]"
               >
                 Send Message
               </button>

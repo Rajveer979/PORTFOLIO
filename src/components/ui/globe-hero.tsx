@@ -65,7 +65,6 @@ const DotGlobeHero = React.forwardRef<
     event.currentTarget.style.setProperty("--ry", "0deg");
     setIsHovered(false);
 
-
   };
 
   const contentStyle: CSSProperties = {
@@ -142,7 +141,7 @@ const DotGlobeHero = React.forwardRef<
         if (cell.lit > 0.015) {
           const g = Math.round(210 + cell.lit * 35);
           const b = Math.round(235 + cell.lit * 20);
-          ctx.strokeStyle = `rgba(165,${g},${b},${alpha})`;
+          ctx.strokeStyle = `rgba(45,212,191,${alpha})`;
         } else {
           ctx.strokeStyle = `rgba(36,50,64,${alpha})`;
         }
@@ -155,14 +154,14 @@ const DotGlobeHero = React.forwardRef<
           const py = cell.y + CELL / 2;
 
           const gradient = ctx.createRadialGradient(px, py, 0, px, py, CELL * cell.lit * 1.8);
-          gradient.addColorStop(0, `rgba(165,242,243,${cell.lit * 0.45})`);
-          gradient.addColorStop(1, "rgba(165,242,243,0)");
+          gradient.addColorStop(0, `rgba(45,212,191,${cell.lit * 0.45})`);
+          gradient.addColorStop(1, "rgba(45,212,191,0)");
           ctx.fillStyle = gradient;
           ctx.beginPath();
           ctx.arc(px, py, CELL * cell.lit * 1.8, 0, Math.PI * 2);
           ctx.fill();
 
-          ctx.fillStyle = `rgba(165,242,243,${cell.lit * 0.95})`;
+          ctx.fillStyle = `rgba(45,212,191,${cell.lit * 0.95})`;
           ctx.beginPath();
           ctx.arc(px, py, 1.6 * cell.lit, 0, Math.PI * 2);
           ctx.fill();
@@ -171,8 +170,8 @@ const DotGlobeHero = React.forwardRef<
 
       if (mx > 0 && mx < W && my > 0 && my < H) {
         const gradient = ctx.createRadialGradient(mx, my, 0, mx, my, RADIUS * 1.2);
-        gradient.addColorStop(0, "rgba(165,242,243,0.07)");
-        gradient.addColorStop(0.5, "rgba(165,242,243,0.03)");
+        gradient.addColorStop(0, "rgba(45,212,191,0.07)");
+        gradient.addColorStop(0.5, "rgba(45,212,191,0.03)");
         gradient.addColorStop(1, "rgba(0,0,0,0)");
         ctx.fillStyle = gradient;
         ctx.beginPath();
@@ -223,16 +222,16 @@ const DotGlobeHero = React.forwardRef<
     >
       <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/10 opacity-75" />
-      <div className="absolute inset-0 bg-gradient-to-br from-[#a5f2f3]/0 via-transparent to-[#a5f2f3]/8 opacity-80" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f]/50 via-transparent to-[#0a0a0f]/30" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#2dd4bf]/0 via-transparent to-[#2dd4bf]/8 opacity-80" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#07090f]/50 via-transparent to-[#07090f]/30" />
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-[#a5f2f3]/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(165,242,243,0.10),transparent_35%)] opacity-70" />
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-[#2dd4bf]/10 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.10),transparent_35%)] opacity-70" />
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
         style={{
           opacity: isHovered ? 1 : 0,
-          background: "radial-gradient(650px circle at var(--mx) var(--my), rgba(165,242,243,0.16), transparent 42%)",
+          background: "radial-gradient(650px circle at var(--mx) var(--my), rgba(45,212,191,0.16), transparent 42%)",
         }}
       />
       <div className="relative z-20 flex flex-col items-center justify-center h-full px-6" style={contentStyle}>

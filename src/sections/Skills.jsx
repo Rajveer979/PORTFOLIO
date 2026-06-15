@@ -39,7 +39,7 @@ const skillGroups = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-20 relative bg-[#0a0a0f]">
+    <section id="skills" className="py-20 relative bg-[#07090f]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -49,7 +49,7 @@ export default function Skills() {
           className="text-center mb-12"
         >
           <h2 className="text-4xl font-bold mb-4 text-white heading-glow">Skills</h2>
-          <p className="text-lg text-gray-300">
+          <p className="text-lg text-[#4a6070]">
             Practical technologies across software engineering, AI, and computer vision
           </p>
         </motion.div>
@@ -69,9 +69,9 @@ export default function Skills() {
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                    <Icon className="text-2xl text-[#a5f2f3]" />
+                    <Icon className="text-2xl text-[#2dd4bf]" />
                   </div>
-                  <h3 className="text-xl font-semibold text-white">{group.title}</h3>
+                  <h3 className="text-xl font-semibold text-[#e8f4ff]">{group.title}</h3>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -85,13 +85,13 @@ export default function Skills() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.35, delay: index * 0.04 }}
                         viewport={{ once: true }}
-                        whileHover={{ y: -2 }}
-                        className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-gray-200 hover:border-[#a5f2f3]/50 hover:bg-[#a5f2f3]/10 transition-all duration-300"
+                        whileHover={{ y: -2, scale: 1.03, borderColor: '#2dd4bf', boxShadow: '0 0 10px rgba(45,212,191,0.15)' }}
+                        className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-[#4a6070] transition-all duration-180 skill-chip"
                       >
                         {SkillIcon ? (
-                          <SkillIcon className="text-xl text-[#a5f2f3]" />
+                          <SkillIcon className="text-xl text-[#2dd4bf]" />
                         ) : (
-                          <span className="w-2 h-2 rounded-full bg-[#a5f2f3]" />
+                          <span className="w-2 h-2 rounded-full bg-[#2dd4bf]" />
                         )}
                         <span className="text-sm font-medium">{skill.name}</span>
                       </motion.div>
