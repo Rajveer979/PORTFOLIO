@@ -289,3 +289,203 @@ html {
   align-items: center;
   justify-content: center;
 }
+
+/* ── WhatsApp Floating Button ── */
+#wa-wrapper {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+/* Main button */
+#wa-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(37, 211, 102, 0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  flex-shrink: 0;
+}
+
+#wa-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 32px rgba(37, 211, 102, 0.6);
+}
+
+/* Pulse ring animation */
+#wa-btn::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(37, 211, 102, 0.4);
+  animation: wa-pulse 2s ease-out infinite;
+}
+
+#wa-btn::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid rgba(37, 211, 102, 0.2);
+  animation: wa-pulse 2s ease-out infinite 0.4s;
+}
+
+@keyframes wa-pulse {
+  0%   { transform: scale(1);   opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Tooltip card */
+#wa-tooltip {
+  width: 260px;
+  background: #0d1117;
+  border: 0.5px solid #1a2535;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  transform: translateY(10px) scale(0.95);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: bottom right;
+}
+
+#wa-tooltip.visible {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Tooltip close button */
+#wa-tooltip-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  color: rgba(255,255,255,0.5);
+  font-size: 13px;
+  cursor: pointer;
+  z-index: 1;
+  transition: color 0.15s;
+}
+#wa-tooltip-close:hover { color: #fff; }
+
+/* Tooltip header — green strip */
+#wa-tooltip-header {
+  background: linear-gradient(135deg, #128c7e, #25d366);
+  padding: 16px 14px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+#wa-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(255,255,255,0.25);
+}
+
+#wa-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+}
+
+#wa-status {
+  font-size: 10.5px;
+  color: rgba(255,255,255,0.75);
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Inter', sans-serif;
+}
+
+#wa-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  display: inline-block;
+  animation: wa-blink 2s infinite;
+}
+
+@keyframes wa-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* Message bubble */
+#wa-message {
+  padding: 14px;
+  font-size: 12px;
+  color: #7a9ab0;
+  line-height: 1.65;
+  font-family: 'Inter', sans-serif;
+  background: #07090f;
+  border-left: 2px solid rgba(37,211,102,0.2);
+  margin: 12px;
+  border-radius: 0 8px 8px 8px;
+  position: relative;
+}
+
+#wa-message::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -8px;
+  border: 6px solid transparent;
+  border-right-color: rgba(37,211,102,0.2);
+  border-top-color: rgba(37,211,102,0.2);
+}
+
+/* Start chat button */
+#wa-start {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 12px 14px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #25d366;
+  color: #07090f;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Space Grotesk', sans-serif;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+#wa-start:hover {
+  background: #20ba59;
+  box-shadow: 0 4px 16px rgba(37,211,102,0.35);
+}
+
+/* Hide pulse rings when tooltip is open */
+#wa-wrapper.open #wa-btn::before,
+#wa-wrapper.open #wa-btn::after {
+  animation: none;
+  opacity: 0;
+}

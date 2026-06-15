@@ -1,12 +1,12 @@
 ﻿# Portfolio Website Development Plan
 
 ## Overview
-Build a responsive developer portfolio website using React with Vite, featuring a monochrome dark theme, interactive glowing hero background, About, Skills, Projects, Certifications, and Contact sections.
+Build a responsive developer portfolio website using React with Vite, featuring a monochrome dark theme with teal (#2dd4bf) accent, interactive glowing hero background, About, Skills, Projects, Certifications, and Contact sections.
 
 ## Tech Stack
 - **Framework**: React with Vite
 - **Language**: JavaScript with TypeScript project configuration
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS with custom CSS
 - **UI Components**: shadcn/ui-style `cn()` utility pattern
 - **3D Graphics**: Three.js + React Three Fiber + Drei
 - **Deployment**: Vercel
@@ -38,6 +38,7 @@ src/
 ## Current Branding
 - **Name**: Rajveer Mahadevwala
 - **Hero Title**: Aspiring AI Engineer
+- **Primary Accent Color**: Teal (#2dd4bf)
 - **Hero Description**: Building intelligent applications, exploring machine learning, and turning ideas into real-world products.
 - **About / Who I Am**: I'm a Computer Engineering student passionate about AI, Machine Learning, and software development. I enjoy building intelligent applications, exploring new technologies, and turning ideas into real-world projects. Currently focused on growing as an AI engineer while strengthening my foundations in computer science.
 
@@ -47,92 +48,64 @@ All social links open in a new tab with `rel="noopener noreferrer"`:
 - **LinkedIn**: https://www.linkedin.com/in/rajveer-mahadevwala-8969a0336
 - **X**: https://x.com/RajveerMah79127
 
-## Features & Sections
+## Completed Work
 
-### 1. Hero Section
-- Full-screen landing with name, title, tagline, and interactive glowing background
-- Call-to-action buttons: View My Work, Contact Me
-- Monochrome dark theme with glow effects and animated background elements
-- Framer Motion fade/scale animations
+### Design Updates
+- **Color Scheme**: Changed from electric blue (#a5f2f3) to teal (#2dd4bf) as primary accent
+- **Fonts**: Added Space Grotesk and Inter fonts
+- **Scrollbar**: Styled with 4px width and teal thumb
+- **Scroll Animations**: Implemented Intersection Observer for fade-up animations
 
-### 2. About Section
-- Personal introduction using the current "Who I Am" text
-- Monogram avatar with glass card styling
-- Social media links for GitHub, LinkedIn, and X
-- Education timeline inside the About section
-- 3D hover card effect
+### Navbar
+- Scroll-spy functionality to detect active section
+- Teal dot indicator below active nav link
+- Logo "M." styled in teal with hover underline effect
+- Mobile menu with left border indicator for active items
 
-### 3. Skills Section
-- Categorized technical skills
-- Glass cards with icon-based skill display
-- Technologies relevant to AI, ML, web development, and computer science
+### Hero Section
+- Added availability pill with pulse dot above name
+- Name displayed as small label above role title
+- "AI" in role title highlighted in teal
+- Hero name with glow styling and translucent background
 
-### 4. Projects Section
-- Project cards with:
-  - Title and description
-  - Tech stack tags
-  - GitHub link opening in a new tab
-  - Featured project layout
-- Current projects include:
-  - AI-Powered Personal Assistant
-  - AI-Powered Crowd Safety Monitoring
+### About Section
+- Profile photo with teal ring border and glow shadow
+- Social icons (GitHub, LinkedIn, X) below profile photo
+- Removed stat counters section (3+ Projects, 5+ Certifications, etc.)
+- Cards have flip and hover glow effects
 
-### 5. Contact Section
-- Contact form with validation
-- WhatsApp button opening in a new tab
-- Email, phone, and location info
-- Social links for GitHub, LinkedIn, and X with X logo
+### Skills Section
+- Flip hover effect on category cards (rotateY: -12, rotateX: 8)
+- Teal icon colors and hover effects
+- Skill chips with scale and border color transitions
 
-### 6. Certifications Section
-- Separate certifications section
-- Certificate cards with glass styling and 3D hover effects
+### Projects Section
+- Flip hover effect on project cards (rotateY: -8, rotateX: 6)
+- Hover glow effect with multi-layer teal shadow
+- GitHub links mapped to individual project repositories:
+  - AI-Powered Personal Assistant: https://github.com/Rajveer979/ai-assistant
+  - AI-Powered Crowd Safety Monitoring: https://github.com/shravansuthar2/smart-crowd-safety
+- Live Demo links added for Crowd Safety project
 
-## Styling Approach
-- Tailwind CSS utility classes
-- Monochrome dark design: black, white, and gray only
-- No dark/light mode toggle
-- Glass morphism for cards and containers
-- White glow effects on headings and cards
-- 3D card transforms on hover
-- Framer Motion scroll animations
-- Responsive layout for mobile, tablet, and desktop
+### Certifications Section
+- Flip hover effect on cert cards (rotateY: -10, rotateX: 8)
+- Hover glow effect on cards
+- Removed year badge duplicate line (simplified layout)
+- Year displayed as teal pill badge
 
-## Implementation Steps
+### Contact Section
+- Teal "Send Message" button with Space Grotesk font
+- Form inputs styled with teal focus border and glow
+- Social icons (GitHub, LinkedIn, X) in contact info card
+- Cards have flip and hover glow effects
 
-### Phase 1: Setup
-1. Create Vite + React project
-2. Install React, Vite, Tailwind CSS, Framer Motion, react-icons, lucide-react, Three.js, React Three Fiber, and Drei
-3. Set up Tailwind CSS configuration
-4. Set up Vite alias for `@`
-5. Create core files and folder structure
-
-### Phase 2: Core Components
-1. Create Navbar with smooth scrolling navigation
-2. Build Hero section with interactive glowing background
-3. Implement Footer component
-
-### Phase 3: Content Sections
-1. About section with current branding, social links, and education
-2. Skills section with categorized skill cards
-3. Projects section with GitHub links
-4. Certifications section
-5. Contact form with validation and social/contact links
-
-### Phase 4: Styling & Polish
-1. Apply monochrome black/white/gray theme
-2. Remove theme toggle implementation
-3. Add heading glow and card glow classes
-4. Ensure social links open in new tabs
-5. Replace Twitter icons with X logo
-6. Optimize responsive design
-
-### Phase 5: Deployment
-1. Push to GitHub
-2. Connect to Vercel
-3. Add Vercel Analytics and Google Analytics 4
-4. Add custom domain if available
+### Footer
+- Updated background to #050710
+- Social icon colors: #2a4050 with teal hover
 
 ## Remaining Work
+- Add WhatsApp integration to Contact section
+- Implement rule-based chatbot for portfolio queries
 - Replace placeholder project links with real project/demo URLs
 - Connect resume download button to `public/Resume1.pdf`
 - Implement real contact form submission
@@ -143,12 +116,13 @@ All social links open in a new tab with `rel="noopener noreferrer"`:
 ## Success Criteria
 - Fully responsive on mobile/desktop
 - All sections functional with navigation
-- Hero shows "Rajveer Mahadevwala" as the primary headline and "Aspiring AI Engineer" as the supporting role
+- Hero shows "Rajveer Mahadevwala" as the primary headline and "AI & Software Engineer" as the supporting role
 - Social links use updated GitHub, LinkedIn, and X URLs
 - Social links open in new tabs
 - Contact form works with a real submission provider
 - Certifications display correctly
-- Hero uses interactive background instead of 3D globe
+- Hero uses interactive grid background with teal glow on hover
 - Deployed and accessible on Vercel
-- Clean, professional monochrome design with Tailwind utility classes
-- Smooth animations and transitions
+- Clean, professional monochrome design with teal accent
+- Smooth animations and transitions throughout
+- Scroll-spy active state in navbar working correctly

@@ -18,5 +18,87 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- WhatsApp Floating Button -->
+<div id="wa-wrapper">
+  <div id="wa-tooltip">
+    <span id="wa-tooltip-close">✕</span>
+    <div id="wa-tooltip-header">
+      <div id="wa-avatar">👨‍💻</div>
+      <div>
+        <div id="wa-name">Rajveer M.</div>
+        <div id="wa-status"><span id="wa-dot"></span> Usually replies in 2 hrs</div>
+      </div>
+    </div>
+    <div id="wa-message">
+      Hi there 👋<br>Got a question or opportunity? Let's talk on WhatsApp!
+    </div>
+    <a id="wa-start" href="https://wa.me/919898130771?text=Hi%20Rajveer%2C%20I%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect!" target="_blank" rel="noopener">
+      💬 Start Chat
+    </a>
+  </div>
+  <div id="wa-btn" title="Chat on WhatsApp">
+    <svg id="wa-icon-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="26" height="26">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.549 4.107 1.504 5.838L.057 23.535a.75.75 0 0 0 .916.932l5.898-1.543A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.523-5.184-1.432l-.37-.22-3.844 1.007 1.024-3.735-.242-.386A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+    </svg>
+    <svg id="wa-icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20" style="display:none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+    </svg>
+  </div>
+</div>
+<script>
+(function () {
+  const wrapper  = document.getElementById('wa-wrapper');
+  const btn      = document.getElementById('wa-btn');
+  const tooltip  = document.getElementById('wa-tooltip');
+  const closeBtn = document.getElementById('wa-tooltip-close');
+  const iconOpen = document.getElementById('wa-icon-open');
+  const iconClose= document.getElementById('wa-icon-close');
+
+  let isOpen = false;
+
+  // Auto-show tooltip after 4 seconds on first visit
+  const seen = sessionStorage.getItem('wa_seen');
+  if (!seen) {
+    setTimeout(() => {
+      if (!isOpen) openTooltip();
+      sessionStorage.setItem('wa_seen', '1');
+    }, 4000);
+  }
+
+  function openTooltip() {
+    isOpen = true;
+    tooltip.classList.add('visible');
+    wrapper.classList.add('open');
+    iconOpen.style.display  = 'none';
+    iconClose.style.display = 'block';
+  }
+
+  function closeTooltip() {
+    isOpen = false;
+    tooltip.classList.remove('visible');
+    wrapper.classList.remove('open');
+    iconOpen.style.display  = 'block';
+    iconClose.style.display = 'none';
+  }
+
+  btn.addEventListener('click', () => {
+    isOpen ? closeTooltip() : openTooltip();
+  });
+
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeTooltip();
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (isOpen && !wrapper.contains(e.target)) {
+      closeTooltip();
+    }
+  });
+
+})();
+</script>
   </body>
 </html>

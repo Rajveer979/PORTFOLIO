@@ -52,7 +52,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
+          transition={{ duration: 0.8, delay: 0.55 }}
           className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-4"
         >
           <motion.a
@@ -63,7 +63,7 @@ export default function Hero() {
               y: -2
             }}
             whileTap={{ scale: 0.98 }}
-            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-[#2dd4bf] text-[#07090f] font-bold rounded-xl text-lg shadow-[0_12px_30px_rgba(0,0,0,0.25)] transition-all duration-500 overflow-hidden border border-[#2dd4bf]/60"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-[#2dd4bf] text-[#07090f] font-bold rounded-xl text-lg shadow-[0_12px_30px_rgba(0,0,0,0.25)] transition-all duration-200 overflow-hidden border border-[#2dd4bf]/60"
           >
             <span className="relative z-10 tracking-wide">View My Work</span>
             <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-2 transition-transform duration-300" />
@@ -76,7 +76,7 @@ export default function Hero() {
               y: -2
             }}
             whileTap={{ scale: 0.98 }}
-            className="group relative inline-flex items-center gap-3 px-8 py-4 border border-[rgba(45,212,191,0.35)] rounded-xl font-semibold text-lg transition-all duration-500 backdrop-blur-xl bg-transparent text-[#2dd4bf] hover:bg-[rgba(45,212,191,0.08)] overflow-hidden"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 border border-[rgba(45,212,191,0.35)] rounded-xl font-semibold text-lg transition-all duration-200 backdrop-blur-xl bg-transparent text-[#2dd4bf] hover:bg-[rgba(45,212,191,0.08)] overflow-hidden"
           >
             <Zap className="relative z-10 w-5 h-5 text-[#2dd4bf] group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" />
             <span className="relative z-10 tracking-wide">Contact Me</span>
