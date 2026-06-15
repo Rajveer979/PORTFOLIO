@@ -11,6 +11,7 @@ const projects = [
     visualItems: ['Voice Command', 'Gemini Response', 'Automation Panel'],
     visualWidths: [82, 64, 72],
     github: 'https://github.com/Rajveer979/ai-assistant',
+    demo: '#',
   },
   {
     title: 'AI-Powered Crowd Safety Monitoring',
@@ -21,6 +22,7 @@ const projects = [
     visualItems: ['Crowd Density', 'Object Detection', 'Alert Stream'],
     visualWidths: [88, 74, 68],
     github: 'https://github.com/shravansuthar2/smart-crowd-safety',
+    demo: 'https://shravan4-smart-crowd-safety4.hf.space/dashboard',
   },
 ];
 
@@ -118,7 +120,12 @@ export default function Projects() {
                     <a href={project.github} target="_blank" rel="noopener noreferrer" className="accent-icon-hover inline-flex items-center gap-2 text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium">
                       <FaGithub /> GitHub
                     </a>
-                    <a href="#" className="inline-flex items-center gap-2 text-[#2dd4bf] hover:text-[#5eead4] transition-colors text-[12px] font-medium">
+                    <a
+                      href={project.demo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-[#2dd4bf] hover:text-[#5eead4] transition-colors text-[12px] font-medium"
+                    >
                       <FaExternalLinkAlt /> Live Demo
                     </a>
                   </div>
