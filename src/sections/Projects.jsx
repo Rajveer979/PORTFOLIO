@@ -10,6 +10,7 @@ const projects = [
     visualLabel: 'AI Assistant Dashboard',
     visualItems: ['Voice Command', 'Gemini Response', 'Automation Panel'],
     visualWidths: [82, 64, 72],
+    github: 'https://github.com/Rajveer979/ai-assistant',
   },
   {
     title: 'AI-Powered Crowd Safety Monitoring',
@@ -19,6 +20,7 @@ const projects = [
     visualLabel: 'Safety Monitoring Dashboard',
     visualItems: ['Crowd Density', 'Object Detection', 'Alert Stream'],
     visualWidths: [88, 74, 68],
+    github: 'https://github.com/shravansuthar2/smart-crowd-safety',
   },
 ];
 
@@ -113,7 +115,7 @@ export default function Projects() {
                   </div>
 
                   <div className="flex flex-wrap gap-3">
-                    <a href="https://github.com/Rajveer979" target="_blank" rel="noopener noreferrer" className="accent-icon-hover inline-flex items-center gap-2 text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="accent-icon-hover inline-flex items-center gap-2 text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium">
                       <FaGithub /> GitHub
                     </a>
                     <a href="#" className="inline-flex items-center gap-2 text-[#2dd4bf] hover:text-[#5eead4] transition-colors text-[12px] font-medium">
