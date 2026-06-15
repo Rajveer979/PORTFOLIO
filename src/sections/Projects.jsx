@@ -85,8 +85,8 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ y: -6 }}
-              className="glass rounded-2xl overflow-hidden shadow-lg glow-card project-card"
+              whileHover={{ y: -6, rotateY: -8, rotateX: 6 }}
+              className="glass rounded-2xl overflow-hidden shadow-lg glow-card project-card transform-3d hover-glow"
             >
               <div className="grid grid-cols-1">
                 <div className="p-4">

@@ -65,7 +65,8 @@ export default function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: groupIndex * 0.08 }}
                 viewport={{ once: true }}
-                className="glass rounded-2xl p-6 shadow-lg glow-card"
+                whileHover={{ rotateY: -12, rotateX: 8, y: -4 }}
+                className="glass rounded-2xl p-6 shadow-lg glow-card hover-glow transform-3d"
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-3 rounded-xl bg-white/5 border border-white/10">

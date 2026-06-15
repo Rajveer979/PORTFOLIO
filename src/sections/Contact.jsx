@@ -55,70 +55,70 @@ export default function Contact() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 perspective-1000">
-          <motion.div
-            initial={{ opacity: 0, x: -20, rotateY: -10 }}
-            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="lg:col-span-1 glass rounded-2xl p-8 shadow-lg glow-card transform-3d"
-          >
-            <h3 className="text-2xl font-bold text-white mb-6 heading-glow-subtle">
-              Contact Info
-            </h3>
-            <div className="space-y-4">
-              <div className="flex items-center space-x-3">
-                <div className="contact-icon-container">
-                  <FaEnvelope className="text-lg text-[#2dd4bf]" />
-                </div>
-                <a
-                  href="mailto:mahadevwalarajveer@gmail.com"
-                  className="accent-icon-hover text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium"
-                >
-                  mahadevwalarajveer@gmail.com
-                </a>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="contact-icon-container">
-                  <FaPhone className="text-lg text-[#2dd4bf]" />
-                </div>
-                <a
-                  href="tel:+919898130771"
-                  className="accent-icon-hover text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium"
-                >
-                  +91 98981 30771
-                </a>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="contact-icon-container">
-                  <FaMapMarkerAlt className="text-lg text-[#2dd4bf]" />
-                </div>
-                <span className="text-[#4a6070] text-[12px] font-medium">
-                  Gujarat, India
-                </span>
-              </div>
-              
-              <div className="flex items-center gap-3 pt-4">
-                <a href="https://github.com/Rajveer979" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
-                  <FaGithub className="text-lg" />
-                </a>
-                <a href="https://www.linkedin.com/in/rajveer-mahadevwala-8969a0336" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
-                  <FaLinkedin className="text-lg" />
-                </a>
-                <a href="https://x.com/RajveerMah79127" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
-                  <FaXTwitter className="text-lg" />
-                </a>
-              </div>
-            </div>
+<motion.div
+             initial={{ opacity: 0, x: -20, rotateY: -10 }}
+             whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+             transition={{ duration: 0.5 }}
+             viewport={{ once: true }}
+             className="lg:col-span-1 glass rounded-2xl p-8 shadow-lg glow-card hover-glow transform-3d"
+           >
+             <h3 className="text-2xl font-bold text-white mb-6 heading-glow-subtle">
+               Contact Info
+             </h3>
+             <div className="space-y-4">
+               <div className="flex items-center space-x-3">
+                 <div className="contact-icon-container">
+                   <FaEnvelope className="text-lg text-[#2dd4bf]" />
+                 </div>
+                 <a
+                   href="mailto:mahadevwalarajveer@gmail.com"
+                   className="accent-icon-hover text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium"
+                 >
+                   mahadevwalarajveer@gmail.com
+                 </a>
+               </div>
+               <div className="flex items-center space-x-3">
+                 <div className="contact-icon-container">
+                   <FaPhone className="text-lg text-[#2dd4bf]" />
+                 </div>
+                 <a
+                   href="tel:+919898130771"
+                   className="accent-icon-hover text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium"
+                 >
+                   +91 98981 30771
+                 </a>
+               </div>
+               <div className="flex items-center space-x-3">
+                 <div className="contact-icon-container">
+                   <FaMapMarkerAlt className="text-lg text-[#2dd4bf]" />
+                 </div>
+                 <span className="text-[#4a6070] text-[12px] font-medium">
+                   Gujarat, India
+                 </span>
+               </div>
+               
+               <div className="flex items-center gap-3 pt-4">
+                 <a href="https://github.com/Rajveer979" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
+                   <FaGithub className="text-lg" />
+                 </a>
+                 <a href="https://www.linkedin.com/in/rajveer-mahadevwala-8969a0336" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
+                   <FaLinkedin className="text-lg" />
+                 </a>
+                 <a href="https://x.com/RajveerMah79127" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
+                   <FaXTwitter className="text-lg" />
+                 </a>
+               </div>
+             </div>
 
-          </motion.div>
+           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20, rotateY: 10 }}
-            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            className="lg:col-span-2 glass rounded-2xl p-8 shadow-lg glow-card transform-3d"
-          >
+           <motion.div
+             initial={{ opacity: 0, x: 20, rotateY: 10 }}
+             whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+             transition={{ duration: 0.5 }}
+             viewport={{ once: true }}
+             className="lg:col-span-2 glass rounded-2xl p-8 shadow-lg glow-card hover-glow transform-3d"
+           >
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>

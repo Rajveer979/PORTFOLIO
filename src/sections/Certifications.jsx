@@ -63,8 +63,8 @@ export default function Certifications() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -6 }}
-                className="glass rounded-2xl p-8 shadow-lg glow-card project-card"
+                whileHover={{ y: -6, rotateY: -10, rotateX: 8 }}
+                className="glass rounded-2xl p-8 shadow-lg glow-card project-card transform-3d hover-glow"
               >
                 <div className="h-24 rounded-2xl border border-[rgba(45,212,191,0.3)] bg-[rgba(13,17,23,0.5)] flex items-center justify-center mb-6">
                   <div className="text-center">
@@ -82,8 +82,7 @@ export default function Certifications() {
                   </h3>
                 </div>
 
-                <p className="text-[#4a6070] mb-3">{cert.issuer}</p>
-                <span className="year-badge inline-block mb-6">{cert.date}</span>
+                <p className="text-[#4a6070] mb-6">{cert.issuer}</p>
 
                 <a
                   href={cert.credential}

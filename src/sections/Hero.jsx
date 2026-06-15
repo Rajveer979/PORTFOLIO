@@ -27,7 +27,7 @@ export default function Hero() {
               transition={{ duration: 1, delay: 0.3 }}
               className="font-bold tracking-tighter select-none"
             >
-              <span className="block font-medium text-[#4a6070] mb-2 whitespace-nowrap text-[clamp(1.4rem,2.5vw,1.8rem)] tracking-wider uppercase">
+              <span className="block font-medium text-white mb-3 whitespace-nowrap text-[clamp(1.5rem,2.8vw,1.9rem)] tracking-wider uppercase hero-name">
                 Rajveer Mahadevwala
               </span>
               <span className="block text-[clamp(2.4rem,5vw,3.6rem)] font-bold text-[#e8f4ff] relative">
