@@ -6,12 +6,11 @@ import About from './sections/About';
 import Skills from './sections/Skills';
 import Projects from './sections/Projects';
 import Certifications from './sections/Certifications';
-import Resume from './sections/Resume';
 import Contact from './sections/Contact';
 import { useEffect, useRef } from 'react';
 import { trackEvent, trackSectionView } from './analytics/ga4';
 
-const sectionIds = ['hero', 'about', 'skills', 'projects', 'certifications', 'resume', 'contact'];
+const sectionIds = ['hero', 'about', 'skills', 'projects', 'certifications', 'contact'];
 const scrollDepths = [25, 50, 75, 100];
 
 function App() {
@@ -86,7 +85,6 @@ function App() {
       <Skills />
       <Projects />
       <Certifications />
-      <Resume />
       <Contact />
       <Footer />
     </div>
