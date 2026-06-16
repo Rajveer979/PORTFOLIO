@@ -2,10 +2,12 @@
 import { FaArrowDown } from "react-icons/fa";
 import { DotGlobeHero } from "@/components/ui/globe-hero";
 import { ArrowRight, Zap } from "lucide-react";
+import { trackEvent } from '../analytics/ga4';
 
 export default function Hero() {
   return (
     <DotGlobeHero
+      id="hero"
       className="relative overflow-hidden"
     >
       <div className="relative z-10 text-center space-y-12 max-w-5xl mx-auto px-6 py-12">
@@ -57,6 +59,7 @@ export default function Hero() {
         >
           <motion.a
             href="#projects"
+            onClick={() => trackEvent('hero_cta_click', { target: 'projects' })}
             whileHover={{ 
               scale: 1.05, 
               boxShadow: "0 6px 24px rgba(45,212,191,0.3)",
@@ -71,6 +74,7 @@ export default function Hero() {
           
           <motion.a
             href="#contact"
+            onClick={() => trackEvent('hero_cta_click', { target: 'contact' })}
             whileHover={{ 
               scale: 1.05,
               y: -2

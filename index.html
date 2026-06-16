@@ -6,14 +6,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rajveer Mahadevwala | AI & Software Engineer</title>
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GA_MEASUREMENT_ID');
-    </script>
   </head>
   <body>
     <div id="root"></div>
@@ -82,9 +74,12 @@
     iconClose.style.display = 'none';
   }
 
-  btn.addEventListener('click', () => {
-    isOpen ? closeTooltip() : openTooltip();
-  });
+   btn.addEventListener('click', () => {
+     if (!isOpen && window.gtag) {
+       window.gtag('event', 'whatsapp_start', { source: 'floating_button', type: 'whatsapp' });
+     }
+     isOpen ? closeTooltip() : openTooltip();
+   });
 
   closeBtn.addEventListener('click', (e) => {
     e.stopPropagation();

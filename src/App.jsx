@@ -6,10 +6,17 @@ import About from './sections/About';
 import Skills from './sections/Skills';
 import Projects from './sections/Projects';
 import Certifications from './sections/Certifications';
+import Resume from './sections/Resume';
 import Contact from './sections/Contact';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { trackEvent, trackSectionView } from './analytics/ga4';
+
+const sectionIds = ['hero', 'about', 'skills', 'projects', 'certifications', 'resume', 'contact'];
+const scrollDepths = [25, 50, 75, 100];
 
 function App() {
+  const trackedDepthsRef = useRef(new Set());
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -28,6 +35,48 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            trackSectionView(entry.target.id);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+
+    sectionIds.forEach(sectionId => {
+      const element = document.getElementById(sectionId);
+
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    const handleScroll = () => {
+      const scrollableHeight = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      const scrollPercentage = Math.round((window.scrollY / scrollableHeight) * 100);
+
+      scrollDepths.forEach(depth => {
+        if (scrollPercentage >= depth && !trackedDepthsRef.current.has(depth)) {
+          trackedDepthsRef.current.add(depth);
+          trackEvent('scroll_depth', { percentage: depth });
+        }
+      });
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#07090f]">
       <Cursor />
@@ -37,6 +86,7 @@ function App() {
       <Skills />
       <Projects />
       <Certifications />
+      <Resume />
       <Contact />
       <Footer />
     </div>

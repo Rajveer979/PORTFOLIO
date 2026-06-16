@@ -1,6 +1,7 @@
 ﻿import { motion } from 'framer-motion';
 import { FaAward, FaExternalLinkAlt, FaUniversity } from 'react-icons/fa';
 import { SiGoogle } from 'react-icons/si';
+import { trackEvent } from '../analytics/ga4';
 
 const certifications = [
   {
@@ -88,6 +89,7 @@ export default function Certifications() {
                   href={cert.credential}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent('certificate_view', { title: cert.title, issuer: cert.issuer })}
                   className="inline-flex items-center justify-center w-auto gap-2 rounded-xl bg-transparent text-[#2dd4bf] font-semibold px-4 py-2 border border-[rgba(45,212,191,0.25)] hover:bg-[rgba(45,212,191,0.08)] transition-all duration-300 text-[12px]"
                 >
                   <FaExternalLinkAlt /> View Certificate

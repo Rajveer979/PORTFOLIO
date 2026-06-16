@@ -1,5 +1,6 @@
 ﻿import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import { trackEvent } from '../analytics/ga4';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -11,17 +12,17 @@ export default function Footer() {
           <p className="text-[#1e3040]">
             © {currentYear} Rajveer Mahadevwala. All rights reserved.
           </p>
-          <div className="flex space-x-6">
-            <a href="https://github.com/Rajveer979" target="_blank" rel="noopener noreferrer" className="accent-icon-hover text-[#2a4050] hover:text-[#2dd4bf] transition-colors">
-              <FaGithub className="text-2xl" />
-            </a>
-            <a href="https://www.linkedin.com/in/rajveer-mahadevwala-8969a0336" target="_blank" rel="noopener noreferrer" className="accent-icon-hover text-[#2a4050] hover:text-[#2dd4bf] transition-colors">
-              <FaLinkedin className="text-2xl" />
-            </a>
-            <a href="https://x.com/RajveerMah79127" target="_blank" rel="noopener noreferrer" className="accent-icon-hover text-[#2a4050] hover:text-[#2dd4bf] transition-colors">
-              <FaXTwitter className="text-2xl" />
-            </a>
-          </div>
+            <div className="flex space-x-6">
+              <a href="https://github.com/Rajveer979" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('social_click', { platform: 'github' })} className="accent-icon-hover text-[#2a4050] hover:text-[#2dd4bf] transition-colors">
+                <FaGithub className="text-2xl" />
+              </a>
+              <a href="https://www.linkedin.com/in/rajveer-mahadevwala-8969a0336" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('social_click', { platform: 'linkedin' })} className="accent-icon-hover text-[#2a4050] hover:text-[#2dd4bf] transition-colors">
+                <FaLinkedin className="text-2xl" />
+              </a>
+              <a href="https://x.com/RajveerMah79127" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('social_click', { platform: 'x' })} className="accent-icon-hover text-[#2a4050] hover:text-[#2dd4bf] transition-colors">
+                <FaXTwitter className="text-2xl" />
+              </a>
+            </div>
         </div>
       </div>
     </footer>

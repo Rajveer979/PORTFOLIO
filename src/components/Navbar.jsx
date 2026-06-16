@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { FaFileDownload } from 'react-icons/fa';
+import { trackEvent } from '../analytics/ga4';
 
 const navItems = [
   { name: 'About', href: '#about' },
@@ -15,6 +16,11 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [scrolled, setScrolled] = useState(false);
+
+  const handleNavClick = (section) => {
+    setIsOpen(false);
+    trackEvent('nav_click', { section });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,6 +67,7 @@ export default function Navbar() {
               <a
                 key={item.name}
                 href={item.href}
+                onClick={() => handleNavClick(item.name)}
                 className={`relative transition-all duration-300 py-1 ${
                   activeSection === item.href.substring(1) 
                     ? 'text-[#2dd4bf]' 
@@ -82,6 +89,7 @@ export default function Navbar() {
             <a
               href="/Resume1.pdf"
               download
+              onClick={() => trackEvent('resume_download', { source: 'navbar', file: 'Resume1.pdf' })}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-transparent border border-[#2dd4bf]/30 text-[#2dd4bf] hover:bg-[#2dd4bf]/10 transition-all duration-300 font-medium tracking-wide"
             >
               <FaFileDownload className="w-4 h-4" />
@@ -109,7 +117,7 @@ export default function Navbar() {
               <a
                 key={item.name}
                 href={item.href}
-                onClick={() => setIsOpen(false)}
+                onClick={() => handleNavClick(item.name)}
                 className={`block py-2 transition-all duration-300 ${
                   activeSection === item.href.substring(1) 
                     ? 'text-[#2dd4bf] border-l-2 border-[#2dd4bf] pl-2' 
@@ -122,7 +130,7 @@ export default function Navbar() {
             <a
               href="/Resume1.pdf"
               download
-              onClick={() => setIsOpen(false)}
+              onClick={() => trackEvent('resume_download', { source: 'navbar', file: 'Resume1.pdf' })}
               className="flex items-center gap-2 py-2 text-[#2dd4bf] border-l-2 border-[#2dd4bf] pl-2"
             >
               <FaFileDownload /> Resume

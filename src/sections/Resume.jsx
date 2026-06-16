@@ -1,5 +1,6 @@
 ﻿import { motion } from 'framer-motion';
 import { FaDownload } from 'react-icons/fa';
+import { trackEvent } from '../analytics/ga4';
 
 const education = [
   {
@@ -33,6 +34,7 @@ export default function Resume() {
           </p>
           <a
             href="/Resume1.pdf"
+            onClick={() => trackEvent('resume_download', { source: 'resume_section', file: 'Resume1.pdf' })}
             className="inline-flex items-center px-6 py-3 bg-white text-gray-900 hover:bg-gray-200 font-semibold rounded-lg transition-all duration-300 shadow-lg shadow-white/20"
           >
             <FaDownload className="mr-2" />

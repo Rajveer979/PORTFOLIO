@@ -1,5 +1,6 @@
 ﻿import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaRobot, FaEye, FaShieldAlt } from 'react-icons/fa';
+import { trackEvent } from '../analytics/ga4';
 
 const projects = [
   {
@@ -117,13 +118,14 @@ export default function Projects() {
                   </div>
 
                   <div className="flex flex-wrap gap-3">
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="accent-icon-hover inline-flex items-center gap-2 text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="accent-icon-hover inline-flex items-center gap-2 text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium" onClick={() => trackEvent('project_click', { project: project.title, type: 'github' })}>
                       <FaGithub /> GitHub
                     </a>
                     <a
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackEvent('project_click', { project: project.title, type: 'demo' })}
                       className="inline-flex items-center gap-2 text-[#2dd4bf] hover:text-[#5eead4] transition-colors text-[12px] font-medium"
                     >
                       <FaExternalLinkAlt /> Live Demo

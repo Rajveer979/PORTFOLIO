@@ -1,6 +1,7 @@
 ﻿import { motion } from 'framer-motion';
 import { FaGraduationCap, FaAward, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
+import { trackEvent } from '../analytics/ga4';
 
 const education = [
   {
@@ -53,13 +54,13 @@ export default function About() {
               </div>
               
               <div className="flex gap-3">
-                <a href="https://github.com/Rajveer979" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
+                <a href="https://github.com/Rajveer979" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('social_click', { platform: 'github' })} className="social-icon-btn">
                   <FaGithub className="text-lg" />
                 </a>
-                <a href="https://www.linkedin.com/in/rajveer-mahadevwala-8969a0336" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
+                <a href="https://www.linkedin.com/in/rajveer-mahadevwala-8969a0336" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('social_click', { platform: 'linkedin' })} className="social-icon-btn">
                   <FaLinkedin className="text-lg" />
                 </a>
-                <a href="https://x.com/RajveerMah79127" target="_blank" rel="noopener noreferrer" className="social-icon-btn">
+                <a href="https://x.com/RajveerMah79127" target="_blank" rel="noopener noreferrer" onClick={() => trackEvent('social_click', { platform: 'x' })} className="social-icon-btn">
                   <FaXTwitter className="text-lg" />
                 </a>
               </div>
