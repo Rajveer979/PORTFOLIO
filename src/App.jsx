@@ -77,7 +77,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#07090f]">
+    <div className="min-h-screen bg-[var(--bg-primary)]">
       <Cursor />
       <Navbar />
       <Hero />

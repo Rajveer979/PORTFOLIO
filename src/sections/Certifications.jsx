@@ -32,7 +32,7 @@ const certifications = [
 
 export default function Certifications() {
   return (
-    <section id="certifications" className="py-20 relative bg-[#07090f]">
+    <section id="certifications" className="py-20 relative bg-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -41,8 +41,8 @@ export default function Certifications() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold mb-4 text-white heading-glow">Certifications</h2>
-          <p className="text-lg text-[#4a6070]">
+          <h2 className="text-4xl font-bold mb-4 text-[var(--text-primary)] heading-glow">Certifications</h2>
+          <p className="text-lg text-[var(--text-secondary)]">
             Professional certifications and achievements
           </p>
         </motion.div>
@@ -64,33 +64,33 @@ export default function Certifications() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -6, rotateY: -10, rotateX: 8 }}
+                whileHover={{ y: -6, rotateY: -8, rotateX: 6, transition: { type: "spring", stiffness: 170, damping: 22, mass: 0.8 } }}
                 className="glass rounded-2xl p-8 shadow-lg glow-card project-card transform-3d hover-glow"
               >
-                <div className="h-24 rounded-2xl border border-[rgba(45,212,191,0.3)] bg-[rgba(13,17,23,0.5)] flex items-center justify-center mb-6">
+                <div className="h-24 rounded-2xl border border-[var(--accent-border)] bg-[var(--card-bg)] flex items-center justify-center mb-6">
                   <div className="text-center">
-                    <Logo className="mx-auto text-4xl text-[#2dd4bf] mb-2" />
-                    <p className="text-xs font-semibold tracking-wider text-[#4a6070] uppercase">
+                    <Logo className="mx-auto text-4xl text-[var(--accent)] mb-2" />
+                    <p className="text-xs font-semibold tracking-wider text-[var(--text-secondary)] uppercase">
                       {cert.logoLabel}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2 mb-3">
-                  <FaAward className="text-[#2dd4bf]" />
-                  <h3 className="text-xl font-bold text-white">
+                  <FaAward className="text-[var(--accent)]" />
+                  <h3 className="text-xl font-bold text-[var(--text-primary)]">
                     {cert.title}
                   </h3>
                 </div>
 
-                <p className="text-[#4a6070] mb-6">{cert.issuer}</p>
+                <p className="text-[var(--text-secondary)] mb-6">{cert.issuer}</p>
 
                 <a
                   href={cert.credential}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent('certificate_view', { title: cert.title, issuer: cert.issuer })}
-                  className="inline-flex items-center justify-center w-auto gap-2 rounded-xl bg-transparent text-[#2dd4bf] font-semibold px-4 py-2 border border-[rgba(45,212,191,0.25)] hover:bg-[rgba(45,212,191,0.08)] transition-all duration-300 text-[12px]"
+                  className="inline-flex items-center justify-center w-auto gap-2 rounded-xl bg-transparent text-[var(--accent)] font-semibold px-4 py-2 border border-[var(--accent-border)] hover:bg-[var(--accent-dim)] transition-all duration-300 text-[12px]"
                 >
                   <FaExternalLinkAlt /> View Certificate
                 </a>

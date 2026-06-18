@@ -5,7 +5,7 @@ import { trackEvent } from '../analytics/ga4';
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-20 relative bg-[#07090f]">
+    <section id="contact" className="py-20 relative bg-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -14,8 +14,8 @@ export default function Contact() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold mb-4 text-white heading-glow">Contact Info</h2>
-          <p className="text-lg text-[#4a6070]">
+          <h2 className="text-4xl font-bold mb-4 text-[var(--text-primary)] heading-glow">Contact Info</h2>
+          <p className="text-lg text-[var(--text-secondary)]">
             Get in touch with me
           </p>
         </motion.div>
@@ -31,31 +31,31 @@ export default function Contact() {
              <div className="space-y-4">
                <div className="flex items-center space-x-3">
                  <div className="contact-icon-container">
-                   <FaEnvelope className="text-lg text-[#2dd4bf]" />
+                   <FaEnvelope className="text-lg text-[var(--accent)]" />
                  </div>
                   <a
                     href="mailto:mahadevwalarajveer@gmail.com"
                     onClick={() => trackEvent('contact_click', { type: 'email' })}
-                    className="accent-icon-hover text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium"
+                    className="accent-icon-hover text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-[12px] font-medium"
                   >
                    mahadevwalarajveer@gmail.com
                  </a>
                </div>
                <div className="flex items-center space-x-3">
                  <div className="contact-icon-container">
-                   <FaPhone className="text-lg text-[#2dd4bf]" />
+                   <FaPhone className="text-lg text-[var(--accent)]" />
                  </div>
                   <a
                     href="tel:+919898130771"
                     onClick={() => trackEvent('contact_click', { type: 'phone' })}
-                    className="accent-icon-hover text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium"
+                    className="accent-icon-hover text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-[12px] font-medium"
                   >
                    +91 98981 30771
                  </a>
                </div>
                <div className="flex items-center space-x-3">
                  <div className="contact-icon-container">
-                   <FaWhatsapp className="text-lg text-[#2dd4bf]" />
+                   <FaWhatsapp className="text-lg text-[var(--accent)]" />
                  </div>
                  <div className="flex flex-col">
                     <a
@@ -63,20 +63,20 @@ export default function Contact() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => trackEvent('whatsapp_start', { source: 'contact_section', type: 'whatsapp' })}
-                      className="accent-icon-hover text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium"
+                    className="accent-icon-hover text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-[12px] font-medium"
                     >
                      Chat on WhatsApp
                    </a>
-                   <span className="text-[#4a6070] text-[11px] font-medium">
+                    <span className="text-[var(--text-secondary)] text-[11px] font-medium">
                      Use the floating WhatsApp button at the bottom-right for a quick chat.
                    </span>
                  </div>
                </div>
                <div className="flex items-center space-x-3">
                  <div className="contact-icon-container">
-                   <FaMapMarkerAlt className="text-lg text-[#2dd4bf]" />
+                   <FaMapMarkerAlt className="text-lg text-[var(--accent)]" />
                  </div>
-                 <span className="text-[#4a6070] text-[12px] font-medium">
+                  <span className="text-[var(--text-secondary)] text-[12px] font-medium">
                    Gujarat, India
                  </span>
                </div>

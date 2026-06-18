@@ -39,7 +39,7 @@ const skillGroups = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-20 relative bg-[#07090f]">
+    <section id="skills" className="py-20 relative bg-[var(--bg-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -48,8 +48,8 @@ export default function Skills() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold mb-4 text-white heading-glow">Skills</h2>
-          <p className="text-lg text-[#4a6070]">
+          <h2 className="text-4xl font-bold mb-4 text-[var(--text-primary)] heading-glow">Skills</h2>
+          <p className="text-lg text-[var(--text-secondary)]">
             Practical technologies across software engineering, AI, and computer vision
           </p>
         </motion.div>
@@ -65,14 +65,14 @@ export default function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: groupIndex * 0.08 }}
                 viewport={{ once: true }}
-                whileHover={{ rotateY: -12, rotateX: 8, y: -4 }}
+                whileHover={{ rotateY: -10, rotateX: 6, y: -4, transition: { type: "spring", stiffness: 160, damping: 22, mass: 0.8 } }}
                 className="glass rounded-2xl p-6 shadow-lg glow-card hover-glow transform-3d"
               >
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                    <Icon className="text-2xl text-[#2dd4bf]" />
+                    <Icon className="text-2xl text-[var(--accent)]" />
                   </div>
-                  <h3 className="text-xl font-semibold text-[#e8f4ff]">{group.title}</h3>
+                  <h3 className="text-xl font-semibold text-[var(--text-primary)]">{group.title}</h3>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -86,13 +86,13 @@ export default function Skills() {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.35, delay: index * 0.04 }}
                         viewport={{ once: true }}
-                        whileHover={{ y: -2, scale: 1.03, borderColor: '#2dd4bf', boxShadow: '0 0 10px rgba(45,212,191,0.15)' }}
-                        className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-[#4a6070] transition-all duration-180 skill-chip"
+                        whileHover={{ y: -2, scale: 1.03, borderColor: 'var(--accent)', boxShadow: '0 0 10px var(--accent-glow)', transition: { duration: 0.28, ease: "easeOut" } }}
+                        className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-[var(--text-secondary)] transition-all duration-180 skill-chip"
                       >
                         {SkillIcon ? (
-                          <SkillIcon className="text-xl text-[#2dd4bf]" />
+                          <SkillIcon className="text-xl text-[var(--accent)]" />
                         ) : (
-                          <span className="w-2 h-2 rounded-full bg-[#2dd4bf]" />
+                          <span className="w-2 h-2 rounded-full bg-[var(--accent)]" />
                         )}
                         <span className="text-sm font-medium">{skill.name}</span>
                       </motion.div>

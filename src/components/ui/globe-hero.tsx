@@ -19,6 +19,18 @@ type Cell = {
 const CELL = 46;
 const RADIUS = 130;
 
+function getThemeColors() {
+  const styles = getComputedStyle(document.documentElement);
+  const grid = styles.getPropertyValue("--canvas-grid-color").trim().replace(/^['"]|['"]$/g, "");
+  const glow = styles.getPropertyValue("--canvas-glow-color").trim().replace(/^['"]|['"]$/g, "");
+
+  return {
+    grid,
+    glow,
+    bg: styles.getPropertyValue("--bg-primary").trim(),
+  };
+}
+
 const DotGlobeHero = React.forwardRef<
   HTMLDivElement,
   DotGlobeHeroProps
@@ -56,7 +68,6 @@ const DotGlobeHero = React.forwardRef<
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-
   };
 
   const handleMouseLeave = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -65,12 +76,11 @@ const DotGlobeHero = React.forwardRef<
     event.currentTarget.style.setProperty("--rx", "0deg");
     event.currentTarget.style.setProperty("--ry", "0deg");
     setIsHovered(false);
-
   };
 
   const contentStyle: CSSProperties = {
     transform: `perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(${isHovered ? "-8px" : "0px"})`,
-    transition: "transform 450ms ease, filter 450ms ease",
+    transition: "transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 600ms cubic-bezier(0.2, 0.8, 0.2, 1)",
     willChange: "transform",
   };
 
@@ -88,6 +98,7 @@ const DotGlobeHero = React.forwardRef<
     let last = 0;
     let raf = 0;
     let resizeTimer: number | undefined;
+    let currentTheme = "";
 
     const buildGrid = () => {
       const rect = wrapper.getBoundingClientRect();
@@ -117,18 +128,15 @@ const DotGlobeHero = React.forwardRef<
       }
     };
 
-    const draw = (ts: number) => {
-      const dt = Math.min((ts - last) / 1000, 0.05);
-      last = ts;
-
-      ctx.clearRect(0, 0, W, H);
-
+    const drawGrid = (colors: ReturnType<typeof getThemeColors>) => {
       const mx = (window as any).__heroPointerX ?? -9999;
       const my = (window as any).__heroPointerY ?? -9999;
 
+      ctx.clearRect(0, 0, W, H);
+
       for (let i = 0; i < cells.length; i++) {
         const cell = cells[i];
-        cell.t += dt * 0.65;
+        cell.t += 0.01;
 
         const dx = mx - cell.x;
         const dy = my - cell.y;
@@ -136,15 +144,13 @@ const DotGlobeHero = React.forwardRef<
         const want = dist < RADIUS ? Math.pow(1 - dist / RADIUS, 1.7) : 0;
         cell.lit += (want - cell.lit) * 0.16;
 
-        const idle = 0.035 + 0.018 * Math.sin(cell.t + cell.x * 0.013 + cell.y * 0.009);
+        const idle = 0.04 + 0.022 * Math.sin(cell.t + cell.x * 0.013 + cell.y * 0.009);
         const alpha = idle + cell.lit * 0.85;
 
         if (cell.lit > 0.015) {
-          const g = Math.round(210 + cell.lit * 35);
-          const b = Math.round(235 + cell.lit * 20);
-          ctx.strokeStyle = `rgba(45,212,191,${alpha})`;
+          ctx.strokeStyle = `rgba(${colors.glow},${alpha})`;
         } else {
-          ctx.strokeStyle = `rgba(36,50,64,${alpha})`;
+          ctx.strokeStyle = `rgba(${colors.grid},${alpha})`;
         }
 
         ctx.lineWidth = 0.5;
@@ -153,16 +159,17 @@ const DotGlobeHero = React.forwardRef<
         if (cell.lit > 0.04) {
           const px = cell.x + CELL / 2;
           const py = cell.y + CELL / 2;
+          const radius = CELL * cell.lit * 1.8;
 
-          const gradient = ctx.createRadialGradient(px, py, 0, px, py, CELL * cell.lit * 1.8);
-          gradient.addColorStop(0, `rgba(45,212,191,${cell.lit * 0.45})`);
-          gradient.addColorStop(1, "rgba(45,212,191,0)");
+          const gradient = ctx.createRadialGradient(px, py, 0, px, py, radius);
+          gradient.addColorStop(0, `rgba(${colors.glow},${cell.lit * 0.45})`);
+          gradient.addColorStop(1, `rgba(${colors.glow},0)`);
           ctx.fillStyle = gradient;
           ctx.beginPath();
-          ctx.arc(px, py, CELL * cell.lit * 1.8, 0, Math.PI * 2);
+          ctx.arc(px, py, radius, 0, Math.PI * 2);
           ctx.fill();
 
-          ctx.fillStyle = `rgba(45,212,191,${cell.lit * 0.95})`;
+          ctx.fillStyle = `rgba(${colors.glow},${cell.lit * 0.95})`;
           ctx.beginPath();
           ctx.arc(px, py, 1.6 * cell.lit, 0, Math.PI * 2);
           ctx.fill();
@@ -171,21 +178,38 @@ const DotGlobeHero = React.forwardRef<
 
       if (mx > 0 && mx < W && my > 0 && my < H) {
         const gradient = ctx.createRadialGradient(mx, my, 0, mx, my, RADIUS * 1.2);
-        gradient.addColorStop(0, "rgba(45,212,191,0.07)");
-        gradient.addColorStop(0.5, "rgba(45,212,191,0.03)");
-        gradient.addColorStop(1, "rgba(0,0,0,0)");
+        gradient.addColorStop(0, `rgba(${colors.glow},0.07)`);
+        gradient.addColorStop(0.5, `rgba(${colors.glow},0.03)`);
+        gradient.addColorStop(1, `rgba(0,0,0,0)`);
         ctx.fillStyle = gradient;
         ctx.beginPath();
         ctx.arc(mx, my, RADIUS * 1.2, 0, Math.PI * 2);
         ctx.fill();
       }
+    };
 
+    const draw = (ts: number) => {
+      const dt = Math.min((ts - last) / 1000, 0.05);
+      last = ts;
+
+      const colors = getThemeColors();
+      const themeKey = `${colors.grid}-${colors.glow}-${colors.bg}`;
+      if (themeKey !== currentTheme) {
+        currentTheme = themeKey;
+        ctx.clearRect(0, 0, W, H);
+      }
+
+      drawGrid(colors);
       raf = requestAnimationFrame(draw);
     };
 
     const handleResize = () => {
       window.clearTimeout(resizeTimer);
-      resizeTimer = window.setTimeout(buildGrid, 120);
+      resizeTimer = window.setTimeout(buildGrid, 200);
+    };
+
+    (window as any)._updateCanvasTheme = () => {
+      currentTheme = "";
     };
 
     buildGrid();
@@ -210,7 +234,7 @@ const DotGlobeHero = React.forwardRef<
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative w-full h-screen bg-background overflow-hidden isolation-isolate",
+        "relative w-full h-screen bg-[var(--bg-primary)] overflow-hidden isolation-isolate",
         className
       )}
       style={{
@@ -222,17 +246,15 @@ const DotGlobeHero = React.forwardRef<
       {...props}
     >
       <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/10 opacity-75" />
-      <div className="absolute inset-0 bg-gradient-to-br from-[#2dd4bf]/0 via-transparent to-[#2dd4bf]/8 opacity-80" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#07090f]/50 via-transparent to-[#07090f]/30" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-[#2dd4bf]/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.10),transparent_35%)] opacity-70" />
+      <div className="absolute inset-0 z-0 bg-gradient-to-t from-[var(--bg-primary)]/70 via-[var(--bg-primary)]/15 to-transparent" />
+      <div className="absolute top-1/4 left-1/4 z-0 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 z-0 w-64 h-64 bg-[var(--accent)]/10 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,var(--accent-dim),transparent_35%)] opacity-70" />
       <div
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
+        className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300"
         style={{
           opacity: isHovered ? 1 : 0,
-          background: "radial-gradient(650px circle at var(--mx) var(--my), rgba(45,212,191,0.16), transparent 42%)",
+          background: "radial-gradient(650px circle at var(--mx) var(--my), var(--accent-glow), transparent 42%)",
         }}
       />
       <div className="relative z-20 flex flex-col items-center justify-center h-full px-6" style={contentStyle}>

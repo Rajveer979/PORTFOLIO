@@ -31,31 +31,31 @@ function ProjectVisual({ project }) {
   const Icon = project.icon;
 
   return (
-    <div className="relative min-h-[260px] rounded-2xl overflow-hidden border border-[rgba(45,212,191,0.3)] bg-gradient-to-br from-gray-950 via-gray-900 to-black">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(45,212,191,0.18),transparent_35%)]" />
+    <div className="relative min-h-[260px] rounded-2xl overflow-hidden border border-[var(--accent-border)] bg-gradient-to-br from-[var(--bg-secondary)] via-[var(--bg-tertiary)] to-[var(--bg-primary)]">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,var(--accent-dim),transparent_35%)]" />
       <div className="absolute inset-0 opacity-20" style={{
         backgroundImage: 'linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)',
         backgroundSize: '28px 28px',
       }} />
 
       <div className="absolute inset-x-4 top-4 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center px-3 gap-2">
-        <span className="w-2.5 h-2.5 rounded-full bg-[#2dd4bf]" />
+        <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent)]" />
         <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
         <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
       </div>
 
-      <div className="h-0.5 w-full absolute bottom-0 left-0 bg-gradient-to-r from-transparent via-[#2dd4bf] to-transparent"></div>
+      <div className="h-0.5 w-full absolute bottom-0 left-0 bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent"></div>
 
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center px-6">
-          <div className="mx-auto mb-4 w-16 h-16 rounded-2xl bg-white/5 border border-[rgba(45,212,191,0.3)] flex items-center justify-center">
-            <Icon className="text-3xl text-[#2dd4bf]" />
+          <div className="mx-auto mb-4 w-16 h-16 rounded-2xl bg-white/5 border border-[var(--accent-border)] flex items-center justify-center">
+            <Icon className="text-3xl text-[var(--accent)]" />
           </div>
-          <p className="text-sm font-semibold text-white mb-2">{project.visualLabel}</p>
+          <p className="text-sm font-semibold text-[var(--text-primary)] mb-2">{project.visualLabel}</p>
           <div className="space-y-2">
             {project.visualItems.map((item, itemIndex) => (
               <div key={item} className="mx-auto h-2 rounded-full bg-white/10 overflow-hidden">
-                <div className="h-full rounded-full bg-[#2dd4bf]/70" style={{ width: `${project.visualWidths[itemIndex] || 60}%` }} />
+                <div className="h-full rounded-full bg-[var(--accent)]/70" style={{ width: `${project.visualWidths[itemIndex] || 60}%` }} />
               </div>
             ))}
           </div>
@@ -67,7 +67,7 @@ function ProjectVisual({ project }) {
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-20 relative bg-[#07090f]">
+    <section id="projects" className="py-20 relative bg-[var(--bg-primary)]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -76,8 +76,8 @@ export default function Projects() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-bold mb-4 text-white heading-glow">Projects</h2>
-          <p className="text-lg text-[#4a6070]">
+          <h2 className="text-4xl font-bold mb-4 text-[var(--text-primary)] heading-glow">Projects</h2>
+          <p className="text-lg text-[var(--text-secondary)]">
             Selected AI and software engineering projects
           </p>
         </motion.div>
@@ -90,7 +90,7 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ y: -6, rotateY: -8, rotateX: 6 }}
+              whileHover={{ y: -6, rotateY: -8, rotateX: 6, transition: { type: "spring", stiffness: 170, damping: 22, mass: 0.8 } }}
               className="glass rounded-2xl overflow-hidden shadow-lg glow-card project-card transform-3d hover-glow"
             >
               <div className="grid grid-cols-1">
@@ -99,10 +99,10 @@ export default function Projects() {
                 </div>
 
                 <div className="p-6 pt-0">
-                  <h3 className="text-xl font-bold text-white mb-3">
+                  <h3 className="text-xl font-bold text-[var(--text-primary)] mb-3">
                     {project.title}
                   </h3>
-                  <p className="text-[#4a6070] mb-5 leading-relaxed">
+                  <p className="text-[var(--text-secondary)] mb-5 leading-relaxed">
                     {project.description}
                   </p>
 
@@ -118,7 +118,7 @@ export default function Projects() {
                   </div>
 
                   <div className="flex flex-wrap gap-3">
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="accent-icon-hover inline-flex items-center gap-2 text-[#4a6070] hover:text-[#e8f4ff] transition-colors text-[12px] font-medium" onClick={() => trackEvent('project_click', { project: project.title, type: 'github' })}>
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="accent-icon-hover inline-flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-[12px] font-medium" onClick={() => trackEvent('project_click', { project: project.title, type: 'github' })}>
                       <FaGithub /> GitHub
                     </a>
                     <a
@@ -126,7 +126,7 @@ export default function Projects() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => trackEvent('project_click', { project: project.title, type: 'demo' })}
-                      className="inline-flex items-center gap-2 text-[#2dd4bf] hover:text-[#5eead4] transition-colors text-[12px] font-medium"
+                      className="inline-flex items-center gap-2 text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors text-[12px] font-medium"
                     >
                       <FaExternalLinkAlt /> Live Demo
                     </a>
