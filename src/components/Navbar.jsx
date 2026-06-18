@@ -57,10 +57,10 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <a href="#" className="text-2xl font-bold text-[var(--text-primary)] heading-glow-subtle nav-logo relative group">
-            Rajveer <span className="text-[var(--accent)]">M.</span>
-            <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></span>
-          </a>
+<a href="#" className="flex items-center gap-0 rounded-xl navbar-logo-wrap nav-logo relative group">
+             <img src="/image-removebg-preview.png" alt="Rajveer Mahadevwala logo" className="h-14 w-auto max-w-[160px] object-contain navbar-logo-image" />
+             <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></span>
+           </a>
 
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
@@ -86,7 +86,7 @@ export default function Navbar() {
               </a>
             ))}
             
-            <button id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+            <button id="theme-toggle" type="button" aria-label="Toggle dark/light mode" title="Toggle theme">
               {/* Moon icon (shown in dark mode) */}
               <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>

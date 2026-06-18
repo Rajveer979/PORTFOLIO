@@ -35,36 +35,485 @@
 }
 
 :root.light {
-  --bg-primary:        #f0f4f8;
+  --bg-primary:        #f5f9ff;
   --bg-secondary:      #ffffff;
-  --bg-tertiary:       #e8eef4;
-  --bg-nav:            rgba(240, 244, 248, 0.88);
-  --border-color:      #d0dce8;
-  --border-hover:      rgba(45, 212, 191, 0.5);
+  --bg-tertiary:       #eef4fb;
+  --bg-nav:            rgba(255, 255, 255, 0.92);
+  --border-color:      #c8daf0;
+  --border-hover:      rgba(13, 148, 136, 0.4);
 
-  --text-primary:      #0d1a26;
+  --text-primary:      #0a1628;
   --text-secondary:    #4a6070;
   --text-muted:        #8899aa;
 
-  --accent:            #0ea58a;
-  --accent-hover:      #0d9279;
-  --accent-dim:        rgba(14, 165, 138, 0.08);
-  --accent-border:     rgba(14, 165, 138, 0.25);
-  --accent-glow:       rgba(14, 165, 138, 0.2);
+  --accent:            #0d9488;
+  --accent-hover:      #0f766e;
+  --accent-dim:        rgba(13, 148, 136, 0.08);
+  --accent-border:     rgba(13, 148, 136, 0.22);
+  --accent-glow:       rgba(13, 148, 136, 0.18);
 
   --card-bg:           #ffffff;
-  --card-border:       #d0dce8;
-  --input-bg:          #f8fafc;
-  --input-border:      #c8d8e4;
+  --card-border:       #ddeaf8;
+  --input-bg:          #f8fbff;
+  --input-border:      #c8daf0;
 
-  --nav-shadow:        0 1px 0 rgba(0, 0, 0, 0.06);
-  --card-shadow:       0 4px 24px rgba(0, 0, 0, 0.08);
+  --nav-shadow:        0 1px 0 rgba(13, 148, 136, 0.12);
+  --card-shadow:       0 2px 20px rgba(10, 22, 40, 0.07);
 
-  --scrollbar-thumb:   #0ea58a;
-  --scrollbar-track:   #e8eef4;
+  --scrollbar-thumb:   #0d9488;
+  --scrollbar-track:   #eef4fb;
+}
 
-  --canvas-grid-color: '180,200,210';
-  --canvas-glow-color: '14,165,138';
+/* ════════════════════════════════
+   NAVBAR
+   ════════════════════════════════ */
+
+:root.light nav,
+:root.light header {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(13, 148, 136, 0.15);
+  box-shadow: 0 1px 20px rgba(10, 22, 40, 0.06);
+}
+
+:root.light .nav-link,
+:root.light nav a {
+  color: #4a6070;
+}
+
+:root.light .nav-link:hover,
+:root.light nav a:hover {
+  color: #0d9488;
+}
+
+:root.light .nav-link.active,
+:root.light nav a.active {
+  color: #0d9488;
+}
+
+/* Active nav dot */
+:root.light .nav-link.active::after {
+  background: #0d9488;
+}
+
+/* Navbar logo */
+ :root.light .nav-logo,
+ :root.light .logo {
+   color: #0a1628;
+ }
+ 
+/* Theme toggle button */
+:root.light #theme-toggle {
+  background: #f0f8ff;
+  border-color: #c8daf0;
+  color: #4a6070;
+}
+
+:root.light #theme-toggle:hover {
+  border-color: #0d9488;
+  color: #0d9488;
+  background: rgba(13, 148, 136, 0.06);
+}
+
+/* Resume button */
+:root.light .resume-btn,
+:root.light a[href*="resume"],
+:root.light a[href*="Resume"] {
+  border-color: #0d9488;
+  color: #0d9488;
+  background: transparent;
+}
+
+:root.light .resume-btn:hover {
+  background: #0d9488;
+  color: #ffffff;
+}
+
+/* ════════════════════════════════
+   SECTION BACKGROUNDS — alternating rhythm
+   ════════════════════════════════ */
+
+:root.light body {
+  background: #f5f9ff;
+}
+
+:root.light #hero,
+:root.light section:nth-child(odd) {
+  background: #f5f9ff;
+}
+
+:root.light #about,
+:root.light #skills,
+:root.light #projects,
+:root.light #certifications,
+:root.light #contact,
+:root.light section:nth-child(even) {
+  background: #eef4fb;
+}
+
+/* ════════════════════════════════
+   HERO SECTION
+   ════════════════════════════════ */
+
+/* Availability pill */
+:root.light .availability-pill,
+:root.light [class*="pill"] {
+  background: rgba(13, 148, 136, 0.07);
+  border: 0.5px solid rgba(13, 148, 136, 0.28);
+  color: #0d9488;
+}
+
+/* Pulse dot inside pill */
+:root.light .pulse-dot {
+  background: #0d9488;
+}
+
+/* Name label above role */
+:root.light .hero-name,
+:root.light .hero-eyebrow {
+  color: #8899aa;
+}
+
+/* Primary CTA button — most critical fix */
+:root.light .btn-primary,
+:root.light [class*="btn-primary"],
+:root.light button.primary,
+:root.light a.primary {
+  background: #0d9488 !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 4px 20px rgba(13, 148, 136, 0.28);
+}
+
+:root.light .btn-primary:hover,
+:root.light [class*="btn-primary"]:hover {
+  background: #0f766e !important;
+  box-shadow: 0 6px 28px rgba(13, 148, 136, 0.38);
+  transform: translateY(-2px);
+}
+
+/* Ghost / secondary button */
+:root.light .btn-ghost,
+:root.light [class*="btn-ghost"],
+:root.light button.ghost {
+  background: transparent;
+  border: 0.5px solid #c8daf0;
+  color: #4a6070;
+}
+
+:root.light .btn-ghost:hover {
+  border-color: #0d9488;
+  color: #0d9488;
+  background: rgba(13, 148, 136, 0.05);
+}
+
+/* Scroll down arrow */
+:root.light .scroll-arrow,
+:root.light .down-arrow {
+  color: #8899aa;
+}
+
+/* ════════════════════════════════
+   CANVAS BACKGROUND
+   ════════════════════════════════ */
+
+:root.light #bg-canvas {
+  opacity: 0.55;
+}
+
+/* Also update the canvas JS grid colors for light mode.
+   In the canvas draw() function, wherever you call getCanvasColors(),
+   make sure light mode returns these values:
+   idle grid lines: [140, 175, 200]   (visible grey-blue)
+   lit lines R: 13, litGMin: 120, litGMax: 48, litBMin: 110, litBMax: 38
+   glow: rgba(13, 148, 136, ...)
+*/
+
+/* ════════════════════════════════
+   CARDS — all cards globally
+   ════════════════════════════════ */
+
+:root.light .card,
+:root.light [class*="-card"],
+:root.light [class*="card-"],
+:root.light .about-card,
+:root.light .skill-category,
+:root.light .project-card,
+:root.light .cert-card,
+:root.light .contact-card {
+  background: #ffffff;
+  border: 0.5px solid #ddeaf8;
+  box-shadow: 0 2px 20px rgba(10, 22, 40, 0.07);
+  border-top: 2px solid rgba(13, 148, 136, 0.18);
+}
+
+:root.light .card:hover,
+:root.light [class*="-card"]:hover,
+:root.light .project-card:hover,
+:root.light .cert-card:hover {
+  border-top-color: #0d9488;
+  box-shadow: 0 4px 28px rgba(13, 148, 136, 0.12);
+  transform: translateY(-2px);
+}
+
+/* ════════════════════════════════
+   ABOUT SECTION
+   ════════════════════════════════ */
+
+/* Profile avatar circle */
+:root.light .profile-avatar,
+:root.light .avatar-circle {
+  border-color: #0d9488;
+  background: linear-gradient(135deg, #eef4fb, #f5f9ff);
+  color: #0d9488;
+}
+
+/* Who I Am / bio card */
+:root.light .bio-card,
+:root.light .about-bio {
+  background: #ffffff;
+  border-left: 3px solid #0d9488;
+}
+
+/* Education timeline left border */
+:root.light .education-item,
+:root.light [class*="edu-item"],
+:root.light [class*="timeline-item"] {
+  border-left-color: #0d9488;
+}
+
+/* Date / badge pills on education */
+:root.light .edu-badge,
+:root.light [class*="date-badge"],
+:root.light .timeline-badge {
+  background: rgba(13, 148, 136, 0.08);
+  color: #0d9488;
+  border: 0.5px solid rgba(13, 148, 136, 0.2);
+}
+
+/* Social icon buttons in About */
+:root.light .social-btn,
+:root.light [class*="social-icon"] {
+  background: rgba(13, 148, 136, 0.06);
+  border: 0.5px solid rgba(13, 148, 136, 0.2);
+  color: #0d9488;
+}
+
+:root.light .social-btn:hover {
+  background: rgba(13, 148, 136, 0.14);
+}
+
+/* ════════════════════════════════
+   SKILLS SECTION
+   ════════════════════════════════ */
+
+/* Category card headers */
+:root.light .skill-category-title,
+:root.light [class*="skill-header"] {
+  color: #0a1628;
+}
+
+:root.light .skill-category-icon {
+  color: #0d9488;
+}
+
+/* Individual skill chips */
+:root.light .skill-item,
+:root.light [class*="skill-chip"],
+:root.light [class*="skill-tag"] {
+  background: #f0f8ff;
+  border: 0.5px solid #c8daf0;
+  color: #0a1628;
+}
+
+:root.light .skill-item:hover {
+  background: rgba(13, 148, 136, 0.08);
+  border-color: #0d9488;
+  color: #0d9488;
+  box-shadow: 0 0 12px rgba(13, 148, 136, 0.15);
+}
+
+/* ════════════════════════════════
+   PROJECTS SECTION
+   ════════════════════════════════ */
+
+/* Project thumbnail area */
+:root.light .project-thumb,
+:root.light [class*="proj-thumb"] {
+  background: linear-gradient(135deg, #eef4fb, #e8f2ff);
+}
+
+/* Thumbnail bottom accent line */
+:root.light .proj-thumb-accent,
+:root.light [class*="thumb-line"] {
+  background: linear-gradient(90deg, transparent, #0d9488, transparent);
+}
+
+/* Tech tags */
+:root.light .proj-tag,
+:root.light [class*="tech-tag"],
+:root.light [class*="proj-tag"] {
+  background: rgba(13, 148, 136, 0.07);
+  color: #0d9488;
+  border: 0.5px solid rgba(13, 148, 136, 0.2);
+}
+
+/* GitHub / Live Demo links */
+:root.light .proj-link,
+:root.light [class*="project-link"] {
+  color: #4a6070;
+}
+
+:root.light .proj-link:hover {
+  color: #0d9488;
+}
+
+/* ════════════════════════════════
+   CERTIFICATIONS SECTION
+   ════════════════════════════════ */
+
+/* Institution logo area */
+:root.light .cert-logo-area,
+:root.light [class*="cert-logo"] {
+  background: #f0f8ff;
+  border: 0.5px solid #c8daf0;
+}
+
+/* Year badge */
+:root.light .cert-year,
+:root.light [class*="year-badge"] {
+  background: rgba(13, 148, 136, 0.07);
+  color: #0d9488;
+  border: 0.5px solid rgba(13, 148, 136, 0.2);
+}
+
+/* View Certificate button */
+:root.light .cert-btn,
+:root.light [class*="cert-btn"],
+:root.light a[class*="view-cert"] {
+  background: transparent;
+  color: #0d9488;
+  border: 0.5px solid rgba(13, 148, 136, 0.3);
+}
+
+:root.light .cert-btn:hover {
+  background: rgba(13, 148, 136, 0.08);
+}
+
+/* ════════════════════════════════
+   CONTACT SECTION
+   ════════════════════════════════ */
+
+/* Contact info icon boxes */
+:root.light .contact-icon,
+:root.light [class*="contact-icon"] {
+  background: rgba(13, 148, 136, 0.07);
+  border: 0.5px solid rgba(13, 148, 136, 0.18);
+  color: #0d9488;
+}
+
+/* Form inputs */
+:root.light input,
+:root.light textarea,
+:root.light select {
+  background: #f8fbff;
+  border: 0.5px solid #c8daf0;
+  color: #0a1628;
+}
+
+:root.light input::placeholder,
+:root.light textarea::placeholder {
+  color: #8899aa;
+}
+
+:root.light input:focus,
+:root.light textarea:focus {
+  border-color: #0d9488;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+  outline: none;
+}
+
+/* Send / submit button */
+:root.light button[type="submit"],
+:root.light .send-btn,
+:root.light [class*="send-btn"] {
+  background: #0d9488;
+  color: #ffffff;
+  border: none;
+}
+
+:root.light button[type="submit"]:hover,
+:root.light .send-btn:hover {
+  background: #0f766e;
+  box-shadow: 0 4px 20px rgba(13, 148, 136, 0.3);
+}
+
+/* ════════════════════════════════
+   FOOTER
+   ════════════════════════════════ */
+
+:root.light footer {
+  background: #eef4fb;
+  border-top: 1px solid #c8daf0;
+}
+
+:root.light footer .copyright,
+:root.light footer p {
+  color: #8899aa;
+}
+
+:root.light footer .social-icon,
+:root.light footer a {
+  color: #8899aa;
+}
+
+:root.light footer .social-icon:hover,
+:root.light footer a:hover {
+  color: #0d9488;
+}
+
+/* ════════════════════════════════
+   SCROLLBAR
+   ════════════════════════════════ */
+
+:root.light ::-webkit-scrollbar-track {
+  background: #eef4fb;
+}
+
+:root.light ::-webkit-scrollbar-thumb {
+  background: #0d9488;
+}
+
+/* ════════════════════════════════
+   SECTION HEADINGS & DIVIDERS
+   ════════════════════════════════ */
+
+:root.light h1, :root.light h2, :root.light h3 {
+  color: var(--text-primary);
+}
+
+/* Teal underline accent below section titles */
+:root.light .section-title-underline,
+:root.light [class*="title-line"],
+:root.light [class*="heading-accent"] {
+  background: #0d9488;
+}
+
+/* Section subtitle / description text */
+:root.light .section-subtitle,
+:root.light [class*="section-desc"] {
+  color: #4a6070;
+}
+
+/* ════════════════════════════════
+   WHATSAPP FLOAT — keep green in both modes
+   ════════════════════════════════ */
+
+:root.light #wa-btn,
+:root.light #wa-wrapper,
+:root.light #wa-tooltip {
+  /* intentionally unstyled — keep dark theme */
 }
 
 *,
@@ -825,3 +1274,460 @@ h4 {
   animation: none;
   opacity: 0;
 }
+
+/* ════════════════════════════════
+   LIGHT MODE OVERRIDES — requested fixes
+   ════════════════════════════════ */
+
+/* Logo icon — make it teal in light mode instead of white/black */
+:root.light .nav-logo-icon,
+:root.light .logo-icon,
+:root.light nav img.logo,
+:root.light nav svg.logo,
+:root.light .navbar-brand img,
+:root.light header .logo img,
+:root.light .navbar-logo-image {
+  filter: brightness(0) saturate(100%) invert(47%) sepia(98%) saturate(400%) hue-rotate(130deg) brightness(90%);
+  /* This filter converts any color to #0d9488 teal */
+}
+
+/* If the logo is an SVG with fill="white" or fill="#fff": */
+:root.light .nav-logo-icon path,
+:root.light .logo-icon path,
+:root.light nav svg path {
+  fill: #0d9488;
+  stroke: #0d9488;
+}
+
+/* Logo wrapper - transparent background */
+.navbar-logo-wrap {
+  background: transparent !important;
+}
+
+/* Logo text "Rajveer" — dark in light mode */
+:root.light .nav-logo-text,
+:root.light .navbar-brand,
+:root.light nav .logo-text,
+:root.light header .brand-name {
+  color: #0a1628 !important;
+}
+
+/* Logo "M." accent — keep teal */
+:root.light .nav-logo-text span,
+:root.light .navbar-brand span,
+:root.light nav .logo-text span {
+  color: #0d9488 !important;
+}
+
+/* The ">_rm" circular icon specifically — if it's a div with background */
+:root.light .logo-circle,
+:root.light [class*="logo-badge"],
+:root.light [class*="nav-icon"] {
+  background: transparent;
+  border: 1.5px solid #0d9488;
+  color: #0d9488;
+}
+
+/* ════════════════════════════════
+   NAVBAR BACKGROUND
+   ════════════════════════════════ */
+
+:root.light nav,
+:root.light header,
+:root.light .navbar {
+  background: rgba(248, 252, 255, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(13, 148, 136, 0.15) !important;
+  box-shadow: 0 2px 20px rgba(10, 22, 40, 0.06) !important;
+}
+
+/* Nav links */
+:root.light .nav-link,
+:root.light nav a:not(.resume-btn) {
+  color: #3a5060 !important;
+}
+:root.light .nav-link:hover,
+:root.light nav a:hover {
+  color: #0d9488 !important;
+}
+:root.light .nav-link.active {
+  color: #0d9488 !important;
+}
+
+/* Active dot indicator */
+:root.light .nav-link.active::after,
+:root.light .active-dot {
+  background: #0d9488 !important;
+}
+
+/* Theme toggle button */
+:root.light #theme-toggle {
+  background: #eef6f5 !important;
+  border: 0.5px solid rgba(13, 148, 136, 0.25) !important;
+  color: #0d9488 !important;
+}
+:root.light #theme-toggle:hover {
+  background: rgba(13, 148, 136, 0.1) !important;
+}
+
+/* Resume button */
+:root.light .resume-btn,
+:root.light nav a[href*="resume"],
+:root.light nav a[href*="Resume"],
+:root.light nav button:last-of-type {
+  background: transparent !important;
+  border: 1.5px solid #0d9488 !important;
+  color: #0d9488 !important;
+}
+:root.light .resume-btn:hover {
+  background: #0d9488 !important;
+  color: #ffffff !important;
+}
+
+/* ════════════════════════════════
+   PAGE & SECTION BACKGROUNDS
+   ════════════════════════════════ */
+
+/* Base page background — warm white, not grey */
+:root.light body,
+:root.light html {
+  background-color: #f0f7ff !important;
+}
+
+/* Alternating section backgrounds for visual rhythm */
+:root.light #hero    { background: #f0f7ff !important; }
+:root.light #about   { background: #e8f2fc !important; }
+:root.light #skills  { background: #f0f7ff !important; }
+:root.light #projects { background: #e8f2fc !important; }
+:root.light #certifications { background: #f0f7ff !important; }
+:root.light #contact { background: #e8f2fc !important; }
+:root.light footer   { background: #ddeaf8 !important; border-top: 1px solid #c8daf0 !important; }
+
+/* If sections use different class/id names, also target: */
+:root.light section:nth-of-type(odd)  { background: #f0f7ff !important; }
+:root.light section:nth-of-type(even) { background: #e8f2fc !important; }
+
+/* ════════════════════════════════
+   HERO SECTION
+   ════════════════════════════════ */
+
+/* Hero headings */
+:root.light .hero h1,
+:root.light .hero-title {
+  color: #0a1628 !important;
+}
+
+/* The teal "Aspiring AI" part — keep it teal but deeper */
+:root.light .hero h1 .teal,
+:root.light .hero-title .accent,
+:root.light .hero-title span:first-child {
+  color: #0d9488 !important;
+}
+
+/* Subtitle text */
+:root.light .hero-subtitle,
+:root.light .hero p {
+  color: #4a6070 !important;
+}
+
+/* "RAJVEER MAHADEVWALA" small caps label */
+:root.light .hero-eyebrow,
+:root.light .hero-name-label {
+  color: #7a9aaa !important;
+}
+
+/* Open to opportunities pill */
+:root.light .availability-pill {
+  background: rgba(13, 148, 136, 0.08) !important;
+  border: 0.5px solid rgba(13, 148, 136, 0.3) !important;
+  color: #0d9488 !important;
+}
+:root.light .pulse-dot {
+  background: #0d9488 !important;
+  box-shadow: 0 0 6px rgba(13,148,136,0.5) !important;
+}
+
+/* Primary "View My Work" button */
+:root.light .btn-primary,
+:root.light button.primary,
+:root.light a.btn-primary {
+  background: #0d9488 !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 4px 18px rgba(13, 148, 136, 0.3) !important;
+}
+:root.light .btn-primary:hover {
+  background: #0b7a70 !important;
+  box-shadow: 0 6px 24px rgba(13, 148, 136, 0.4) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* Ghost "Contact Me" button */
+:root.light .btn-ghost,
+:root.light button.ghost {
+  background: transparent !important;
+  color: #3a5060 !important;
+  border: 1px solid #b0c8dc !important;
+}
+:root.light .btn-ghost:hover {
+  border-color: #0d9488 !important;
+  color: #0d9488 !important;
+}
+
+/* Scroll down arrow */
+:root.light .scroll-hint,
+:root.light .down-arrow {
+  color: #99aabb !important;
+}
+
+/* ════════════════════════════════
+   CANVAS BACKGROUND
+   ════════════════════════════════ */
+
+:root.light #bg-canvas {
+  opacity: 0.6 !important;
+}
+
+/* ════════════════════════════════
+   CUSTOM CURSOR IN LIGHT MODE
+   ════════════════════════════════ */
+
+:root.light #cursor-dot {
+  background: #0d9488 !important;
+  box-shadow: 0 0 10px rgba(13, 148, 136, 0.5) !important;
+}
+
+:root.light #cursor-ring {
+  border-color: rgba(13, 148, 136, 0.5) !important;
+}
+
+/* ════════════════════════════════
+   ALL CARDS
+   ════════════════════════════════ */
+
+/* Every card on the site gets white bg + shadow + subtle teal top border */
+:root.light .card,
+:root.light [class*="card"],
+:root.light .skill-category,
+:root.light .project-card,
+:root.light .cert-card,
+:root.light .about-card,
+:root.light .contact-card {
+  background: #ffffff !important;
+  border: 1px solid #d8eaf8 !important;
+  border-top: 2px solid rgba(13, 148, 136, 0.25) !important;
+  box-shadow: 0 2px 16px rgba(10, 22, 40, 0.07) !important;
+}
+
+:root.light .card:hover,
+:root.light [class*="card"]:hover {
+  border-top-color: #0d9488 !important;
+  box-shadow: 0 6px 28px rgba(13, 148, 136, 0.12) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* ════════════════════════════════
+   ABOUT SECTION
+   ════════════════════════════════ */
+
+/* Profile card (left card with RM initials) */
+:root.light .profile-card,
+:root.light .about-left,
+:root.light .about-profile {
+  background: #ffffff !important;
+  border: 1px solid #d8eaf8 !important;
+  box-shadow: 0 2px 16px rgba(10, 22, 40, 0.07) !important;
+}
+
+/* RM avatar circle */
+:root.light .avatar-circle,
+:root.light .profile-avatar {
+  background: linear-gradient(135deg, #eef6f5, #e0f0ee) !important;
+  border: 2px solid #0d9488 !important;
+  color: #0d9488 !important;
+}
+
+/* Education timeline left border line */
+:root.light .edu-entry,
+:root.light [class*="timeline"],
+:root.light [class*="education-item"] {
+  border-left: 2px solid #0d9488 !important;
+}
+
+/* Date / year / CGPA badges */
+:root.light .edu-badge,
+:root.light [class*="date-tag"],
+:root.light [class*="year-pill"] {
+  background: rgba(13, 148, 136, 0.08) !important;
+  color: #0d9488 !important;
+  border: 0.5px solid rgba(13, 148, 136, 0.2) !important;
+}
+
+/* Social icons row */
+:root.light .social-icons a,
+:root.light .social-btn {
+  background: rgba(13, 148, 136, 0.07) !important;
+  border: 0.5px solid rgba(13, 148, 136, 0.2) !important;
+  color: #0d9488 !important;
+}
+:root.light .social-btn:hover {
+  background: rgba(13, 148, 136, 0.15) !important;
+}
+
+/* ════════════════════════════════
+   SKILLS SECTION
+   ════════════════════════════════ */
+
+/* Fix the massive gap below skills cards */
+:root.light #skills,
+:root.light .skills-section {
+  padding-bottom: 80px !important;
+}
+
+/* Skill item chips */
+:root.light .skill-item {
+  background: #f0f8ff !important;
+  border: 1px solid #c8daf0 !important;
+  color: #1a2e3a !important;
+}
+:root.light .skill-item:hover {
+  background: rgba(13, 148, 136, 0.08) !important;
+  border-color: #0d9488 !important;
+  color: #0d9488 !important;
+  box-shadow: 0 0 12px rgba(13, 148, 136, 0.15) !important;
+}
+
+/* Category icons */
+:root.light .skill-category-header svg,
+:root.light .skill-category-icon {
+  color: #0d9488 !important;
+}
+
+/* Icon boxes inside skill items */
+:root.light .skill-icon-box {
+  background: rgba(13, 148, 136, 0.1) !important;
+  border: 0.5px solid rgba(13, 148, 136, 0.2) !important;
+  color: #0d9488 !important;
+}
+
+/* ════════════════════════════════
+   PROJECTS SECTION
+   ════════════════════════════════ */
+
+/* Project thumbnail */
+:root.light .project-thumbnail,
+:root.light [class*="proj-thumb"] {
+  background: linear-gradient(135deg, #e8f4ff, #ddeefb) !important;
+}
+
+/* Teal accent line at bottom of thumbnail */
+:root.light [class*="thumb-accent"],
+:root.light [class*="thumb-line"] {
+  background: linear-gradient(90deg, transparent, #0d9488, transparent) !important;
+}
+
+/* Tech tags */
+:root.light .tech-tag,
+:root.light [class*="proj-tag"] {
+  background: rgba(13, 148, 136, 0.08) !important;
+  color: #0d9488 !important;
+  border: 0.5px solid rgba(13, 148, 136, 0.22) !important;
+}
+
+/* GitHub / Live Demo links */
+:root.light .project-links a {
+  color: #4a6070 !important;
+}
+:root.light .project-links a:hover {
+  color: #0d9488 !important;
+}
+
+/* ════════════════════════════════
+   CERTIFICATIONS SECTION
+   ════════════════════════════════ */
+
+/* Logo area background */
+:root.light .cert-logo-area {
+  background: #f0f8ff !important;
+  border: 1px solid #d0e8f8 !important;
+}
+
+/* View Certificate button */
+:root.light .cert-btn,
+:root.light [class*="view-cert"] {
+  background: transparent !important;
+  color: #0d9488 !important;
+  border: 1px solid rgba(13, 148, 136, 0.3) !important;
+}
+:root.light .cert-btn:hover {
+  background: rgba(13, 148, 136, 0.08) !important;
+}
+
+/* ════════════════════════════════
+   CONTACT SECTION
+   ════════════════════════════════ */
+
+/* Contact info icon boxes */
+:root.light .contact-icon-box {
+  background: rgba(13, 148, 136, 0.07) !important;
+  border: 0.5px solid rgba(13, 148, 136, 0.2) !important;
+  color: #0d9488 !important;
+}
+
+/* Form inputs */
+:root.light input,
+:root.light textarea {
+  background: #f5fbff !important;
+  border: 1px solid #c8daf0 !important;
+  color: #0a1628 !important;
+}
+:root.light input::placeholder,
+:root.light textarea::placeholder {
+  color: #99aabb !important;
+}
+:root.light input:focus,
+:root.light textarea:focus {
+  border-color: #0d9488 !important;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1) !important;
+  outline: none !important;
+}
+
+/* Send button */
+:root.light .send-btn,
+:root.light button[type="submit"] {
+  background: #0d9488 !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+:root.light .send-btn:hover {
+  background: #0b7a70 !important;
+  box-shadow: 0 4px 18px rgba(13, 148, 136, 0.3) !important;
+}
+
+/* ════════════════════════════════
+   FOOTER
+   ════════════════════════════════ */
+
+:root.light footer {
+  background: #ddeaf8 !important;
+  border-top: 1px solid #c8daf0 !important;
+}
+:root.light footer p,
+:root.light .copyright {
+  color: #7a9aaa !important;
+}
+:root.light footer .social-icon {
+  color: #7a9aaa !important;
+}
+:root.light footer .social-icon:hover {
+  color: #0d9488 !important;
+}
+
+/* ════════════════════════════════
+   SCROLLBAR
+   ════════════════════════════════ */
+
+:root.light ::-webkit-scrollbar-track { background: #e8f2fc !important; }
+:root.light ::-webkit-scrollbar-thumb { background: #0d9488 !important; }
+:root.light ::-webkit-scrollbar-thumb:hover { background: #0b7a70 !important; }
