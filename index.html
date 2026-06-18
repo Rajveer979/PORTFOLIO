@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script>
-      (function(){
-        var t = localStorage.getItem('rm-theme');
-        var sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-        if ((t || sys) === 'light') document.documentElement.classList.add('light');
-      })();
-    </script>
+<script>
+  (function(){
+    var t = localStorage.getItem('rm-theme');
+    var sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    if ((t || sys) === 'light') document.documentElement.classList.add('light');
+  })();
+</script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/image-removebg-preview.png" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -47,112 +47,122 @@
 </div>
 <script>
 (function () {
-  const wrapper  = document.getElementById('wa-wrapper');
-  const btn      = document.getElementById('wa-btn');
-  const tooltip  = document.getElementById('wa-tooltip');
-  const closeBtn = document.getElementById('wa-tooltip-close');
-  const iconOpen = document.getElementById('wa-icon-open');
-  const iconClose= document.getElementById('wa-icon-close');
+    const wrapper  = document.getElementById('wa-wrapper');
+    const btn      = document.getElementById('wa-btn');
+    const tooltip  = document.getElementById('wa-tooltip');
+    const closeBtn = document.getElementById('wa-tooltip-close');
+    const iconOpen = document.getElementById('wa-icon-open');
+    const iconClose= document.getElementById('wa-icon-close');
 
-  let isOpen = false;
+    let isOpen = false;
 
-  // Auto-show tooltip after 4 seconds on first visit
-  const seen = sessionStorage.getItem('wa_seen');
-  if (!seen) {
-    setTimeout(() => {
-      if (!isOpen) openTooltip();
-      sessionStorage.setItem('wa_seen', '1');
-    }, 4000);
-  }
-
-  function openTooltip() {
-    isOpen = true;
-    tooltip.classList.add('visible');
-    wrapper.classList.add('open');
-    iconOpen.style.display  = 'none';
-    iconClose.style.display = 'block';
-  }
-
-  function closeTooltip() {
-    isOpen = false;
-    tooltip.classList.remove('visible');
-    wrapper.classList.remove('open');
-    iconOpen.style.display  = 'block';
-    iconClose.style.display = 'none';
-  }
-
-   btn.addEventListener('click', () => {
-     if (!isOpen && window.gtag) {
-       window.gtag('event', 'whatsapp_start', { source: 'floating_button', type: 'whatsapp' });
-     }
-     isOpen ? closeTooltip() : openTooltip();
-   });
-
-  closeBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    closeTooltip();
-  });
-
-  // Close on outside click
-  document.addEventListener('click', (e) => {
-    if (isOpen && !wrapper.contains(e.target)) {
-      closeTooltip();
+    const seen = sessionStorage.getItem('wa_seen');
+    if (!seen) {
+      setTimeout(() => {
+        if (!isOpen) openTooltip();
+        sessionStorage.setItem('wa_seen', '1');
+      }, 4000);
     }
-  });
+
+    function openTooltip() {
+      isOpen = true;
+      tooltip.classList.add('visible');
+      wrapper.classList.add('open');
+      iconOpen.style.display  = 'none';
+      iconClose.style.display = 'block';
+    }
+
+    function closeTooltip() {
+      isOpen = false;
+      tooltip.classList.remove('visible');
+      wrapper.classList.remove('open');
+      iconOpen.style.display  = 'block';
+      iconClose.style.display = 'none';
+    }
+
+    btn.addEventListener('click', () => {
+      if (!isOpen && window.gtag) {
+        window.gtag('event', 'whatsapp_start', { source: 'floating_button', type: 'whatsapp' });
+      }
+      isOpen ? closeTooltip() : openTooltip();
+    });
+
+    closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeTooltip();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (isOpen && !wrapper.contains(e.target)) {
+        closeTooltip();
+      }
+    });
 
 })();
 </script>
-    <script>
-      (function () {
-        const STORAGE_KEY = 'rm-theme';
-        const root = document.documentElement;
+<script>
+(function () {
+    const STORAGE_KEY = 'rm-theme';
+    const root = document.documentElement;
 
-        function applyTheme(theme) {
-          if (theme === 'light') {
-            root.classList.add('light');
-          } else {
-            root.classList.remove('light');
-          }
+    function applyTheme(theme) {
+      if (theme === 'light') {
+        root.classList.add('light');
+      } else {
+        root.classList.remove('light');
+      }
 
-          const toggle = document.getElementById('theme-toggle');
-          const iconMoon = document.getElementById('icon-moon');
-          const iconSun = document.getElementById('icon-sun');
+      const toggles = ['theme-toggle', 'theme-toggle-mobile'].map(id => document.getElementById(id));
+      const iconMoons = ['icon-moon', 'icon-moon-mobile'].map(id => document.getElementById(id));
+      const iconSuns = ['icon-sun', 'icon-sun-mobile'].map(id => document.getElementById(id));
 
-          if (toggle) {
-            toggle.type = 'button';
-            toggle.title = theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
-          }
-
-          if (iconMoon) iconMoon.style.display = theme === 'dark' ? 'block' : 'none';
-          if (iconSun) iconSun.style.display = theme === 'light' ? 'block' : 'none';
-
-          if (window._updateCanvasTheme) window._updateCanvasTheme(theme);
-          localStorage.setItem(STORAGE_KEY, theme);
-        }
-
-        function initThemeToggle() {
-          const toggle = document.getElementById('theme-toggle');
-          if (!toggle || toggle.dataset.themeToggleReady === 'true') return;
-
+      toggles.forEach(toggle => {
+        if (toggle) {
           toggle.type = 'button';
-          toggle.dataset.themeToggleReady = 'true';
-          toggle.addEventListener('click', () => {
+          toggle.title = theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+        }
+      });
+
+      iconMoons.forEach(icon => { if (icon) icon.style.display = theme === 'dark' ? 'block' : 'none'; });
+      iconSuns.forEach(icon => { if (icon) icon.style.display = theme === 'light' ? 'block' : 'none'; });
+
+      if (window._updateCanvasTheme) window._updateCanvasTheme(theme);
+      localStorage.setItem(STORAGE_KEY, theme);
+    }
+
+    function initThemeToggle() {
+      const selects = '#theme-toggle, #theme-toggle-mobile';
+      const toggles = document.querySelectorAll(selects);
+      let setup = false;
+      
+      toggles.forEach(toggle => {
+        if (!toggle || toggle.dataset.themeToggleReady === 'true') return;
+        toggle.type = 'button';
+        toggle.dataset.themeToggleReady = 'true';
+        setup = true;
+      });
+      
+      if (setup) {
+        document.addEventListener('click', (e) => {
+          if (e.target.closest('#theme-toggle, #theme-toggle-mobile')) {
             const nextTheme = root.classList.contains('light') ? 'dark' : 'light';
             applyTheme(nextTheme);
-          });
-        }
+          }
+        });
+      }
+    }
 
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', initThemeToggle, { once: true });
-        } else {
-          initThemeToggle();
-        }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initThemeToggle, { once: true });
+    } else {
+      initThemeToggle();
+    }
 
-        const observer = new MutationObserver(initThemeToggle);
-        observer.observe(document.body, { childList: true, subtree: true });
+    const observer = new MutationObserver(initThemeToggle);
+    observer.observe(document.body, { childList: true, subtree: true });
 
-        applyTheme(root.classList.contains('light') ? 'light' : 'dark');
-      })();
-    </script>
+    applyTheme(root.classList.contains('light') ? 'light' : 'dark');
+  })();
+</script>
   </body>
 </html>

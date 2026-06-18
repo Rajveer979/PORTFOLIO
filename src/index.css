@@ -1304,6 +1304,25 @@ h4 {
   background: transparent !important;
 }
 
+/* Mobile theme toggle button styling */
+.theme-toggle-mobile {
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.theme-toggle-mobile svg {
+  width: 16px;
+  height: 16px;
+}
+
+.theme-toggle-mobile:hover {
+  color: var(--accent) !important;
+}
+
 /* Logo text "Rajveer" — dark in light mode */
 :root.light .nav-logo-text,
 :root.light .navbar-brand,
