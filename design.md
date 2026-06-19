@@ -197,7 +197,10 @@ src/
 - Changed `h-screen` to `min-h-screen` for proper viewport height on mobile browsers
 - Added touch handlers (`onTouchStart`, `onTouchMove`, `onTouchEnd`) for interactive grid background on touch devices
 - Responsive padding and spacing (px-4 sm:px-6, py-8 sm:py-12)
-- Responsive button sizing (px-6 sm:px-8, text-base sm:text-lg, w-full sm:w-auto)
+- Changed `z-20` to `z-[1001]` to ensure hero content is above navbar
+- Added `pointer-events-auto` to hero content wrapper
+- Changed `h-full` to `min-h-screen` for proper height on mobile
+- Added `pt-20 sm:pt-24` to push content below navbar
 
 ### Navbar Mobile Interaction Fixes (Navbar.jsx)
 **Fixed**: Buttons now work on mobile devices.

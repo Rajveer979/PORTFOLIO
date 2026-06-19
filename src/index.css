@@ -331,11 +331,27 @@ body.menu-open { overflow: hidden; }
   .nav-overlay { top: 60px; }
 }
 
+/* Hero content must be above navbar overlay */
+#hero .relative.z-\[1001\] {
+  z-index: 1100 !important;
+  position: relative;
+}
+
+/* Ensure hero buttons are clickable */
+#hero a,
+#hero button {
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
 /* Hero Mobile Overrides */
 @media (max-width: 640px) {
-  #hero .relative.z-10 {
+  #hero .relative.z-\[1001\] {
     padding-left: 16px !important;
     padding-right: 16px !important;
+    padding-top: 64px !important;
   }
   #hero .btn-primary,
   #hero .btn-ghost {
@@ -345,6 +361,7 @@ body.menu-open { overflow: hidden; }
     justify-content: center !important;
     min-width: auto !important;
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 }
 

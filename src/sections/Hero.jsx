@@ -10,13 +10,13 @@ export default function Hero() {
       id="hero"
       className="relative overflow-hidden"
     >
-<div className="relative z-10 text-center space-y-6 sm:space-y-8 max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-16">
-         <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           animate={{ opacity: 1, y: 0 }}
-           transition={{ duration: 0.8 }}
-           className="space-y-4 sm:space-y-6"
-         >
+<div className="relative z-20 text-center space-y-6 sm:space-y-8 max-w-5xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12 md:pb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-4 sm:space-y-6"
+          >
           <div className="space-y-4">
             <div className="availability-pill">
               <span className="pulse-dot"></span>

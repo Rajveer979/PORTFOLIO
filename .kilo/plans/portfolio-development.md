@@ -118,6 +118,8 @@ All social links open in a new tab with `rel="noopener noreferrer"`:
 - Hero section mobile responsiveness improved (`h-screen` → `min-h-screen`, responsive padding) ✓
 - Navbar mobile button click handling fixed (stopPropagation, tap highlights) ✓
 - Hero buttons mobile sizing and click handling fixed ✓
+- Hero section z-index increased for proper overlay stacking ✓
+- Added `pointer-events-auto` and `touch-action: manipulation` for mobile interactivity ✓
 
 ## Success Criteria
 - Fully responsive on mobile/desktop
