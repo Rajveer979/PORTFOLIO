@@ -112,9 +112,9 @@
         root.classList.remove('light');
       }
 
-      const toggles = ['theme-toggle', 'theme-toggle-mobile'].map(id => document.getElementById(id));
-      const iconMoons = ['icon-moon', 'icon-moon-mobile'].map(id => document.getElementById(id));
-      const iconSuns = ['icon-sun', 'icon-sun-mobile'].map(id => document.getElementById(id));
+const toggles = ['theme-toggle'].map(id => document.getElementById(id));
+       const iconMoons = ['icon-moon'].map(id => document.getElementById(id));
+       const iconSuns = ['icon-sun'].map(id => document.getElementById(id));
 
       toggles.forEach(toggle => {
         if (toggle) {
@@ -131,7 +131,7 @@
     }
 
     function initThemeToggle() {
-      const selects = '#theme-toggle, #theme-toggle-mobile';
+      const selects = '#theme-toggle';
       const toggles = document.querySelectorAll(selects);
       let setup = false;
       
@@ -144,7 +144,7 @@
       
       if (setup) {
         document.addEventListener('click', (e) => {
-          if (e.target.closest('#theme-toggle, #theme-toggle-mobile')) {
+          if (e.target.closest('#theme-toggle')) {
             const nextTheme = root.classList.contains('light') ? 'dark' : 'light';
             applyTheme(nextTheme);
           }
@@ -161,7 +161,117 @@
     const observer = new MutationObserver(initThemeToggle);
     observer.observe(document.body, { childList: true, subtree: true });
 
-    applyTheme(root.classList.contains('light') ? 'light' : 'dark');
+applyTheme(root.classList.contains('light') ? 'light' : 'dark');
+  })();
+</script>
+<script>
+(function () {
+    const hamburger    = document.getElementById('hamburger');
+    const mobileMenu   = document.getElementById('mobile-menu');
+    const overlay      = document.getElementById('nav-overlay');
+    const mobileLinks  = document.querySelectorAll('.mobile-link');
+    const mobileThemeBtn = document.getElementById('mobile-theme-toggle');
+    const mobileThemeLabel = document.getElementById('mobile-theme-label');
+
+    let isOpen = false;
+
+    /* ── Open / close ── */
+    function openMenu() {
+      isOpen = true;
+      hamburger.classList.add('open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      mobileMenu.classList.add('open');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      overlay.classList.add('visible');
+      document.body.classList.add('menu-open');
+      updateMobileThemeLabel();
+    }
+
+    function closeMenu() {
+      isOpen = false;
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      overlay.classList.remove('visible');
+      document.body.classList.remove('menu-open');
+    }
+
+    function toggleMenu() {
+      isOpen ? closeMenu() : openMenu();
+    }
+
+    /* ── Events ── */
+    hamburger.addEventListener('click', toggleMenu);
+
+    /* Close on overlay click */
+    overlay.addEventListener('click', closeMenu);
+
+    /* Close on any mobile nav link click, then smooth scroll */
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        closeMenu();
+        /* Let browser handle the href anchor scroll naturally */
+      });
+    });
+
+    /* Close on Escape key */
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) closeMenu();
+    });
+
+    /* Close if window resizes above breakpoint */
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1024 && isOpen) closeMenu();
+    });
+
+    /* ── Mobile theme toggle mirrors main toggle ── */
+    function updateMobileThemeLabel() {
+      const isLight = document.documentElement.classList.contains('light');
+      if (mobileThemeLabel) {
+        mobileThemeLabel.textContent = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
+      }
+    }
+
+    if (mobileThemeBtn) {
+      mobileThemeBtn.addEventListener('click', () => {
+        /* Trigger the same toggle as the desktop button */
+        const mainToggle = document.getElementById('theme-toggle');
+        if (mainToggle) mainToggle.click();
+        updateMobileThemeLabel();
+        /* Don't close menu so user can see the effect */
+      });
+    }
+
+    /* Also sync the label when theme changes */
+    const mainToggle = document.getElementById('theme-toggle');
+    if (mainToggle) {
+      mainToggle.addEventListener('click', updateMobileThemeLabel);
+    }
+
+    /* Init label on load */
+    updateMobileThemeLabel();
+
+    /* ── Sync active class to mobile links from desktop scroll-spy ── */
+    /* The existing scroll-spy sets .active on .nav-link elements.
+       Mirror that to .mobile-link elements with matching href: */
+    const observer = new MutationObserver(() => {
+      document.querySelectorAll('.nav-link').forEach(link => {
+        const href = link.getAttribute('href');
+        const mobileCounterpart = document.querySelector(`.mobile-link[href="${href}"]`);
+        if (!mobileCounterpart) return;
+        if (link.classList.contains('active')) {
+          mobileCounterpart.classList.add('active');
+        } else {
+          mobileCounterpart.classList.remove('active');
+        }
+      });
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+      observer.observe(link, { attributes: true, attributeFilter: ['class'] });
+    });
+
   })();
 </script>
   </body>

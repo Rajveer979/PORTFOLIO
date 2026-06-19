@@ -64,70 +64,444 @@
   --scrollbar-track:   #eef4fb;
 }
 
-/* ════════════════════════════════
-   NAVBAR
-   ════════════════════════════════ */
-
-:root.light nav,
-:root.light header {
-  background: rgba(255, 255, 255, 0.92) !important;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(13, 148, 136, 0.15);
-  box-shadow: 0 1px 20px rgba(10, 22, 40, 0.06);
+/* ── Nav shell ── */
+#navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: var(--bg-nav);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--nav-shadow);
 }
 
-:root.light .nav-link,
-:root.light nav a {
-  color: #4a6070;
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-:root.light .nav-link:hover,
-:root.light nav a:hover {
-  color: #0d9488;
+/* ── Logo ── */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  flex-shrink: 0;
+  z-index: 1001;
 }
 
-:root.light .nav-link.active,
-:root.light nav a.active {
-  color: #0d9488;
+/* ── Desktop nav links ── */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0; padding: 0;
 }
 
-/* Active nav dot */
-:root.light .nav-link.active::after {
-  background: #0d9488;
+.nav-link {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s;
+  position: relative;
 }
 
-/* Navbar logo */
- :root.light .nav-logo,
- :root.light .logo {
-   color: #0a1628;
- }
- 
-/* Theme toggle button */
-:root.light #theme-toggle {
-  background: #f0f8ff;
-  border-color: #c8daf0;
-  color: #4a6070;
+.nav-link:hover { color: var(--accent); }
+
+.nav-link.active {
+  color: var(--accent);
 }
 
-:root.light #theme-toggle:hover {
-  border-color: #0d9488;
-  color: #0d9488;
-  background: rgba(13, 148, 136, 0.06);
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* ── Nav actions (right side) ── */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Theme toggle */
+#theme-toggle {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 0.5px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+#theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: rotate(20deg) scale(1.08);
 }
 
 /* Resume button */
-:root.light .resume-btn,
-:root.light a[href*="resume"],
-:root.light a[href*="Resume"] {
-  border-color: #0d9488;
-  color: #0d9488;
+.resume-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
   background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.resume-btn:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+/* ── Hamburger button ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  border-radius: 8px;
+  border: 0.5px solid var(--border-color);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: border-color 0.2s;
+}
+
+.hamburger:hover { border-color: var(--accent); }
+
+.hamburger span {
+  display: block;
+  width: 18px; height: 1.5px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* Hamburger → X animation when open */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* ── Mobile menu drawer ── */
+.mobile-menu {
+  position: absolute;
+  top: 64px; left: 0; right: 0;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              padding 0.35s ease,
+              opacity 0.25s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mobile-menu.open {
+  max-height: 480px;
+  padding: 12px 0 20px;
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Mobile nav links */
+.mobile-links {
+  list-style: none;
+  margin: 0; padding: 0 16px;
+}
+
+.mobile-link {
+  display: block;
+  padding: 13px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all 0.18s;
+  margin-bottom: 2px;
+}
+
+.mobile-link:hover,
+.mobile-link.active {
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-left-color: var(--accent);
+}
+
+/* Mobile actions row */
+.mobile-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px 0;
+  border-top: 0.5px solid var(--border-color);
+  margin-top: 10px;
+}
+
+.mobile-resume-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  flex: 1;
+  justify-content: center;
+}
+
+.mobile-resume-btn:hover {
+  background: var(--accent);
+  color: var(--bg-primary);
+}
+
+.mobile-theme-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 0.5px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.mobile-theme-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Overlay ── */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 64px 0 0 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+  backdrop-filter: blur(2px);
+}
+
+.nav-overlay.visible {
+  display: block;
+}
+
+/* ── RESPONSIVE ── */
+
+/* Tablet + Mobile: show hamburger, hide desktop links */
+@media (max-width: 1024px) {
+  .nav-links {
+    display: none !important;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* Hide desktop resume + theme toggle on mobile
+     (they appear inside the mobile menu instead) */
+  .nav-actions .resume-btn {
+    display: none;
+  }
+
+  .nav-actions #theme-toggle {
+    display: none;
+  }
+}
+
+/* Keep theme toggle visible on tablet (768-1024) since there's space */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .nav-actions #theme-toggle {
+    display: flex;
+  }
+}
+
+/* Mobile only adjustments */
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 16px;
+    height: 60px;
+  }
+
+  .mobile-menu {
+    top: 60px;
+  }
+
+  .mobile-link {
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  .nav-overlay {
+    top: 60px;
+  }
+}
+
+/* Body scroll lock when menu open */
+body.menu-open {
+  overflow: hidden;
+}
+
+/* ── LIGHT MODE OVERRIDES FOR NAVBAR ── */
+:root.light #navbar {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(13, 148, 136, 0.15) !important;
+  box-shadow: 0 2px 20px rgba(10, 22, 40, 0.06) !important;
+}
+
+:root.light .nav-link,
+:root.light #navbar a {
+  color: #3a5060 !important;
+}
+
+:root.light .nav-link:hover {
+  color: #0d9488 !important;
+}
+
+:root.light .nav-link.active {
+  color: #0d9488 !important;
+}
+
+:root.light .nav-link.active::after {
+  background: #0d9488 !important;
+}
+
+:root.light #theme-toggle {
+  background: #eef6f5 !important;
+  border: 0.5px solid rgba(13, 148, 136, 0.25) !important;
+  color: #0d9488 !important;
+}
+
+:root.light #theme-toggle:hover {
+  background: rgba(13, 148, 136, 0.1) !important;
+}
+
+:root.light .resume-btn {
+  border: 1.5px solid #0d9488 !important;
+  color: #0d9488 !important;
 }
 
 :root.light .resume-btn:hover {
-  background: #0d9488;
-  color: #ffffff;
+  background: #0d9488 !important;
+  color: #ffffff !important;
+}
+
+:root.light .hamburger {
+  background: #eef6f5 !important;
+  border: 0.5px solid rgba(13, 148, 136, 0.25) !important;
+}
+
+:root.light .hamburger:hover {
+  border-color: #0d9488 !important;
+}
+
+:root.light .hamburger span {
+  background: #0a1628 !important;
+}
+
+:root.light .mobile-menu {
+  background: #f5fbff !important;
+  border-bottom: 1px solid #c8daf0 !important;
+}
+
+:root.light .mobile-link {
+  color: #4a6070 !important;
+}
+
+:root.light .mobile-link:hover,
+:root.light .mobile-link.active {
+  background: rgba(13, 148, 136, 0.07) !important;
+  color: #0d9488 !important;
+  border-left-color: #0d9488 !important;
+}
+
+:root.light .mobile-actions {
+  border-top: 0.5px solid #c8daf0 !important;
+}
+
+:root.light .mobile-resume-btn {
+  border: 1.5px solid #0d9488 !important;
+  color: #0d9488 !important;
+}
+
+:root.light .mobile-resume-btn:hover {
+  background: #0d9488 !important;
+  color: #ffffff !important;
+}
+
+:root.light .mobile-theme-btn {
+  background: #eef6f5 !important;
+  border: 0.5px solid rgba(13, 148, 136, 0.25) !important;
+  color: #0d9488 !important;
+}
+
+:root.light .mobile-theme-btn:hover {
+  border-color: #0d9488 !important;
+}
+
+:root.light .nav-overlay {
+  background: rgba(0,0,0,0.2) !important;
 }
 
 /* ════════════════════════════════
