@@ -38,7 +38,7 @@
   <div id="wa-btn" title="Chat on WhatsApp">
     <svg id="wa-icon-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="26" height="26">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.549 4.107 1.504 5.838L.057 23.535a.75.75 0 0 0 .916.932l5.898-1.543A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.523-5.184-1.432l-.37-.22-3.844 1.007 1.024-3.735-.242-.386A9.955 9.955 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.549 4.107 1.504 5.838L.057 23.535a.75.75 0 0 0 .916.932l5.898-1.543A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.891 0-3.667-.523-5.184-1.432l-.37-.22-3.844 1.007 1.024-3.735-.242-.386A9.955 9.955 0 0 0 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
     </svg>
     <svg id="wa-icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="20" height="20" style="display:none;">
       <path d="M18 6L6 18M6 6l12 12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
@@ -112,9 +112,9 @@
         root.classList.remove('light');
       }
 
-const toggles = ['theme-toggle'].map(id => document.getElementById(id));
-       const iconMoons = ['icon-moon'].map(id => document.getElementById(id));
-       const iconSuns = ['icon-sun'].map(id => document.getElementById(id));
+      const toggles = ['theme-toggle'].map(id => document.getElementById(id));
+      const iconMoons = ['icon-moon'].map(id => document.getElementById(id));
+      const iconSuns = ['icon-sun'].map(id => document.getElementById(id));
 
       toggles.forEach(toggle => {
         if (toggle) {
@@ -161,117 +161,101 @@ const toggles = ['theme-toggle'].map(id => document.getElementById(id));
     const observer = new MutationObserver(initThemeToggle);
     observer.observe(document.body, { childList: true, subtree: true });
 
-applyTheme(root.classList.contains('light') ? 'light' : 'dark');
+    applyTheme(root.classList.contains('light') ? 'light' : 'dark');
   })();
 </script>
 <script>
 (function () {
-    const hamburger    = document.getElementById('hamburger');
-    const mobileMenu   = document.getElementById('mobile-menu');
-    const overlay      = document.getElementById('nav-overlay');
-    const mobileLinks  = document.querySelectorAll('.mobile-link');
-    const mobileThemeBtn = document.getElementById('mobile-theme-toggle');
-    const mobileThemeLabel = document.getElementById('mobile-theme-label');
-
+    let hamburger, mobileMenu, overlay, mobileLinks, mobileThemeBtn, mobileThemeLabel;
     let isOpen = false;
+    let initialized = false;
 
-    /* ── Open / close ── */
-    function openMenu() {
-      isOpen = true;
-      hamburger.classList.add('open');
-      hamburger.setAttribute('aria-expanded', 'true');
-      mobileMenu.classList.add('open');
-      mobileMenu.setAttribute('aria-hidden', 'false');
-      overlay.classList.add('visible');
-      document.body.classList.add('menu-open');
-      updateMobileThemeLabel();
-    }
+    function initMobileMenu() {
+      hamburger   = document.getElementById('hamburger');
+      mobileMenu  = document.getElementById('mobile-menu');
+      overlay     = document.getElementById('nav-overlay');
+      mobileLinks = document.querySelectorAll('.mobile-link');
+      mobileThemeBtn    = document.getElementById('mobile-theme-toggle');
+      mobileThemeLabel  = document.getElementById('mobile-theme-label');
 
-    function closeMenu() {
-      isOpen = false;
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      mobileMenu.classList.remove('open');
-      mobileMenu.setAttribute('aria-hidden', 'true');
-      overlay.classList.remove('visible');
-      document.body.classList.remove('menu-open');
-    }
+      if (!hamburger || !mobileMenu || !overlay) return false;
+      if (initialized) return true;
+      initialized = true;
 
-    function toggleMenu() {
-      isOpen ? closeMenu() : openMenu();
-    }
-
-    /* ── Events ── */
-    hamburger.addEventListener('click', toggleMenu);
-
-    /* Close on overlay click */
-    overlay.addEventListener('click', closeMenu);
-
-    /* Close on any mobile nav link click, then smooth scroll */
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        closeMenu();
-        /* Let browser handle the href anchor scroll naturally */
-      });
-    });
-
-    /* Close on Escape key */
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isOpen) closeMenu();
-    });
-
-    /* Close if window resizes above breakpoint */
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 1024 && isOpen) closeMenu();
-    });
-
-    /* ── Mobile theme toggle mirrors main toggle ── */
-    function updateMobileThemeLabel() {
-      const isLight = document.documentElement.classList.contains('light');
-      if (mobileThemeLabel) {
-        mobileThemeLabel.textContent = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
-      }
-    }
-
-    if (mobileThemeBtn) {
-      mobileThemeBtn.addEventListener('click', () => {
-        /* Trigger the same toggle as the desktop button */
-        const mainToggle = document.getElementById('theme-toggle');
-        if (mainToggle) mainToggle.click();
+      function openMenu() {
+        isOpen = true;
+        hamburger.classList.add('open');
+        hamburger.setAttribute('aria-expanded', 'true');
+        mobileMenu.classList.add('open');
+        mobileMenu.setAttribute('aria-hidden', 'false');
+        overlay.classList.add('visible');
+        document.body.classList.add('menu-open');
         updateMobileThemeLabel();
-        /* Don't close menu so user can see the effect */
+      }
+
+      function closeMenu() {
+        isOpen = false;
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        overlay.classList.remove('visible');
+        document.body.classList.remove('menu-open');
+      }
+
+      hamburger.addEventListener('click', () => { isOpen ? closeMenu() : openMenu(); });
+      overlay.addEventListener('click', closeMenu);
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', closeMenu);
       });
-    }
 
-    /* Also sync the label when theme changes */
-    const mainToggle = document.getElementById('theme-toggle');
-    if (mainToggle) {
-      mainToggle.addEventListener('click', updateMobileThemeLabel);
-    }
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen) closeMenu();
+      });
 
-    /* Init label on load */
-    updateMobileThemeLabel();
+      window.addEventListener('resize', () => {
+        if (window.innerWidth > 1024 && isOpen) closeMenu();
+      });
 
-    /* ── Sync active class to mobile links from desktop scroll-spy ── */
-    /* The existing scroll-spy sets .active on .nav-link elements.
-       Mirror that to .mobile-link elements with matching href: */
-    const observer = new MutationObserver(() => {
-      document.querySelectorAll('.nav-link').forEach(link => {
-        const href = link.getAttribute('href');
-        const mobileCounterpart = document.querySelector(`.mobile-link[href="${href}"]`);
-        if (!mobileCounterpart) return;
-        if (link.classList.contains('active')) {
-          mobileCounterpart.classList.add('active');
-        } else {
-          mobileCounterpart.classList.remove('active');
+      function updateMobileThemeLabel() {
+        const isLight = document.documentElement.classList.contains('light');
+        if (mobileThemeLabel) {
+          mobileThemeLabel.textContent = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
         }
-      });
-    });
+      }
 
-    document.querySelectorAll('.nav-link').forEach(link => {
-      observer.observe(link, { attributes: true, attributeFilter: ['class'] });
-    });
+      if (mobileThemeBtn) {
+        mobileThemeBtn.addEventListener('click', () => {
+          const mainToggle = document.getElementById('theme-toggle');
+          if (mainToggle) mainToggle.click();
+          updateMobileThemeLabel();
+        });
+      }
 
+      const mainToggle = document.getElementById('theme-toggle');
+      if (mainToggle) {
+        mainToggle.addEventListener('click', updateMobileThemeLabel);
+      }
+
+      updateMobileThemeLabel();
+      return true;
+    }
+
+    // Wait for React to render the navbar
+    const observer = new MutationObserver(() => {
+      if (initMobileMenu()) {
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Also try on DOM ready
+    setTimeout(() => {
+      if (initMobileMenu()) {
+        observer.disconnect();
+      }
+    }, 100);
   })();
 </script>
   </body>

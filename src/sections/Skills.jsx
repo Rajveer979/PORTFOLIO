@@ -87,7 +87,7 @@ export default function Skills() {
                         transition={{ duration: 0.35, delay: index * 0.04 }}
                         viewport={{ once: true }}
                         whileHover={{ y: -2, scale: 1.03, borderColor: 'var(--accent)', boxShadow: '0 0 10px var(--accent-glow)', transition: { duration: 0.28, ease: "easeOut" } }}
-                        className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-[var(--text-secondary)] transition-all duration-180 skill-chip"
+                        className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-[var(--text-secondary)] transition-all skill-chip"
                       >
                         {SkillIcon ? (
                           <SkillIcon className="text-xl text-[var(--accent)]" />
