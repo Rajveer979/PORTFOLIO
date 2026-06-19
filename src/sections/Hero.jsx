@@ -10,8 +10,8 @@ export default function Hero() {
       id="hero"
       className="relative overflow-hidden"
     >
-<div className="relative z-20 text-center space-y-6 sm:space-y-8 max-w-5xl mx-auto px-4 sm:px-6 pt-20 sm:pt-24 pb-8 sm:pb-12 md:pb-16">
-          <motion.div
+      <div className="relative z-20 text-center space-y-6 sm:space-y-8 max-w-5xl mx-auto px-4 sm:px-6 pb-8 sm:pb-12 md:pb-16">
+        <motion.div
             initial={{ opacity: 0, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}

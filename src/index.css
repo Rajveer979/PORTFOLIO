@@ -233,8 +233,8 @@ h1, h2, h3, h4 { color: var(--text-primary); }
 .contact-icon-container { background: var(--accent-dim); border: 0.5px solid var(--accent-border); border-radius: 6px; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; }
 
 /* ══════════════════════════════════════════════════════════
-   NAVBAR
-   ══════════════════════════════════════════════════════════ */
+    NAVBAR
+    ══════════════════════════════════════════════════════════ */
 
 #navbar {
   position: fixed;
@@ -245,6 +245,18 @@ h1, h2, h3, h4 { color: var(--text-primary); }
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-color);
   box-shadow: var(--nav-shadow);
+}
+
+/* Ensure hero section has space below navbar */
+#hero {
+  padding-top: 64px;
+}
+
+/* Mobile: more space for navbar */
+@media (max-width: 480px) {
+  #hero {
+    padding-top: 60px;
+  }
 }
 
 .nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
@@ -348,9 +360,7 @@ body.menu-open { overflow: hidden; }
 
 /* Hero Mobile Overrides */
 @media (max-width: 640px) {
-  #hero .relative.z-\[1001\] {
-    padding-left: 16px !important;
-    padding-right: 16px !important;
+  #hero > div > div:first-child {
     padding-top: 64px !important;
   }
   #hero .btn-primary,
