@@ -1,7 +1,9 @@
-﻿import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaFileDownload } from 'react-icons/fa';
+import { FaSun, FaMoon } from 'react-icons/fa';
 import { trackEvent } from '../analytics/ga4';
+import { useTheme } from '../context/ThemeContext';
 
 const navItems = [
   { name: 'About', href: '#about' },
@@ -12,22 +14,23 @@ const navItems = [
 ];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
-  const [scrolled, setScrolled] = useState(false);
 
-  const handleNavClick = (section) => {
-    setIsOpen(false);
+  const closeMobileMenu = useCallback(() => setIsMobileMenuOpen(false), []);
+
+  const handleNavClick = useCallback((section) => {
+    closeMobileMenu();
     trackEvent('nav_click', { section });
-  };
+  }, [closeMobileMenu]);
 
+  // Scroll spy
   useEffect(() => {
     const handleScroll = () => {
       const sections = navItems.map(item => item.href.substring(1));
       const scrollY = window.scrollY;
-      
-      setScrolled(scrollY > 50);
-      
+
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = document.getElementById(sections[i]);
         if (section && section.offsetTop - 100 <= scrollY) {
@@ -37,11 +40,40 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close on Escape key
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') closeMobileMenu();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isMobileMenuOpen, closeMobileMenu]);
+
+  // Close on resize to desktop
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const handleResize = () => {
+      if (window.innerWidth > 1024) closeMobileMenu();
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobileMenuOpen, closeMobileMenu]);
+
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add('menu-open');
+    } else {
+      document.body.classList.remove('menu-open');
+    }
+    return () => document.body.classList.remove('menu-open');
+  }, [isMobileMenuOpen]);
 
   return (
     <motion.nav
@@ -51,14 +83,13 @@ export default function Navbar() {
       transition={{ duration: 0.5 }}
     >
       <div className="nav-container">
-
         {/* Left: Logo */}
         <a href="#" className="nav-logo">
           <img src="/image-removebg-preview.png" alt="Rajveer Mahadevwala logo" className="h-14 w-auto max-w-[160px] object-contain navbar-logo-image" />
         </a>
 
-        {/* Center: Desktop links (hidden on tablet/mobile) */}
-        <ul className="nav-links" id="nav-links">
+        {/* Center: Desktop links */}
+        <ul className="nav-links">
           {navItems.map((item) => (
             <li key={item.name}>
               <a
@@ -74,24 +105,38 @@ export default function Navbar() {
 
         {/* Right: Actions */}
         <div className="nav-actions">
-          <button id="theme-toggle" aria-label="Toggle theme">
-            {/* Moon icon (shown in dark mode) */}
-            <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-            </svg>
-            {/* Sun icon (shown in light mode) */}
-            <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'none' }}>
-              <circle cx="12" cy="12" r="5"/>
-              <line x1="12" y1="1" x2="12" y2="3"/>
-              <line x1="12" y1="21" x2="12" y2="23"/>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-              <line x1="1" y1="12" x2="3" y2="12"/>
-              <line x1="21" y1="12" x2="23" y2="12"/>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-            </svg>
+          <button
+            onClick={toggleTheme}
+            className="theme-toggle-btn"
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          >
+            <AnimatePresence mode="wait">
+              {theme === 'dark' ? (
+                <motion.span
+                  key="moon"
+                  initial={{ opacity: 0, rotate: -90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.2 }}
+                  className="theme-toggle-icon"
+                >
+                  <FaMoon size={14} />
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="sun"
+                  initial={{ opacity: 0, rotate: 90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: -90 }}
+                  transition={{ duration: 0.2 }}
+                  className="theme-toggle-icon"
+                >
+                  <FaSun size={14} />
+                </motion.span>
+              )}
+            </AnimatePresence>
           </button>
+
           <a
             href="/Resume1.pdf"
             download
@@ -101,18 +146,23 @@ export default function Navbar() {
             <FaFileDownload className="w-4 h-4" />
             <span>Resume</span>
           </a>
-          {/* Hamburger — only visible ≤1024px */}
-          <button className="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
+
+          {/* Hamburger */}
+          <button
+            className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`}
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
+          >
+            <span />
+            <span />
+            <span />
           </button>
         </div>
-
       </div>
 
-      {/* Mobile drawer — slides in from top ≤1024px */}
-      <div className="mobile-menu" id="mobile-menu" aria-hidden="true">
+      {/* Mobile drawer */}
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`} aria-hidden={!isMobileMenuOpen}>
         <ul className="mobile-links">
           {navItems.map((item) => (
             <li key={item.name}>
@@ -130,21 +180,26 @@ export default function Navbar() {
           <a
             href="/Resume1.pdf"
             download
-            onClick={() => trackEvent('resume_download', { source: 'navbar', file: 'Resume1.pdf' })}
+            onClick={() => trackEvent('resume_download', { source: 'mobile_menu', file: 'Resume1.pdf' })}
             className="mobile-resume-btn"
           >
             <FaFileDownload className="w-4 h-4" />
             <span>Resume</span>
           </a>
-          <button className="mobile-theme-btn" id="mobile-theme-toggle">
-            <span id="mobile-theme-label">Toggle Theme</span>
+          <button
+            className="mobile-theme-btn"
+            onClick={toggleTheme}
+          >
+            {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
           </button>
         </div>
       </div>
 
       {/* Overlay behind mobile menu */}
-      <div className="nav-overlay" id="nav-overlay"></div>
-
+      <div
+        className={`nav-overlay ${isMobileMenuOpen ? 'visible' : ''}`}
+        onClick={closeMobileMenu}
+      />
     </motion.nav>
   );
 }

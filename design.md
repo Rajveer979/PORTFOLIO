@@ -182,3 +182,12 @@ src/
 - Scroll-spy active state highlights current section
 - Social links use the X logo instead of Twitter
 - Social links open in a new tab with `rel="noopener noreferrer"`
+
+---
+
+## Completed Fixes
+
+### Resume Button Hover Effect (index.css)
+**Fixed**: Light mode hover now displays white text on teal background instead of dark text on dark background.
+- Changed `color: var(--bg-primary)` to `color: #ffffff` in all `.resume-btn:hover` and `.mobile-resume-btn:hover` rules
+- Added `box-shadow: 0 0 14px var(--accent-glow)` for better visual feedback

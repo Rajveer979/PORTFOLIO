@@ -1,6 +1,7 @@
-﻿import Navbar from './components/Navbar';
+import Navbar from './components/Navbar';
 import Cursor from './components/Cursor';
 import Footer from './components/Footer';
+import { ThemeProvider } from './context/ThemeContext';
 import Hero from './sections/Hero';
 import About from './sections/About';
 import Skills from './sections/Skills';
@@ -49,7 +50,6 @@ function App() {
 
     sectionIds.forEach(sectionId => {
       const element = document.getElementById(sectionId);
-
       if (element) {
         observer.observe(element);
       }
@@ -77,17 +77,19 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[var(--bg-primary)]">
-      <Cursor />
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Certifications />
-      <Contact />
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div className="min-h-screen bg-[var(--bg-primary)]">
+        <Cursor />
+        <Navbar />
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Certifications />
+        <Contact />
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 }
 

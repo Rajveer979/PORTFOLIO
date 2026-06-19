@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-<script>
-  (function(){
-    var t = localStorage.getItem('rm-theme');
-    var sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    if ((t || sys) === 'light') document.documentElement.classList.add('light');
-  })();
-</script>
+    <!-- Inline script: apply saved theme BEFORE paint to avoid flash -->
+    <script>
+      (function(){
+        var t = localStorage.getItem('rm-theme');
+        var sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        if ((t || sys) === 'light') document.documentElement.classList.add('light');
+      })();
+    </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/image-removebg-preview.png" />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -17,7 +18,7 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <!-- WhatsApp Floating Button -->
+    <!-- WhatsApp Floating Button (restored original) -->
 <div id="wa-wrapper">
   <div id="wa-tooltip">
     <span id="wa-tooltip-close">✕</span>
@@ -99,164 +100,6 @@
     });
 
 })();
-</script>
-<script>
-(function () {
-    const STORAGE_KEY = 'rm-theme';
-    const root = document.documentElement;
-
-    function applyTheme(theme) {
-      if (theme === 'light') {
-        root.classList.add('light');
-      } else {
-        root.classList.remove('light');
-      }
-
-      const toggles = ['theme-toggle'].map(id => document.getElementById(id));
-      const iconMoons = ['icon-moon'].map(id => document.getElementById(id));
-      const iconSuns = ['icon-sun'].map(id => document.getElementById(id));
-
-      toggles.forEach(toggle => {
-        if (toggle) {
-          toggle.type = 'button';
-          toggle.title = theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
-        }
-      });
-
-      iconMoons.forEach(icon => { if (icon) icon.style.display = theme === 'dark' ? 'block' : 'none'; });
-      iconSuns.forEach(icon => { if (icon) icon.style.display = theme === 'light' ? 'block' : 'none'; });
-
-      if (window._updateCanvasTheme) window._updateCanvasTheme(theme);
-      localStorage.setItem(STORAGE_KEY, theme);
-    }
-
-    function initThemeToggle() {
-      const selects = '#theme-toggle';
-      const toggles = document.querySelectorAll(selects);
-      let setup = false;
-      
-      toggles.forEach(toggle => {
-        if (!toggle || toggle.dataset.themeToggleReady === 'true') return;
-        toggle.type = 'button';
-        toggle.dataset.themeToggleReady = 'true';
-        setup = true;
-      });
-      
-      if (setup) {
-        document.addEventListener('click', (e) => {
-          if (e.target.closest('#theme-toggle')) {
-            const nextTheme = root.classList.contains('light') ? 'dark' : 'light';
-            applyTheme(nextTheme);
-          }
-        });
-      }
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initThemeToggle, { once: true });
-    } else {
-      initThemeToggle();
-    }
-
-    const observer = new MutationObserver(initThemeToggle);
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    applyTheme(root.classList.contains('light') ? 'light' : 'dark');
-  })();
-</script>
-<script>
-(function () {
-    let hamburger, mobileMenu, overlay, mobileLinks, mobileThemeBtn, mobileThemeLabel;
-    let isOpen = false;
-    let initialized = false;
-
-    function initMobileMenu() {
-      hamburger   = document.getElementById('hamburger');
-      mobileMenu  = document.getElementById('mobile-menu');
-      overlay     = document.getElementById('nav-overlay');
-      mobileLinks = document.querySelectorAll('.mobile-link');
-      mobileThemeBtn    = document.getElementById('mobile-theme-toggle');
-      mobileThemeLabel  = document.getElementById('mobile-theme-label');
-
-      if (!hamburger || !mobileMenu || !overlay) return false;
-      if (initialized) return true;
-      initialized = true;
-
-      function openMenu() {
-        isOpen = true;
-        hamburger.classList.add('open');
-        hamburger.setAttribute('aria-expanded', 'true');
-        mobileMenu.classList.add('open');
-        mobileMenu.setAttribute('aria-hidden', 'false');
-        overlay.classList.add('visible');
-        document.body.classList.add('menu-open');
-        updateMobileThemeLabel();
-      }
-
-      function closeMenu() {
-        isOpen = false;
-        hamburger.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        mobileMenu.classList.remove('open');
-        mobileMenu.setAttribute('aria-hidden', 'true');
-        overlay.classList.remove('visible');
-        document.body.classList.remove('menu-open');
-      }
-
-      hamburger.addEventListener('click', () => { isOpen ? closeMenu() : openMenu(); });
-      overlay.addEventListener('click', closeMenu);
-
-      mobileLinks.forEach(link => {
-        link.addEventListener('click', closeMenu);
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && isOpen) closeMenu();
-      });
-
-      window.addEventListener('resize', () => {
-        if (window.innerWidth > 1024 && isOpen) closeMenu();
-      });
-
-      function updateMobileThemeLabel() {
-        const isLight = document.documentElement.classList.contains('light');
-        if (mobileThemeLabel) {
-          mobileThemeLabel.textContent = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
-        }
-      }
-
-      if (mobileThemeBtn) {
-        mobileThemeBtn.addEventListener('click', () => {
-          const mainToggle = document.getElementById('theme-toggle');
-          if (mainToggle) mainToggle.click();
-          updateMobileThemeLabel();
-        });
-      }
-
-      const mainToggle = document.getElementById('theme-toggle');
-      if (mainToggle) {
-        mainToggle.addEventListener('click', updateMobileThemeLabel);
-      }
-
-      updateMobileThemeLabel();
-      return true;
-    }
-
-    // Wait for React to render the navbar
-    const observer = new MutationObserver(() => {
-      if (initMobileMenu()) {
-        observer.disconnect();
-      }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Also try on DOM ready
-    setTimeout(() => {
-      if (initMobileMenu()) {
-        observer.disconnect();
-      }
-    }, 100);
-  })();
 </script>
   </body>
 </html>
