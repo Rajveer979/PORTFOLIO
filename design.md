@@ -191,3 +191,10 @@ src/
 **Fixed**: Light mode hover now displays white text on teal background instead of dark text on dark background.
 - Changed `color: var(--bg-primary)` to `color: #ffffff` in all `.resume-btn:hover` and `.mobile-resume-btn:hover` rules
 - Added `box-shadow: 0 0 14px var(--accent-glow)` for better visual feedback
+
+### Hero Section Mobile Responsiveness (Hero.jsx, globe-hero.tsx)
+**Fixed**: Hero section now properly adapts to mobile screens.
+- Changed `h-screen` to `min-h-screen` for proper viewport height on mobile
+- Added touch handlers (`onTouchStart`, `onTouchMove`, `onTouchEnd`) for interactive grid background on touch devices
+- Responsive padding and spacing (px-4 sm:px-6, py-8 sm:py-12)
+- Responsive button sizing (px-6 sm:px-8, text-base sm:text-lg)

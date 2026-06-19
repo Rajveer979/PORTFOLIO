@@ -105,11 +105,11 @@ export default function Navbar() {
 
         {/* Right: Actions */}
         <div className="nav-actions">
-          <button
-            onClick={toggleTheme}
-            className="theme-toggle-btn"
-            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          >
+<button
+             onClick={toggleTheme}
+             className="theme-toggle-btn"
+             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+           >
             <AnimatePresence mode="wait">
               {theme === 'dark' ? (
                 <motion.span

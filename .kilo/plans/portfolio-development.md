@@ -109,12 +109,14 @@ All social links open in a new tab with `rel="noopener noreferrer"`:
 - Replace placeholder project links with real project/demo URLs
 - Implement real contact form submission
 - Clean up unused certificate files in `public/certificates/`
-- Fix hero section mobile responsiveness (`h-screen` → `min-h-screen`, responsive padding)
+- Add mobile touch event handling for hero section interactive background
 
 ## Completed (Noted in design.md)
 - Resume download button connected to `public/Resume1.pdf` ✓
 - Vercel Analytics and Google Analytics 4 implemented ✓
 - Deployed to Vercel (vercel.json configured) ✓
+- Resume button hover effect fixed for light mode ✓
+- Hero section mobile responsiveness improved ✓
 
 ## Success Criteria
 - Fully responsive on mobile/desktop

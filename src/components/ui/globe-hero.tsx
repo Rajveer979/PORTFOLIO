@@ -224,19 +224,35 @@ const DotGlobeHero = React.forwardRef<
   }, []);
 
   return (
-    <div
-      ref={(node) => {
-        wrapperRef.current = node;
-        if (typeof ref === "function") ref(node);
-        else if (ref) ref.current = node;
-      }}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className={cn(
-        "relative w-full h-screen bg-[var(--bg-primary)] overflow-hidden isolation-isolate",
-        className
-      )}
+<div
+       ref={(node) => {
+         wrapperRef.current = node;
+         if (typeof ref === "function") ref(node);
+         else if (ref) ref.current = node;
+       }}
+       onMouseMove={handleMouseMove}
+       onMouseEnter={handleMouseEnter}
+       onMouseLeave={handleMouseLeave}
+       onTouchStart={(e) => {
+         const touch = e.touches[0];
+         if (!touch) return;
+         const rect = wrapperRef.current?.getBoundingClientRect();
+         if (!rect) return;
+         handleMouseEnter();
+         handleMouseMove({ currentTarget: wrapperRef.current, clientX: touch.clientX, clientY: touch.clientY } as any);
+       }}
+       onTouchMove={(e) => {
+         const touch = e.touches[0];
+         if (!touch) return;
+         const rect = wrapperRef.current?.getBoundingClientRect();
+         if (!rect) return;
+         handleMouseMove({ currentTarget: wrapperRef.current, clientX: touch.clientX, clientY: touch.clientY } as any);
+       }}
+       onTouchEnd={handleMouseLeave}
+       className={cn(
+         "relative w-full min-h-screen bg-[var(--bg-primary)] overflow-hidden isolation-isolate",
+         className
+       )}
       style={{
         "--mx": "50%",
         "--my": "50%",
@@ -246,10 +262,10 @@ const DotGlobeHero = React.forwardRef<
       {...props}
     >
       <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none" />
-      <div className="absolute inset-0 z-0 bg-gradient-to-t from-[var(--bg-primary)]/70 via-[var(--bg-primary)]/15 to-transparent" />
-      <div className="absolute top-1/4 left-1/4 z-0 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 z-0 w-64 h-64 bg-[var(--accent)]/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,var(--accent-dim),transparent_35%)] opacity-70" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-t from-[var(--bg-primary)]/70 via-[var(--bg-primary)]/15 to-transparent" />
+      <div className="pointer-events-none absolute top-1/4 left-1/4 z-0 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" />
+      <div className="pointer-events-none absolute bottom-1/4 right-1/4 z-0 w-64 h-64 bg-[var(--accent)]/10 rounded-full blur-3xl animate-pulse" />
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,var(--accent-dim),transparent_35%)] opacity-70" />
       <div
         className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300"
         style={{
@@ -257,7 +273,7 @@ const DotGlobeHero = React.forwardRef<
           background: "radial-gradient(650px circle at var(--mx) var(--my), var(--accent-glow), transparent 42%)",
         }}
       />
-      <div className="relative z-20 flex flex-col items-center justify-center h-full px-6" style={contentStyle}>
+      <div className="relative z-20 flex flex-col items-center justify-center h-full px-5 sm:px-6" style={contentStyle}>
         {children}
       </div>
     </div>

@@ -10,13 +10,13 @@ export default function Hero() {
       id="hero"
       className="relative overflow-hidden"
     >
-      <div className="relative z-10 text-center space-y-12 max-w-5xl mx-auto px-5 sm:px-8 py-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-8"
-        >
+<div className="relative z-10 text-center space-y-6 sm:space-y-8 max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12 md:py-16">
+         <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.8 }}
+           className="space-y-4 sm:space-y-6"
+         >
           <div className="space-y-4">
             <div className="availability-pill">
               <span className="pulse-dot"></span>
@@ -55,7 +55,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.55 }}
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-4"
+          className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center pt-4 w-full max-w-md sm:max-w-none mx-auto"
         >
           <motion.a
             href="#projects"
@@ -66,10 +66,10 @@ export default function Hero() {
               y: -2
             }}
             whileTap={{ scale: 0.98 }}
-            className="btn-primary group relative inline-flex items-center gap-3 px-8 py-4 bg-[var(--accent)] text-black font-bold rounded-xl text-lg shadow-[var(--card-shadow)] transition-all duration-300 overflow-hidden border border-[var(--accent)]/60"
+            className="btn-primary group relative inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[var(--accent)] text-black font-bold rounded-xl text-base sm:text-lg shadow-[var(--card-shadow)] transition-all duration-300 overflow-hidden border border-[var(--accent)]/60"
           >
             <span className="relative z-10 tracking-wide text-black">View My Work</span>
-            <ArrowRight className="relative z-10 w-5 h-5 text-black group-hover:translate-x-2 transition-transform duration-300" />
+            <ArrowRight className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 text-black group-hover:translate-x-2 transition-transform duration-300" />
           </motion.a>
           
           <motion.a
@@ -80,9 +80,9 @@ export default function Hero() {
               y: -2
             }}
             whileTap={{ scale: 0.98 }}
-            className="btn-ghost group relative inline-flex items-center gap-3 px-8 py-4 border border-[var(--border-hover)] rounded-xl font-semibold text-lg transition-all duration-300 backdrop-blur-xl bg-transparent text-[var(--accent)] hover:bg-[var(--accent-dim)] overflow-hidden"
+            className="btn-ghost group relative inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 border border-[var(--border-hover)] rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 backdrop-blur-xl bg-transparent text-[var(--accent)] hover:bg-[var(--accent-dim)] overflow-hidden"
           >
-            <Zap className="relative z-10 w-5 h-5 text-[var(--accent)] group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" />
+            <Zap className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 text-[var(--accent)] group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" />
             <span className="relative z-10 tracking-wide">Contact Me</span>
           </motion.a>
         </motion.div>

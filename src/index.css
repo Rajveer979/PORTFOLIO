@@ -256,7 +256,7 @@ h1, h2, h3, h4 { color: var(--text-primary); }
 .nav-link.active { color: var(--accent); }
 .nav-link.active::after { content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
 
-.nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; position: relative; z-index: 1002; }
 
 .theme-toggle-btn {
   width: 38px; height: 38px; border-radius: 50%;
@@ -287,20 +287,23 @@ h1, h2, h3, h4 { color: var(--text-primary); }
 .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
 /* Mobile menu */
-.mobile-menu { position: absolute; top: 64px; left: 0; right: 0; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); box-shadow: 0 8px 32px rgba(0,0,0,0.2); padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease, opacity 0.25s ease; opacity: 0; pointer-events: none; }
+.mobile-menu { position: absolute; top: 64px; left: 0; right: 0; z-index: 1001; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); box-shadow: 0 8px 32px rgba(0,0,0,0.2); padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease, opacity 0.25s ease; opacity: 0; pointer-events: none; -webkit-transform: translateZ(0); transform: translateZ(0); }
 .mobile-menu.open { max-height: 480px; padding: 12px 0 20px; opacity: 1; pointer-events: all; }
 
 .mobile-links { list-style: none; margin: 0; padding: 0 16px; }
-.mobile-link { display: block; padding: 13px 16px; border-radius: 8px; font-size: 15px; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 2px solid transparent; transition: all 0.18s; margin-bottom: 2px; }
+.mobile-link { display: block; padding: 13px 16px; border-radius: 8px; font-size: 15px; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 2px solid transparent; transition: all 0.18s; margin-bottom: 2px; -webkit-tap-highlight-color: transparent; }
 .mobile-link:hover, .mobile-link.active { background: var(--accent-dim); color: var(--accent); border-left-color: var(--accent); }
+.mobile-link:active { background: var(--accent); color: #fff; border-left-color: var(--accent); }
 
-.mobile-actions { display: flex; align-items: center; gap: 10px; padding: 12px 24px 0; border-top: 0.5px solid var(--border-color); margin-top: 10px; }
-.mobile-resume-btn { display: flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 8px; border: 1px solid var(--accent); color: var(--accent); background: transparent; font-size: 13px; font-weight: 600; text-decoration: none; transition: all 0.2s; flex: 1; justify-content: center; }
+.mobile-actions { display: flex; flex-direction: column; gap: 8px; padding: 16px; border-top: 0.5px solid var(--border-color); margin-top: 10px; }
+.mobile-resume-btn { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 20px; border-radius: 8px; border: 1px solid var(--accent); color: var(--accent); background: transparent; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.2s; width: 100%; -webkit-tap-highlight-color: transparent; }
 .mobile-resume-btn:hover { background: var(--accent); color: #ffffff; box-shadow: 0 0 14px var(--accent-glow); }
-.mobile-theme-btn { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 8px; border: 0.5px solid var(--border-color); background: var(--bg-secondary); color: var(--text-secondary); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-family: inherit; }
+.mobile-resume-btn:active { background: var(--accent); color: #ffffff; }
+.mobile-theme-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; border-radius: 8px; border: 0.5px solid var(--border-color); background: var(--bg-secondary); color: var(--text-secondary); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; width: 100%; -webkit-tap-highlight-color: transparent; font-family: inherit; }
 .mobile-theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+.mobile-theme-btn:active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 
-.nav-overlay { display: none; position: fixed; inset: 64px 0 0 0; background: rgba(0,0,0,0.4); z-index: 999; }
+.nav-overlay { display: none; position: fixed; inset: 64px 0 0 0; background: rgba(0,0,0,0.4); z-index: 998; }
 .nav-overlay.visible { display: block; }
 body.menu-open { overflow: hidden; }
 
@@ -328,21 +331,28 @@ body.menu-open { overflow: hidden; }
   .nav-overlay { top: 60px; }
 }
 
-/* ══════════════════════════════════════════════════════════
-   Hero Mobile Overrides
-   ══════════════════════════════════════════════════════════ */
-
+/* Hero Mobile Overrides */
 @media (max-width: 640px) {
   #hero .relative.z-10 {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
   #hero .btn-primary,
   #hero .btn-ghost {
-    padding: 14px 28px !important;
-    font-size: 15px !important;
+    padding: 12px 20px !important;
+    font-size: 14px !important;
     width: 100% !important;
     justify-content: center !important;
+    min-width: auto !important;
+  }
+}
+
+/* Larger mobile buttons for better tap targets */
+@media (max-width: 640px) {
+  .mobile-resume-btn,
+  .mobile-theme-btn {
+    min-height: 44px !important;
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
