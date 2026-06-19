@@ -10,7 +10,7 @@ export default function Hero() {
       id="hero"
       className="relative overflow-hidden"
     >
-      <div className="relative z-10 text-center space-y-12 max-w-5xl mx-auto px-6 py-12">
+      <div className="relative z-10 text-center space-y-12 max-w-5xl mx-auto px-5 sm:px-8 py-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -29,7 +29,7 @@ export default function Hero() {
               transition={{ duration: 1, delay: 0.3 }}
               className="font-bold tracking-tighter select-none"
             >
-              <span className="block font-medium text-white mb-3 whitespace-nowrap text-[clamp(1.5rem,2.8vw,1.9rem)] tracking-wider uppercase hero-name">
+              <span className="block font-medium text-white mb-3 md:whitespace-nowrap text-[1.3rem] sm:text-[clamp(1.5rem,2.8vw,1.9rem)] tracking-wider uppercase hero-name">
                 Rajveer Mahadevwala
               </span>
               <span className="block text-[clamp(2.4rem,5vw,3.6rem)] font-bold text-[var(--text-primary)] relative">
