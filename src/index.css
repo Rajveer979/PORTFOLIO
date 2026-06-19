@@ -184,7 +184,8 @@
 
 .resume-btn:hover {
   background: var(--accent);
-  color: var(--bg-primary);
+  color: #ffffff;
+  box-shadow: 0 0 14px var(--accent-glow);
 }
 
 /* ── Hamburger button ── */
@@ -305,9 +306,10 @@
 }
 
 .mobile-resume-btn:hover {
-  background: var(--accent);
-  color: var(--bg-primary);
-}
+   background: var(--accent);
+   color: #ffffff;
+   box-shadow: 0 0 14px var(--accent-glow);
+ }
 
 .mobile-theme-btn {
   display: flex;
@@ -1343,13 +1345,13 @@ html {
 
 :root.light .resume-btn:hover {
   background: var(--accent);
-  color: var(--bg-primary);
+  color: #ffffff;
 }
 
 :root.light #wa-btn,
 :root.light #wa-wrapper {
-  filter: none;
-}
+   filter: none;
+ }
 
 :root.light ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
 :root.light ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); }
@@ -1405,14 +1407,10 @@ h4 {
   background: var(--accent-dim);
 }
 
-.resume-btn {
-  border-color: var(--accent-border);
-  color: var(--accent);
-}
-
 .resume-btn:hover {
-  background: var(--accent-dim);
-  border-color: var(--accent);
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 0 14px var(--accent-glow);
 }
 
 .nav-link {
@@ -1441,13 +1439,13 @@ h4 {
 }
 
 :root.light .resume-btn:hover {
-  background: var(--accent);
-  color: var(--bg-primary);
-}
+   background: var(--accent);
+   color: #ffffff;
+ }
 
-:root.light .nav-link.active {
-  color: var(--accent);
-}
+ :root.light .nav-link.active {
+   color: var(--accent);
+ }
 
 /* ── WhatsApp Floating Button ── */
 #wa-wrapper {
