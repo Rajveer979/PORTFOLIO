@@ -104,19 +104,20 @@ All social links open in a new tab with `rel="noopener noreferrer"`:
 - Social icon colors: #2a4050 with teal hover
 
 ## Remaining Work
-- WhatsApp integration to Contact section
+- WhatsApp integration to Contact section (already in index.html)
 - Implement rule-based chatbot for portfolio queries
 - Replace placeholder project links with real project/demo URLs
 - Implement real contact form submission
 - Clean up unused certificate files in `public/certificates/`
-- Add mobile touch event handling for hero section interactive background
 
-## Completed (Noted in design.md)
+## Completed
 - Resume download button connected to `public/Resume1.pdf` ✓
 - Vercel Analytics and Google Analytics 4 implemented ✓
 - Deployed to Vercel (vercel.json configured) ✓
 - Resume button hover effect fixed for light mode ✓
-- Hero section mobile responsiveness improved ✓
+- Hero section mobile responsiveness improved (`h-screen` → `min-h-screen`, responsive padding) ✓
+- Navbar mobile button click handling fixed (stopPropagation, tap highlights) ✓
+- Hero buttons mobile sizing and click handling fixed ✓
 
 ## Success Criteria
 - Fully responsive on mobile/desktop

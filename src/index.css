@@ -344,7 +344,16 @@ body.menu-open { overflow: hidden; }
     width: 100% !important;
     justify-content: center !important;
     min-width: auto !important;
+    -webkit-tap-highlight-color: transparent;
   }
+}
+
+/* Fix hero buttons text color in both modes */
+#hero .btn-primary {
+  color: #07090f !important;
+}
+#hero .btn-ghost {
+  color: var(--accent) !important;
 }
 
 /* Larger mobile buttons for better tap targets */

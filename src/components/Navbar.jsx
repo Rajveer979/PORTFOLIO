@@ -105,11 +105,31 @@ export default function Navbar() {
 
         {/* Right: Actions */}
         <div className="nav-actions">
-<button
-             onClick={toggleTheme}
-             className="theme-toggle-btn"
-             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-           >
+          {/* Hamburger - visible on mobile only */}
+          <button
+            className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMobileMenuOpen((prev) => !prev);
+            }}
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+          {/* Theme toggle - visible on desktop and tablet (768-1024px) */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleTheme();
+            }}
+            className="theme-toggle-btn"
+            aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
             <AnimatePresence mode="wait">
               {theme === 'dark' ? (
                 <motion.span
@@ -137,63 +157,65 @@ export default function Navbar() {
             </AnimatePresence>
           </button>
 
+          {/* Resume button - visible on desktop only */}
           <a
             href="/Resume1.pdf"
             download
-            onClick={() => trackEvent('resume_download', { source: 'navbar', file: 'Resume1.pdf' })}
+            onClick={(e) => {
+              e.stopPropagation();
+              trackEvent('resume_download', { source: 'navbar', file: 'Resume1.pdf' });
+            }}
             className="resume-btn"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <FaFileDownload className="w-4 h-4" />
             <span>Resume</span>
           </a>
-
-          {/* Hamburger */}
-          <button
-            className={`hamburger ${isMobileMenuOpen ? 'open' : ''}`}
-            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isMobileMenuOpen}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
         </div>
       </div>
 
-      {/* Mobile drawer */}
-      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`} aria-hidden={!isMobileMenuOpen}>
-        <ul className="mobile-links">
-          {navItems.map((item) => (
-            <li key={item.name}>
-              <a
-                href={item.href}
-                onClick={() => handleNavClick(item.name)}
-                className={`mobile-link ${activeSection === item.href.substring(1) ? 'active' : ''}`}
-              >
-                {item.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="mobile-actions">
-          <a
-            href="/Resume1.pdf"
-            download
-            onClick={() => trackEvent('resume_download', { source: 'mobile_menu', file: 'Resume1.pdf' })}
-            className="mobile-resume-btn"
-          >
-            <FaFileDownload className="w-4 h-4" />
-            <span>Resume</span>
-          </a>
-          <button
-            className="mobile-theme-btn"
-            onClick={toggleTheme}
-          >
-            {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
-          </button>
-        </div>
-      </div>
+{/* Mobile drawer */}
+       <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`} aria-hidden={!isMobileMenuOpen}>
+         <ul className="mobile-links">
+           {navItems.map((item) => (
+             <li key={item.name}>
+               <a
+                 href={item.href}
+                 onClick={(e) => {
+                   e.stopPropagation();
+                   handleNavClick(item.name);
+                 }}
+                 className={`mobile-link ${activeSection === item.href.substring(1) ? 'active' : ''}`}
+               >
+                 {item.name}
+               </a>
+             </li>
+           ))}
+         </ul>
+         <div className="mobile-actions">
+           <a
+             href="/Resume1.pdf"
+             download
+             onClick={(e) => {
+               e.stopPropagation();
+               trackEvent('resume_download', { source: 'mobile_menu', file: 'Resume1.pdf' });
+             }}
+             className="mobile-resume-btn"
+           >
+             <FaFileDownload className="w-4 h-4" />
+             <span>Resume</span>
+           </a>
+           <button
+             className="mobile-theme-btn"
+             onClick={(e) => {
+               e.stopPropagation();
+               toggleTheme();
+             }}
+           >
+             {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
+           </button>
+         </div>
+       </div>
 
       {/* Overlay behind mobile menu */}
       <div

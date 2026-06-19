@@ -194,7 +194,14 @@ src/
 
 ### Hero Section Mobile Responsiveness (Hero.jsx, globe-hero.tsx)
 **Fixed**: Hero section now properly adapts to mobile screens.
-- Changed `h-screen` to `min-h-screen` for proper viewport height on mobile
+- Changed `h-screen` to `min-h-screen` for proper viewport height on mobile browsers
 - Added touch handlers (`onTouchStart`, `onTouchMove`, `onTouchEnd`) for interactive grid background on touch devices
 - Responsive padding and spacing (px-4 sm:px-6, py-8 sm:py-12)
-- Responsive button sizing (px-6 sm:px-8, text-base sm:text-lg)
+- Responsive button sizing (px-6 sm:px-8, text-base sm:text-lg, w-full sm:w-auto)
+
+### Navbar Mobile Interaction Fixes (Navbar.jsx)
+**Fixed**: Buttons now work on mobile devices.
+- Added `e.stopPropagation()` to all click handlers to prevent event conflicts
+- Added `style={{ WebkitTapHighlightColor: 'transparent' }}` to prevent tap highlight issues
+- Corrected button ordering (hamburger → theme toggle → resume) for proper mobile layout
+- Mobile menu buttons now have proper `pointer-events: all` when open
