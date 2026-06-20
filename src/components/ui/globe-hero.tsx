@@ -42,7 +42,6 @@ const DotGlobeHero = React.forwardRef<
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [supportsHover] = useState(() =>
     typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches
   );
@@ -71,18 +70,10 @@ const DotGlobeHero = React.forwardRef<
   };
 
   const handleMouseEnter = useCallback(() => {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-      hoverTimeoutRef.current = null;
-    }
     setIsHovered(true);
   }, []);
 
   const handleMouseLeave = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-      hoverTimeoutRef.current = null;
-    }
     event.currentTarget.style.setProperty("--mx", "50%");
     event.currentTarget.style.setProperty("--my", "50%");
     event.currentTarget.style.setProperty("--rx", "0deg");
@@ -90,6 +81,14 @@ const DotGlobeHero = React.forwardRef<
     setIsHovered(false);
   };
 
+
+  const use3DEffect = isHovered && supportsHover;
+  const contentStyle: CSSProperties = supportsHover ? {
+    transform: use3DEffect
+      ? `perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-8px)`
+      : `translateY(0px)`,
+    transition: "transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1)",
+  } : {};
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -227,10 +226,6 @@ const DotGlobeHero = React.forwardRef<
       window.cancelAnimationFrame(raf);
       window.removeEventListener("resize", handleResize);
       if (resizeTimer) window.clearTimeout(resizeTimer);
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current);
-        hoverTimeoutRef.current = null;
-      }
     };
   }, []);
 
@@ -270,7 +265,7 @@ const DotGlobeHero = React.forwardRef<
           pointerEvents: "none",
         }}
       />
-      <div className="relative z-20 flex flex-col items-center justify-center px-5 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12" style={{ pointerEvents: 'auto' }}>
+      <div className="relative z-20 flex flex-col items-center justify-center px-5 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12" style={{ ...contentStyle, pointerEvents: 'auto' }}>
         {children}
       </div>
     </div>
