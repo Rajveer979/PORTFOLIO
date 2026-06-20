@@ -43,6 +43,9 @@ const DotGlobeHero = React.forwardRef<
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [supportsHover] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches
+  );
 
   const updatePointer = (clientX: number, clientY: number) => {
     const rect = wrapperRef.current?.getBoundingClientRect();
@@ -86,27 +89,6 @@ const DotGlobeHero = React.forwardRef<
     event.currentTarget.style.setProperty("--ry", "0deg");
     setIsHovered(false);
   };
-
-  // Separate handler for touch end: resets visuals immediately but
-  // delays state change to prevent CSS transition from cancelling
-  // the subsequent click event on mobile browsers.
-  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
-    const wrapper = event.currentTarget;
-    wrapper.style.setProperty("--mx", "50%");
-    wrapper.style.setProperty("--my", "50%");
-    wrapper.style.setProperty("--rx", "0deg");
-    wrapper.style.setProperty("--ry", "0deg");
-    // Cancel any previous pending timeout to avoid race conditions
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-    }
-    // Delay state change so the click event can fire first
-    hoverTimeoutRef.current = setTimeout(() => {
-      setIsHovered(false);
-      hoverTimeoutRef.current = null;
-    }, 300);
-  };
-
 
 
   useEffect(() => {
@@ -262,24 +244,6 @@ const DotGlobeHero = React.forwardRef<
        onMouseMove={handleMouseMove}
        onMouseEnter={handleMouseEnter}
        onMouseLeave={handleMouseLeave}
-       onTouchStart={(e) => {
-         // Only track globe effect if NOT tapping a button or link
-         if ((e.target as HTMLElement).closest('a, button')) return;
-         const touch = e.touches[0];
-         if (!touch) return;
-         handleMouseEnter();
-         updatePointer(touch.clientX, touch.clientY);
-       }}
-       onTouchMove={(e) => {
-         if ((e.target as HTMLElement).closest('a, button')) return;
-         const touch = e.touches[0];
-         if (!touch) return;
-         updatePointer(touch.clientX, touch.clientY);
-       }}
-       onTouchEnd={(e) => {
-         if ((e.target as HTMLElement).closest('a, button')) return;
-         handleTouchEnd(e);
-       }}
        className={cn(
          "relative w-full min-h-screen bg-[var(--bg-primary)] overflow-hidden",
          className
@@ -289,6 +253,7 @@ const DotGlobeHero = React.forwardRef<
         "--my": "50%",
         "--rx": "0deg",
         "--ry": "0deg",
+        touchAction: "pan-y",
       } as CSSProperties}
       {...props}
     >
@@ -298,10 +263,11 @@ const DotGlobeHero = React.forwardRef<
       <div className="pointer-events-none absolute bottom-1/4 right-1/4 z-0 w-64 h-64 bg-[var(--accent)]/10 rounded-full blur-3xl animate-pulse" />
       <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,var(--accent-dim),transparent_35%)] opacity-70" />
       <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-300"
+        className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
         style={{
-          opacity: isHovered ? 1 : 0,
+          opacity: supportsHover && isHovered ? 1 : 0,
           background: "radial-gradient(650px circle at var(--mx) var(--my), var(--accent-glow), transparent 42%)",
+          pointerEvents: "none",
         }}
       />
       <div className="relative z-20 flex flex-col items-center justify-center px-5 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12" style={{ pointerEvents: 'auto' }}>
