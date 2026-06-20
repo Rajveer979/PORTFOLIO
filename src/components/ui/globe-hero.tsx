@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import React, { CSSProperties, useEffect, useRef, useState } from "react";
+import React, { CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface DotGlobeHeroProps {
@@ -42,6 +42,10 @@ const DotGlobeHero = React.forwardRef<
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [supportsHover] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches
+  );
 
   const updatePointer = (clientX: number, clientY: number) => {
     const rect = wrapperRef.current?.getBoundingClientRect();
@@ -66,11 +70,19 @@ const DotGlobeHero = React.forwardRef<
     updatePointer(event.clientX, event.clientY);
   };
 
-  const handleMouseEnter = () => {
+  const handleMouseEnter = useCallback(() => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
     setIsHovered(true);
-  };
+  }, []);
 
   const handleMouseLeave = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+      hoverTimeoutRef.current = null;
+    }
     event.currentTarget.style.setProperty("--mx", "50%");
     event.currentTarget.style.setProperty("--my", "50%");
     event.currentTarget.style.setProperty("--rx", "0deg");
@@ -78,10 +90,36 @@ const DotGlobeHero = React.forwardRef<
     setIsHovered(false);
   };
 
+  // Separate handler for touch end: resets visuals immediately but
+  // delays state change to prevent CSS transition from cancelling
+  // the subsequent click event on mobile browsers.
+  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
+    const wrapper = event.currentTarget;
+    wrapper.style.setProperty("--mx", "50%");
+    wrapper.style.setProperty("--my", "50%");
+    wrapper.style.setProperty("--rx", "0deg");
+    wrapper.style.setProperty("--ry", "0deg");
+    // Cancel any previous pending timeout to avoid race conditions
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    // Delay state change so the click event can fire first
+    hoverTimeoutRef.current = setTimeout(() => {
+      setIsHovered(false);
+      hoverTimeoutRef.current = null;
+    }, 300);
+  };
+
+  // Apply the full 3D perspective/rotation effect only on desktop (hover-capable)
+  // devices. On mobile/touch devices, only the translateY lift is applied.
+  // This avoids creating a 3D compositing layer that can interfere with
+  // touch event hit-testing on iOS Safari.
+  const use3DEffect = isHovered && supportsHover;
   const contentStyle: CSSProperties = {
-    transform: `perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(${isHovered ? "-8px" : "0px"})`,
+    transform: use3DEffect
+      ? `perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-8px)`
+      : `translateY(${isHovered ? "-8px" : "0px"})`,
     transition: "transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 600ms cubic-bezier(0.2, 0.8, 0.2, 1)",
-    willChange: "transform",
   };
 
   useEffect(() => {
@@ -220,6 +258,10 @@ const DotGlobeHero = React.forwardRef<
       window.cancelAnimationFrame(raf);
       window.removeEventListener("resize", handleResize);
       if (resizeTimer) window.clearTimeout(resizeTimer);
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+        hoverTimeoutRef.current = null;
+      }
     };
   }, []);
 
@@ -248,9 +290,9 @@ const DotGlobeHero = React.forwardRef<
          if (!rect) return;
          handleMouseMove({ currentTarget: wrapperRef.current, clientX: touch.clientX, clientY: touch.clientY } as any);
        }}
-       onTouchEnd={handleMouseLeave}
+       onTouchEnd={handleTouchEnd}
        className={cn(
-         "relative w-full min-h-screen bg-[var(--bg-primary)] overflow-hidden isolation-isolate",
+         "relative w-full min-h-screen bg-[var(--bg-primary)] overflow-hidden",
          className
        )}
       style={{
@@ -267,13 +309,13 @@ const DotGlobeHero = React.forwardRef<
       <div className="pointer-events-none absolute bottom-1/4 right-1/4 z-0 w-64 h-64 bg-[var(--accent)]/10 rounded-full blur-3xl animate-pulse" />
       <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,var(--accent-dim),transparent_35%)] opacity-70" />
       <div
-        className="pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-300"
+        className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-300"
         style={{
           opacity: isHovered ? 1 : 0,
           background: "radial-gradient(650px circle at var(--mx) var(--my), var(--accent-glow), transparent 42%)",
         }}
       />
-      <div className="relative z-10 flex flex-col items-center justify-center h-full px-5 sm:px-6 pointer-events-auto pt-16 sm:pt-20 md:pt-24" style={contentStyle}>
+      <div className="relative z-20 flex flex-col items-center justify-center h-full px-5 sm:px-6 pointer-events-auto pt-16 sm:pt-20 md:pt-24" style={contentStyle}>
         {children}
       </div>
     </div>

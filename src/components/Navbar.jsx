@@ -114,6 +114,7 @@ export default function Navbar() {
             }}
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMobileMenuOpen}
+            style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
           >
             <span />
             <span />
@@ -126,9 +127,14 @@ export default function Navbar() {
               e.stopPropagation();
               toggleTheme();
             }}
+            onTouchEnd={(e) => {
+              // Ensure tap fires reliably on mobile browsers
+              e.preventDefault();
+              e.stopPropagation();
+              toggleTheme();
+            }}
             className="theme-toggle-btn"
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-            style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <AnimatePresence mode="wait">
               {theme === 'dark' ? (
@@ -161,6 +167,8 @@ export default function Navbar() {
           <a
             href="/Resume1.pdf"
             download
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={(e) => {
               e.stopPropagation();
               trackEvent('resume_download', { source: 'navbar', file: 'Resume1.pdf' });
@@ -196,8 +204,13 @@ export default function Navbar() {
            <a
              href="/Resume1.pdf"
              download
+             target="_blank"
+             rel="noopener noreferrer"
              onClick={(e) => {
                e.stopPropagation();
+               // Close the mobile menu before navigating so the overlay
+               // doesn't interfere with the download on mobile browsers
+               closeMobileMenu();
                trackEvent('resume_download', { source: 'mobile_menu', file: 'Resume1.pdf' });
              }}
              className="mobile-resume-btn"
@@ -208,6 +221,12 @@ export default function Navbar() {
            <button
              className="mobile-theme-btn"
              onClick={(e) => {
+               e.stopPropagation();
+               toggleTheme();
+             }}
+             onTouchEnd={(e) => {
+               // Ensure tap fires reliably on mobile browsers
+               e.preventDefault();
                e.stopPropagation();
                toggleTheme();
              }}

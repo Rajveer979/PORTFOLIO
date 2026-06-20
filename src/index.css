@@ -245,6 +245,8 @@ h1, h2, h3, h4 { color: var(--text-primary); }
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-color);
   box-shadow: var(--nav-shadow);
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
 }
 
 /* Ensure hero section has space below navbar */
@@ -278,10 +280,13 @@ h1, h2, h3, h4 { color: var(--text-primary); }
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; transition: all 0.25s ease; flex-shrink: 0;
   position: relative; overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .theme-toggle-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); transform: rotate(20deg) scale(1.08); box-shadow: 0 0 14px var(--accent-glow); }
 .theme-toggle-btn:active { transform: rotate(20deg) scale(0.95); }
-.theme-toggle-icon { display: flex; align-items: center; justify-content: center; }
+.theme-toggle-icon { display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.theme-toggle-icon svg { pointer-events: none; }
 
 .resume-btn { display: flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--accent); color: var(--accent); background: transparent; font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: all 0.2s; flex-shrink: 0; }
 .resume-btn:hover { background: var(--accent); color: #ffffff; box-shadow: 0 0 14px var(--accent-glow); }
@@ -299,8 +304,8 @@ h1, h2, h3, h4 { color: var(--text-primary); }
 .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
 /* Mobile menu */
-.mobile-menu { position: absolute; top: 64px; left: 0; right: 0; z-index: 1001; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); box-shadow: 0 8px 32px rgba(0,0,0,0.2); padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease, opacity 0.25s ease; opacity: 0; pointer-events: none; -webkit-transform: translateZ(0); transform: translateZ(0); }
-.mobile-menu.open { max-height: 480px; padding: 12px 0 20px; opacity: 1; pointer-events: all; }
+.mobile-menu { position: absolute; top: 64px; left: 0; right: 0; z-index: 1001; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); box-shadow: 0 8px 32px rgba(0,0,0,0.2); padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease, opacity 0.25s ease; opacity: 0; pointer-events: none; visibility: hidden; }
+.mobile-menu.open { max-height: 480px; padding: 12px 0 20px; opacity: 1; pointer-events: all; visibility: visible; }
 
 .mobile-links { list-style: none; margin: 0; padding: 0 16px; }
 .mobile-link { display: block; padding: 13px 16px; border-radius: 8px; font-size: 15px; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 2px solid transparent; transition: all 0.18s; margin-bottom: 2px; -webkit-tap-highlight-color: transparent; }
@@ -311,12 +316,12 @@ h1, h2, h3, h4 { color: var(--text-primary); }
 .mobile-resume-btn { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 20px; border-radius: 8px; border: 1px solid var(--accent); color: var(--accent); background: transparent; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.2s; width: 100%; -webkit-tap-highlight-color: transparent; }
 .mobile-resume-btn:hover { background: var(--accent); color: #ffffff; box-shadow: 0 0 14px var(--accent-glow); }
 .mobile-resume-btn:active { background: var(--accent); color: #ffffff; }
-.mobile-theme-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; border-radius: 8px; border: 0.5px solid var(--border-color); background: var(--bg-secondary); color: var(--text-secondary); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; width: 100%; -webkit-tap-highlight-color: transparent; font-family: inherit; }
+.mobile-theme-btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 16px; border-radius: 8px; border: 0.5px solid var(--border-color); background: var(--bg-secondary); color: var(--text-secondary); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; width: 100%; -webkit-tap-highlight-color: transparent; touch-action: manipulation; position: relative; z-index: 1; font-family: inherit; }
 .mobile-theme-btn:hover { border-color: var(--accent); color: var(--accent); }
 .mobile-theme-btn:active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 
-.nav-overlay { display: none; position: fixed; inset: 64px 0 0 0; background: rgba(0,0,0,0.4); z-index: 998; }
-.nav-overlay.visible { display: block; }
+.nav-overlay { display: none; position: fixed; inset: 64px 0 0 0; background: rgba(0,0,0,0.4); z-index: 998; pointer-events: none; }
+.nav-overlay.visible { display: block; pointer-events: auto; }
 body.menu-open { overflow: hidden; }
 
 /* ══════════════════════════════════════════════════════════
@@ -343,11 +348,14 @@ body.menu-open { overflow: hidden; }
   .nav-overlay { top: 60px; }
 }
 
-/* Hero content must be above navbar overlay */
-#hero .relative.z-\[1001\] {
-  z-index: 1100 !important;
-  position: relative;
+/* iOS safe-area support for the mobile menu bottom */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .mobile-menu.open {
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  }
 }
+
+
 
 /* Ensure hero buttons are clickable */
 #hero a,
@@ -358,11 +366,21 @@ body.menu-open { overflow: hidden; }
   touch-action: manipulation;
 }
 
+/* Mobile tap target rules */
+/* Ensure all interactive navbar elements respond immediately to taps */
+#navbar button,
+#navbar a,
+.hamburger,
+.mobile-link,
+.mobile-resume-btn,
+.mobile-theme-btn,
+.nav-link {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Hero Mobile Overrides */
 @media (max-width: 640px) {
-  #hero > div > div:first-child {
-    padding-top: 64px !important;
-  }
   #hero .btn-primary,
   #hero .btn-ghost {
     padding: 12px 20px !important;
@@ -372,6 +390,18 @@ body.menu-open { overflow: hidden; }
     min-width: auto !important;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+  }
+}
+
+/* Ensure hero interactive elements are above all decorative layers */
+@media (pointer: fine) {
+  #hero a,
+  #hero button,
+  #hero .btn-primary,
+  #hero .btn-ghost {
+    position: relative;
+    z-index: 25;
+    pointer-events: auto;
   }
 }
 
