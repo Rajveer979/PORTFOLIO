@@ -251,13 +251,23 @@ h1, h2, h3, h4 { color: var(--text-primary); }
 
 /* Ensure hero section has space below navbar */
 #hero {
-  padding-top: 64px;
+  padding-top: 0 !important;
 }
 
-/* Mobile: more space for navbar */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   #hero {
-    padding-top: 60px;
+    padding-top: 0 !important;
+  }
+
+  /* Push the hero content wrapper below the fixed navbar */
+  #hero .relative.z-20 {
+    padding-top: 80px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #hero .relative.z-20 {
+    padding-top: 72px !important;
   }
 }
 

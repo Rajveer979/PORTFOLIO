@@ -317,7 +317,7 @@ const DotGlobeHero = React.forwardRef<
           background: "radial-gradient(650px circle at var(--mx) var(--my), var(--accent-glow), transparent 42%)",
         }}
       />
-      <div className="relative z-20 flex flex-col items-center justify-center h-full px-5 sm:px-6 pointer-events-auto pt-16 sm:pt-20 md:pt-24" style={contentStyle}>
+      <div className="relative z-20 flex flex-col items-center justify-center min-h-screen px-5 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12" style={{ ...contentStyle, pointerEvents: 'auto' }}>
         {children}
       </div>
     </div>
