@@ -341,6 +341,15 @@ body.menu-open { overflow: hidden; }
   .nav-actions .theme-toggle-btn { display: flex; }
 }
 
+/* Show theme toggle in top navbar on all mobile screens */
+@media (max-width: 767px) {
+  .nav-actions .theme-toggle-btn {
+    display: flex !important;
+    position: relative;
+    z-index: 1003;
+  }
+}
+
 @media (max-width: 480px) {
   .nav-container { padding: 0 16px; height: 60px; }
   .mobile-menu { top: 60px; }
