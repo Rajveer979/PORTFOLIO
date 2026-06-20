@@ -118,7 +118,7 @@ const DotGlobeHero = React.forwardRef<
   const contentStyle: CSSProperties = {
     transform: use3DEffect
       ? `perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-8px)`
-      : `translateY(${isHovered ? "-8px" : "0px"})`,
+      : "none",
     transition: "transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 600ms cubic-bezier(0.2, 0.8, 0.2, 1)",
   };
 
@@ -276,21 +276,23 @@ const DotGlobeHero = React.forwardRef<
        onMouseEnter={handleMouseEnter}
        onMouseLeave={handleMouseLeave}
        onTouchStart={(e) => {
+         // Only track globe effect if NOT tapping a button or link
+         if ((e.target as HTMLElement).closest('a, button')) return;
          const touch = e.touches[0];
          if (!touch) return;
-         const rect = wrapperRef.current?.getBoundingClientRect();
-         if (!rect) return;
          handleMouseEnter();
-         handleMouseMove({ currentTarget: wrapperRef.current, clientX: touch.clientX, clientY: touch.clientY } as any);
+         updatePointer(touch.clientX, touch.clientY);
        }}
        onTouchMove={(e) => {
+         if ((e.target as HTMLElement).closest('a, button')) return;
          const touch = e.touches[0];
          if (!touch) return;
-         const rect = wrapperRef.current?.getBoundingClientRect();
-         if (!rect) return;
-         handleMouseMove({ currentTarget: wrapperRef.current, clientX: touch.clientX, clientY: touch.clientY } as any);
+         updatePointer(touch.clientX, touch.clientY);
        }}
-       onTouchEnd={handleTouchEnd}
+       onTouchEnd={(e) => {
+         if ((e.target as HTMLElement).closest('a, button')) return;
+         handleTouchEnd(e);
+       }}
        className={cn(
          "relative w-full min-h-screen bg-[var(--bg-primary)] overflow-hidden",
          className
