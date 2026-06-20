@@ -43,9 +43,6 @@ const DotGlobeHero = React.forwardRef<
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [supportsHover] = useState(() =>
-    typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches
-  );
 
   const updatePointer = (clientX: number, clientY: number) => {
     const rect = wrapperRef.current?.getBoundingClientRect();
@@ -110,17 +107,7 @@ const DotGlobeHero = React.forwardRef<
     }, 300);
   };
 
-  // Apply the full 3D perspective/rotation effect only on desktop (hover-capable)
-  // devices. On mobile/touch devices, only the translateY lift is applied.
-  // This avoids creating a 3D compositing layer that can interfere with
-  // touch event hit-testing on iOS Safari.
-  const use3DEffect = isHovered && supportsHover;
-  const contentStyle: CSSProperties = {
-    transform: use3DEffect
-      ? `perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-8px)`
-      : "none",
-    transition: "transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), filter 600ms cubic-bezier(0.2, 0.8, 0.2, 1)",
-  };
+
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -317,7 +304,7 @@ const DotGlobeHero = React.forwardRef<
           background: "radial-gradient(650px circle at var(--mx) var(--my), var(--accent-glow), transparent 42%)",
         }}
       />
-      <div className="relative z-20 flex flex-col items-center justify-center min-h-screen px-5 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12" style={{ ...contentStyle, pointerEvents: 'auto' }}>
+      <div className="relative z-20 flex flex-col items-center justify-center px-5 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12" style={{ pointerEvents: 'auto' }}>
         {children}
       </div>
     </div>
