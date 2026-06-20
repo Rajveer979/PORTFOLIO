@@ -127,12 +127,6 @@ export default function Navbar() {
               e.stopPropagation();
               toggleTheme();
             }}
-            onTouchEnd={(e) => {
-              // Ensure tap fires reliably on mobile browsers
-              e.preventDefault();
-              e.stopPropagation();
-              toggleTheme();
-            }}
             className="theme-toggle-btn"
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           >
@@ -166,9 +160,7 @@ export default function Navbar() {
           {/* Resume button - visible on desktop only */}
           <a
             href="/Resume1.pdf"
-            download
-            target="_blank"
-            rel="noopener noreferrer"
+            download="Resume_Rajveer.pdf"
             onClick={(e) => {
               e.stopPropagation();
               trackEvent('resume_download', { source: 'navbar', file: 'Resume1.pdf' });
@@ -203,9 +195,7 @@ export default function Navbar() {
          <div className="mobile-actions">
            <a
              href="/Resume1.pdf"
-             download
-             target="_blank"
-             rel="noopener noreferrer"
+             download="Resume_Rajveer.pdf"
              onClick={(e) => {
                e.stopPropagation();
                // Close the mobile menu before navigating so the overlay
@@ -224,12 +214,6 @@ export default function Navbar() {
                e.stopPropagation();
                toggleTheme();
              }}
-             onTouchEnd={(e) => {
-               // Ensure tap fires reliably on mobile browsers
-               e.preventDefault();
-               e.stopPropagation();
-               toggleTheme();
-             }}
            >
              {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
            </button>
@@ -240,6 +224,7 @@ export default function Navbar() {
       <div
         className={`nav-overlay ${isMobileMenuOpen ? 'visible' : ''}`}
         onClick={closeMobileMenu}
+        style={{ pointerEvents: isMobileMenuOpen ? 'auto' : 'none' }}
       />
     </motion.nav>
   );
