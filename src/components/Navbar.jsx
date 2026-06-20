@@ -208,15 +208,6 @@ export default function Navbar() {
              <FaFileDownload className="w-4 h-4" />
              <span>Resume</span>
            </a>
-           <button
-             className="mobile-theme-btn"
-             onClick={(e) => {
-               e.stopPropagation();
-               toggleTheme();
-             }}
-           >
-             {theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode'}
-           </button>
          </div>
        </div>
 
