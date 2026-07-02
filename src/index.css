@@ -410,6 +410,11 @@ body.menu-open { overflow: hidden; }
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }
+
+  #hero .btn-primary:active,
+  #hero .btn-ghost:active {
+    transform: scale(0.95) !important;
+  }
 }
 
 /* Ensure hero interactive elements are above all decorative layers */

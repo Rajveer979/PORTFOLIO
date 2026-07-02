@@ -57,31 +57,27 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.55 }}
           className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center pt-4 w-full max-w-md sm:max-w-none mx-auto"
         >
-          <motion.a
+          <a
             href="#projects"
             onClick={(e) => {
-              e.stopPropagation();
               trackEvent('hero_cta_click', { target: 'projects' });
             }}
-            whileTap={{ scale: 0.95 }}
             className="btn-primary group relative inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[var(--accent)] font-bold rounded-xl text-base sm:text-lg shadow-[var(--card-shadow)] transition-all duration-300 overflow-hidden border border-[var(--accent)]/60 w-full sm:w-auto"
           >
             <span className="relative z-10 tracking-wide">View My Work</span>
             <ArrowRight className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-2 transition-transform duration-300" />
-          </motion.a>
+          </a>
           
-          <motion.a
+          <a
             href="#contact"
             onClick={(e) => {
-              e.stopPropagation();
               trackEvent('hero_cta_click', { target: 'contact' });
             }}
-            whileTap={{ scale: 0.95 }}
             className="btn-ghost group relative inline-flex items-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 border border-[var(--border-hover)] rounded-xl font-semibold text-base sm:text-lg transition-all duration-300 backdrop-blur-xl bg-transparent text-[var(--accent)] hover:bg-[var(--accent-dim)] overflow-hidden w-full sm:w-auto"
           >
             <Zap className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" />
             <span className="relative z-10 tracking-wide">Contact Me</span>
-          </motion.a>
+          </a>
         </motion.div>
       </div>
 
