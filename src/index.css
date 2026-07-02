@@ -413,15 +413,15 @@ body.menu-open { overflow: hidden; }
 }
 
 /* Ensure hero interactive elements are above all decorative layers */
-@media (pointer: fine) {
-  #hero a,
-  #hero button,
-  #hero .btn-primary,
-  #hero .btn-ghost {
-    position: relative;
-    z-index: 25;
-    pointer-events: auto;
-  }
+#hero a,
+#hero button,
+#hero .btn-primary,
+#hero .btn-ghost {
+  position: relative;
+  z-index: 25;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Fix hero buttons text color in both modes */
