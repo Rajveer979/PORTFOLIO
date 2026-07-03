@@ -258,6 +258,9 @@ h1, h2, h3, h4 { color: var(--text-primary); }
 /* Ensure hero section has space below navbar */
 #hero {
   padding-top: 0 !important;
+  height: 100dvh;
+  min-height: 100dvh;
+  height: -webkit-fill-available;
 }
 
 @media (max-width: 768px) {

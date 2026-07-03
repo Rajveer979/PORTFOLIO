@@ -250,14 +250,13 @@ const DotGlobeHero = React.forwardRef<
          "relative w-full min-h-screen bg-[var(--bg-primary)] overflow-hidden",
          className
        )}
-      style={{
-        "--mx": "50%",
-        "--my": "50%",
-        "--rx": "0deg",
-        "--ry": "0deg",
-        touchAction: "pan-y",
-      } as CSSProperties}
-      {...props}
+       style={{
+         "--mx": "50%",
+         "--my": "50%",
+         "--rx": "0deg",
+         "--ry": "0deg",
+       } as CSSProperties}
+       {...props}
     >
       <canvas ref={canvasRef} id="bg-canvas" className="absolute inset-0 z-0 pointer-events-none" />
       <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-t from-[var(--bg-primary)]/70 via-[var(--bg-primary)]/15 to-transparent" />

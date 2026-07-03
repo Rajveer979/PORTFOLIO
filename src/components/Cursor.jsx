@@ -3,7 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 export default function Cursor() {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
-  const [isFinePointer, setIsFinePointer] = useState(true);
+  const [isFinePointer, setIsFinePointer] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    return window.matchMedia('(pointer: fine)').matches;
+  });
   const ringPos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
