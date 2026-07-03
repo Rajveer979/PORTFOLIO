@@ -127,6 +127,12 @@ h1, h2, h3, h4 { color: var(--text-primary); }
 .cursor-hidden { cursor: none !important; }
 @media (pointer: coarse) { .cursor-hidden { cursor: auto !important; } }
 
+/* Canvas must never intercept pointer/touch events */
+#bg-canvas {
+  pointer-events: none !important;
+  touch-action: none;
+}
+
 .scroll-animate { opacity: 0; transform: translateY(24px); transition: all 0.55s ease; }
 .scroll-animate.animate { opacity: 1; transform: translateY(0); }
 

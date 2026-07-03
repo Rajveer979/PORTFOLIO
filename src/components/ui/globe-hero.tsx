@@ -107,11 +107,12 @@ const DotGlobeHero = React.forwardRef<
     let currentTheme = "";
 
     const buildGrid = () => {
-      const rect = wrapper.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
+      const vw = typeof visualViewport !== 'undefined' ? visualViewport.width : wrapper.getBoundingClientRect().width;
+      const vh = typeof visualViewport !== 'undefined' ? visualViewport.height : wrapper.getBoundingClientRect().height;
 
-      W = rect.width;
-      H = rect.height;
+      W = vw;
+      H = vh;
       canvas.width = W * dpr;
       canvas.height = H * dpr;
       canvas.style.width = `${W}px`;
@@ -221,10 +222,16 @@ const DotGlobeHero = React.forwardRef<
     buildGrid();
     raf = requestAnimationFrame(draw);
     window.addEventListener("resize", handleResize);
+    if (typeof visualViewport !== 'undefined') {
+      visualViewport.addEventListener("resize", handleResize);
+    }
 
     return () => {
       window.cancelAnimationFrame(raf);
       window.removeEventListener("resize", handleResize);
+      if (typeof visualViewport !== 'undefined') {
+        visualViewport.removeEventListener("resize", handleResize);
+      }
       if (resizeTimer) window.clearTimeout(resizeTimer);
     };
   }, []);
@@ -252,7 +259,7 @@ const DotGlobeHero = React.forwardRef<
       } as CSSProperties}
       {...props}
     >
-      <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none" />
+      <canvas ref={canvasRef} id="bg-canvas" className="absolute inset-0 z-0 pointer-events-none" />
       <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-t from-[var(--bg-primary)]/70 via-[var(--bg-primary)]/15 to-transparent" />
       <div className="pointer-events-none absolute top-1/4 left-1/4 z-0 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" />
       <div className="pointer-events-none absolute bottom-1/4 right-1/4 z-0 w-64 h-64 bg-[var(--accent)]/10 rounded-full blur-3xl animate-pulse" />
