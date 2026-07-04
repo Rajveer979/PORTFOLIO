@@ -121,15 +121,17 @@ export default function Projects() {
                     <a href={project.github} target="_blank" rel="noopener noreferrer" className="accent-icon-hover inline-flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors text-[12px] font-medium" onClick={() => trackEvent('project_click', { project: project.title, type: 'github' })}>
                       <FaGithub /> GitHub
                     </a>
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => trackEvent('project_click', { project: project.title, type: 'demo' })}
-                      className="inline-flex items-center gap-2 text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors text-[12px] font-medium"
-                    >
-                      <FaExternalLinkAlt /> Live Demo
-                    </a>
+                    {project.demo && project.demo !== '#' && (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => trackEvent('project_click', { project: project.title, type: 'demo' })}
+                        className="inline-flex items-center gap-2 text-[var(--accent)] hover:text-[var(--accent-hover)] transition-colors text-[12px] font-medium"
+                      >
+                        <FaExternalLinkAlt /> Live Demo
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
