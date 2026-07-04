@@ -43,7 +43,8 @@ const DotGlobeHero = React.forwardRef<
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [supportsHover] = useState(() =>
-    typeof window !== "undefined" && window.matchMedia("(hover: hover)").matches
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches
   );
 
   const updatePointer = (clientX: number, clientY: number) => {
@@ -237,28 +238,34 @@ const DotGlobeHero = React.forwardRef<
   }, []);
 
   return (
-<div
-       ref={(node) => {
-         wrapperRef.current = node;
-         if (typeof ref === "function") ref(node);
-         else if (ref) ref.current = node;
-       }}
-       onMouseMove={handleMouseMove}
-       onMouseEnter={handleMouseEnter}
-       onMouseLeave={handleMouseLeave}
-       className={cn(
-         "relative w-full min-h-screen bg-[var(--bg-primary)] overflow-hidden",
-         className
-       )}
-       style={{
-         "--mx": "50%",
-         "--my": "50%",
-         "--rx": "0deg",
-         "--ry": "0deg",
-       } as CSSProperties}
-       {...props}
+    <div
+        ref={(node) => {
+          wrapperRef.current = node;
+          if (typeof ref === "function") ref(node);
+          else if (ref) ref.current = node;
+        }}
+        onMouseMove={supportsHover ? handleMouseMove : undefined}
+        onMouseEnter={supportsHover ? handleMouseEnter : undefined}
+        onMouseLeave={supportsHover ? handleMouseLeave : undefined}
+        className={cn(
+          "relative w-full bg-[var(--bg-primary)] overflow-hidden",
+          className
+        )}
+        style={{
+          minHeight: '100dvh',
+          "--mx": "50%",
+          "--my": "50%",
+          "--rx": "0deg",
+          "--ry": "0deg",
+        } as CSSProperties}
+        {...props}
     >
-      <canvas ref={canvasRef} id="bg-canvas" className="absolute inset-0 z-0 pointer-events-none" />
+      <canvas
+        ref={canvasRef}
+        id="bg-canvas"
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{ pointerEvents: 'none', touchAction: 'none' }}
+      />
       <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-t from-[var(--bg-primary)]/70 via-[var(--bg-primary)]/15 to-transparent" />
       <div className="pointer-events-none absolute top-1/4 left-1/4 z-0 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" />
       <div className="pointer-events-none absolute bottom-1/4 right-1/4 z-0 w-64 h-64 bg-[var(--accent)]/10 rounded-full blur-3xl animate-pulse" />
@@ -271,7 +278,8 @@ const DotGlobeHero = React.forwardRef<
           pointerEvents: "none",
         }}
       />
-      <div className="relative z-20 flex flex-col items-center justify-center px-5 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12" style={{ ...contentStyle, pointerEvents: 'auto' }}>
+      <div className="relative z-20 flex flex-col items-center justify-center px-5 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12"
+           style={{ ...contentStyle, pointerEvents: 'auto', touchAction: 'auto' }}>
         {children}
       </div>
     </div>
