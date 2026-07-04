@@ -57,7 +57,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.55 }}
           className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center pt-4 w-full max-w-md sm:max-w-none mx-auto"
         >
-          <motion.div whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+          <div className="w-full sm:w-auto">
             <a
               href="#projects"
               onClick={(e) => {
@@ -69,9 +69,9 @@ export default function Hero() {
               <span className="relative z-10 tracking-wide">View My Work</span>
               <ArrowRight className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-2 transition-transform duration-300" />
             </a>
-          </motion.div>
+          </div>
           
-          <motion.div whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
+          <div className="w-full sm:w-auto">
             <a
               href="#contact"
               onClick={(e) => {
@@ -83,7 +83,7 @@ export default function Hero() {
               <Zap className="relative z-10 w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300" />
               <span className="relative z-10 tracking-wide">Contact Me</span>
             </a>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
 

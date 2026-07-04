@@ -446,6 +446,12 @@ body.menu-open { overflow: hidden; }
   color: var(--accent) !important;
 }
 
+/* Native active feedback on hero CTAs */
+#hero .btn-primary:active,
+#hero .btn-ghost:active {
+  transform: scale(0.95);
+}
+
 /* Larger mobile buttons for better tap targets */
 @media (max-width: 640px) {
   .mobile-resume-btn,
