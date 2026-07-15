@@ -238,8 +238,9 @@ const DotGlobeHero = React.forwardRef<
   }, []);
 
   // Disable pointer events on the hero content once it scrolls out of view.
-  // The full-viewport wrapper stays painted for the canvas background, but
-  // its inner buttons would otherwise keep intercepting taps on sections below.
+  // We observe the OUTER wrapper with a negative rootMargin so the class flips
+  // the moment the buttons are about to leave the visible area, not only when
+  // the entire 100dvh section has scrolled past.
   useEffect(() => {
     const el = wrapperRef.current;
     if (!el || typeof IntersectionObserver === "undefined") return;
@@ -250,7 +251,7 @@ const DotGlobeHero = React.forwardRef<
           el.classList.toggle("is-out", !entry.isIntersecting);
         }
       },
-      { threshold: 0 }
+      { threshold: 0, rootMargin: "-30% 0px -30% 0px" }
     );
     io.observe(el);
 

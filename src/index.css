@@ -878,7 +878,9 @@ body.menu-open { overflow: hidden; }
    The .is-out class is toggled by an IntersectionObserver in globe-hero.tsx.
    We disable pointer events on the inner content wrapper, but keep the canvas
    grid background click-through so the rest of the page stays usable on mobile. */
-#hero.is-out > .relative.z-20 {
+#hero.is-out > .relative.z-20,
+#hero.is-out a,
+#hero.is-out button {
   pointer-events: none !important;
 }
 
