@@ -237,25 +237,43 @@ const DotGlobeHero = React.forwardRef<
     };
   }, []);
 
-  // Disable pointer events on the hero content once it scrolls out of view.
-  // We observe the OUTER wrapper with a negative rootMargin so the class flips
-  // the moment the buttons are about to leave the visible area, not only when
-  // the entire 100dvh section has scrolled past.
+  // Disable pointer events on the hero content once the buttons scroll out
+  // of the visible area. We observe the OUTER wrapper with a generous
+  // rootMargin so the .is-out class flips the moment the buttons are about
+  // to leave the viewport — not only when the entire 100dvh section has
+  // scrolled past. A scroll listener provides a redundant safety net.
   useEffect(() => {
     const el = wrapperRef.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
+    if (!el) return;
 
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          el.classList.toggle("is-out", !entry.isIntersecting);
-        }
-      },
-      { threshold: 0, rootMargin: "-30% 0px -30% 0px" }
-    );
-    io.observe(el);
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const rect = el.getBoundingClientRect();
+      const viewportH = window.innerHeight || document.documentElement.clientHeight;
+      // Buttons live in the inner content wrapper, vertically centered in the
+      // hero. Treat the hero as "out" once its bottom edge has crossed the
+      // top 50% of the viewport — at that point the buttons (centered at ~50%)
+      // are above the visible area and would otherwise intercept taps on
+      // sections below.
+      const outOfView = rect.bottom < viewportH * 0.5;
+      el.classList.toggle("is-out", outOfView);
+    };
 
-    return () => io.disconnect();
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (
