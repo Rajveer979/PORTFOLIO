@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { FaGraduationCap, FaAward, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { trackEvent } from '../analytics/ga4';
@@ -47,9 +47,15 @@ export default function About() {
                 whileHover={{ scale: 1.03, rotateY: 8, transition: { type: "spring", stiffness: 180, damping: 24, mass: 0.8 } }}
                 className="glass rounded-2xl p-8 h-full flex flex-col items-center justify-center glow-card hover-glow transform-3d"
               >
-              <div className="w-56 h-56 rounded-full bg-white/5 p-1 shadow-2xl shadow-white/10 mb-6">
-                <div className="w-full h-full rounded-full bg-gradient-to-br from-[var(--bg-secondary)] to-[var(--bg-tertiary)] flex items-center justify-center border-2 border-[var(--accent)] shadow-[0_0_24px_var(--accent-glow)]">
-                  <span className="text-6xl font-bold text-[var(--accent)] drop-shadow-[0_0_15px_var(--accent-glow)]">RM</span>
+              <div className="w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 rounded-full bg-white/5 p-1 shadow-2xl shadow-white/10 mb-6">
+                <div className="w-full h-full rounded-full border-2 border-[var(--accent)] shadow-[0_0_24px_var(--accent-glow)] overflow-hidden">
+                  <img
+                    src="/profile.webp"
+                    alt="Rajveer Mahadevwala"
+                    className="w-full h-full object-cover"
+                    loading="eager"
+                    fetchPriority="high"
+                  />
                 </div>
               </div>
               
