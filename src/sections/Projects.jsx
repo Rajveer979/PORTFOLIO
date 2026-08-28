@@ -1,5 +1,5 @@
 ﻿import { motion } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaRobot, FaEye, FaShieldAlt } from 'react-icons/fa';
+import { FaGithub, FaExternalLinkAlt, FaRobot, FaEye, FaShieldAlt, FaNewspaper } from 'react-icons/fa';
 import { trackEvent } from '../analytics/ga4';
 
 const projects = [
@@ -24,6 +24,17 @@ const projects = [
     visualWidths: [88, 74, 68],
     github: 'https://github.com/shravansuthar2/smart-crowd-safety',
     demo: 'https://shravan4-smart-crowd-safety4.hf.space/dashboard',
+  },
+  {
+    title: 'Tech E-Newspaper',
+    description: 'A fully automated daily tech newsletter — AI-curated top 8 stories from 10 RSS feeds, delivered by email every morning. Runs 100% hands-off on free tiers.',
+    tech: ['Next.js', 'Groq', 'Supabase', 'Resend', 'Vercel Cron', 'RSS'],
+    icon: FaNewspaper,
+    visualLabel: 'E-Newspaper',
+    visualItems: ['RSS Aggregation', 'AI Curation', 'Email Delivery'],
+    visualWidths: [85, 78, 70],
+    github: 'https://github.com/Rajveer979/e-newspaper',
+    demo: 'https://e-newspaper-one.vercel.app/',
   },
 ];
 
@@ -82,7 +93,7 @@ export default function Projects() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
