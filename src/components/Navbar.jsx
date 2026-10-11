@@ -159,11 +159,11 @@ export default function Navbar() {
 
           {/* Resume button - visible on desktop only */}
           <a
-            href="/Resume1.pdf"
-            download="Resume_Rajveer.pdf"
+            href="/Rajveer_mahadevwala_Resume.pdf"
+            download="Rajveer_Mahadevwala_Resume.pdf"
             onClick={(e) => {
               e.stopPropagation();
-              trackEvent('resume_download', { source: 'navbar', file: 'Resume1.pdf' });
+              trackEvent('resume_download', { source: 'navbar', file: 'Rajveer_mahadevwala_Resume.pdf' });
             }}
             className="resume-btn"
             style={{ WebkitTapHighlightColor: 'transparent' }}
@@ -194,15 +194,15 @@ export default function Navbar() {
          </ul>
          <div className="mobile-actions">
            <a
-             href="/Resume1.pdf"
-             download="Resume_Rajveer.pdf"
-             onClick={(e) => {
-               e.stopPropagation();
-               // Close the mobile menu before navigating so the overlay
-               // doesn't interfere with the download on mobile browsers
-               closeMobileMenu();
-               trackEvent('resume_download', { source: 'mobile_menu', file: 'Resume1.pdf' });
-             }}
+href="/Rajveer_mahadevwala_Resume.pdf"
+              download="Rajveer_Mahadevwala_Resume.pdf"
+              onClick={(e) => {
+                e.stopPropagation();
+                // Close the mobile menu before navigating so the overlay
+                // doesn't interfere with the download on mobile browsers
+                closeMobileMenu();
+                trackEvent('resume_download', { source: 'mobile_menu', file: 'Rajveer_mahadevwala_Resume.pdf' });
+              }}
              className="mobile-resume-btn"
            >
              <FaFileDownload className="w-4 h-4" />
