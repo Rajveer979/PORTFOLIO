@@ -28,6 +28,14 @@ const certifications = [
     logo: SiGoogle,
     logoLabel: 'Google',
   },
+  {
+    title: 'Introduction to Machine Learning',
+    issuer: 'NPTEL, IIT Madras',
+    date: '2026',
+    credential: '/certificates/nptel-introduction-to-machine-learning.pdf',
+    logo: FaUniversity,
+    logoLabel: 'NPTEL / IIT Madras',
+  },
 ];
 
 export default function Certifications() {
